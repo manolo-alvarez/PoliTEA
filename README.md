@@ -10,7 +10,7 @@ Asad Ahmed -- aaa6436 -- aaa4521
 
 Jireh Baillo
 
-Manolo Alvarez 
+Manolo Alvarez -- ma56533 -- malvarez0722
 
 Megan Nguyen
 
