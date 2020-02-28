@@ -10,11 +10,12 @@ Asad Ahmed -- aaa6436 -- aaa4521
 
 Jireh Baillo
 
-Manolo Alvarez 
+Manolo Alvarez -- ma56533 -- malvarez0722
 
 Megan Nguyen -- mtn797 -- mtmn19
 
-Neeti Shah
+Neeti Shah -- ns28392 -- neetishah
+
 
 
 
