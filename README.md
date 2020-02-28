@@ -12,7 +12,7 @@ Jireh Baillo -- jgb2575 -- bailloj
 
 Manolo Alvarez -- ma56533 -- malvarez0722
 
-Megan Nguyen
+Megan Nguyen -- mtn797 -- mtmn19
 
 Neeti Shah -- ns28392 -- neetishah
 
