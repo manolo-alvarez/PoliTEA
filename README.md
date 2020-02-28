@@ -6,7 +6,7 @@ Name         -- UT eid  -- (github ID)
 
 Aidan McGraw -- acm3554 -- aidanmcgraw
 
-Asad Ahmed
+Asad Ahmed -- aaa6436 -- aaa4521
 
 Jireh Baillo
 
