@@ -8,7 +8,7 @@ Aidan McGraw -- acm3554 -- aidanmcgraw
 
 Asad Ahmed -- aaa6436 -- aaa4521
 
-Jireh Baillo
+Jireh Baillo -- jgb2575 -- bailloj
 
 Manolo Alvarez -- ma56533 -- malvarez0722
 
