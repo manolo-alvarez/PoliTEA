@@ -1,0 +1,95 @@
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>Events</title>
+
+    <link href="https://fonts.googleapis.com/css?family=Dosis:400,700" rel="stylesheet" />
+    <link href="style.css" rel="stylesheet" />
+</head>
+
+<h1>Events Near Me</h1>
+
+<script type="text/javascript" src="http://api.eventful.com/js/api"> </script>
+
+<script type="text/javascript">
+
+
+</script>
+  <ul id="event_data"></ul>
+<script>
+
+
+
+function show_events(){
+
+   var oArgs = {
+
+      app_key: "sWWmrMk9BSdFZKQL",
+
+      c: "politics_activism",
+
+      where: "Chicago",
+
+      "date": "Future",
+
+      page_size: 50,
+
+      sort_order: "popularity",
+
+   };
+
+   EVDB.API.call("/events/search", oArgs, function(oData) {
+     oData = JSON.stringify(oData);
+     oData = JSON.parse(oData);
+    // var myTitles = document.getElementById("event_title");
+    // var para = document.createElement("title");   // Create a  <p> node
+     //var t =  document.createTextNode("This is a paragraph.");
+     var data = '';
+     console.log(oData);
+
+            for(var i = 0;i < oData.events.event.length;i++){
+              var title = oData.events.event[i].title;
+              var time = oData.events.event[i].start_time;
+              if (time != null){
+                if (oData.events.event[i].stop_time != null)
+                  time +=' - '+oData.events.event[i].stop_time;
+                time = time + "  |  ";
+              }
+
+              addr = "";
+              if (oData.events.event[i].venue_address != null)
+                addr = oData.events.event[i].venue_address;
+              time = time + addr;
+
+              description = "";
+              if (oData.events.event[i].description != null)
+                description = oData.events.event[i].description;
+
+
+              url = oData.events.event[i].url;
+              if (url != null)
+                url = "Visit for more information: <br>"+url;
+              data += '<h3 id="ev_title">'+title+'</h3>'+'<h4 id="ev_time">'+ time+'</h4>'+'<p>'+ description+'</p>'+'<p>'+ url+'</p>'+'<br>';
+          }
+           document.getElementById('event_data').innerHTML  =   data;
+            console.log(oData.events.event[1]);
+    })
+    //});
+
+}
+
+</script>
+
+
+
+<body>
+
+Find upcoming events near "110 Inner Campus Drive." <br><br>
+
+<input type="button" onclick="show_events()" value="Search" /> <br>
+
+</body>
+
+</html>
