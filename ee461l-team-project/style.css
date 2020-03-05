@@ -10,7 +10,15 @@
 
 .card {
     margin: 1rem;
-    border: 1px solid gray;
+    border: 1px solid black;
+}
+
+h1, p {
+    text-align: center;
+}
+
+#p1 {
+    text-align: left;
 }
 
 @media screen and (min-width: 600px) {
