@@ -1,0 +1,102 @@
+<!doctype html>
+<html>
+  <head>
+    <link href="style.css" rel="stylesheet" />
+
+    <title>Poll Locations</title>
+    <h1>Poll Locations Near Me</h1>
+    <hr>
+    <script>
+      /**
+       * Build and execute request to look up voter info for provided address.
+       * @param {string} address Address for which to fetch voter info.
+       * @param {function(Object)} callback Function which takes the
+       *     response object as a parameter.
+       */
+       function lookup(address, callback) {
+       /**
+         * Election ID for which to fetch voter info.
+         * @type {number}
+         */
+
+
+        /**
+         * Request object for given parameters.
+         * @type {gapi.client.HttpRequest}
+         */
+        var req = gapi.client.request({
+            'path' : '/civicinfo/v2/voterinfo',
+            'params' : {'address' : address}
+        });
+       req.execute(callback);
+      }
+
+      /**
+       * Render results in the DOM.
+       * @param {Object} response Response object returned by the API.
+       * @param {Object} rawResponse Raw response from the API.
+       */
+      function renderResults(response, rawResponse) {
+        console.log(response);
+        var el = document.getElementById('results');
+
+        var normalizedAddress = response.normalizedInput.line1 + ' ' +
+            response.normalizedInput.city + ', ' +
+            response.normalizedInput.state + ' ' +
+            response.normalizedInput.zip;
+
+        if (response.error.message == "Election unknown"){
+          el.appendChild(document.createTextNode( 'There are no upcoming elections. '));
+          var br = document.createElement("br");
+          var br1 = document.createElement("br");
+
+          el.appendChild( br );
+          el.appendChild( br1 );
+          el.appendChild(document.createTextNode( 'Please check back two to four weeks before your next election to find available polling locations near you.'));
+          return;
+
+        }
+        if (!response || response.error) {
+          el.appendChild(document.createTextNode(
+              'Error while trying to fetch polling place'));
+          return;
+        }
+
+
+
+        var normEl = document.createElement('strong');
+        if (response.pollingLocations.length > 0) {
+        normEl.appendChild(document.createTextNode(
+            'Polling places for ' + normalizedAddress + ': '));
+
+          for(var i = 0;i <response.pollingLocations.length;i++){
+            var pollingLocation = response.pollingLocations[i].address;
+            var pollingAddress = pollingLocation.locationName + ', ' +
+                pollingLocation.line1 + ' ' +
+                pollingLocation.city + ', ' +
+                pollingLocation.state + ' ' +
+                pollingLocation.zip;
+
+            el.appendChild(normEl);
+            el.appendChild(document.createTextNode(pollingAddress));
+          }
+        } else {
+          el.appendChild(document.createTextNode(
+              'Could not find polling place for ' + normalizedAddress));
+        }
+      }
+
+      /**
+       * Initialize the API client and make a request.
+       */
+      function load() {
+        gapi.client.setApiKey('AIzaSyBxblHg9N0p6-un0y8HD0QOgD7sryfhcKQ');
+        lookup('709 W 22nd St Austin, TX', renderResults);
+      }
+    </script>
+    <script src="https://apis.google.com/js/client.js?onload=load"></script>
+  </head>
+  <body>
+    <div id="results"></div>
+  </body>
+</html>
