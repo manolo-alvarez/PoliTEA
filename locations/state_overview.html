@@ -51,19 +51,18 @@
                         app.appendChild(container)
                         var offices = response.result.offices
                         for (var i =0;i< offices.length;i++) {
+                            // card is a wrapper for each element and title
+                            var card = document.createElement('div')
+                            // h1 is the header of each card (title of element for that politician),
+                            var h1 = document.createElement('h1')
+                            card.setAttribute('class', 'card')
+                            h1.textContent = (offices[i]).name
+                            container.appendChild(card)
+                            card.appendChild(h1)
                             num_officials = offices[i].officialIndices.length
                             console.log(num_officials)
-                            for (var a=0; a<num_officials;a++){
-                                console.log(a);
-                                 // card is a wrapper for each element and title
-                                var card = document.createElement('div')
-                                 // h1 is the header of each card (title of element for that politician),
-                                var h1 = document.createElement('h1')
-                                card.setAttribute('class', 'card')
-                                h1.textContent = (offices[i]).name
-                                container.appendChild(card)
-                                card.appendChild(h1)
-                                officialIndex = (offices[i].officialIndices)[a]
+                            for (var j=0; j<num_officials;j++){
+                                officialIndex = (offices[i].officialIndices)[j]
                                 var official = (response.result.officials)[officialIndex]
                                 var h2 =  document.createElement('h2')
                                 var h4 = document.createElement('h4')
