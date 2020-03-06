@@ -10,7 +10,11 @@ container.setAttribute('class', 'container')
 app.appendChild(container)
 
 // Constant URL value for ProPublica API. This pulls all members in the current (116) house
-const RAPIDAPI_API_URL = 'https://api.propublica.org/congress/v1/members/P000197.json';
+var id = localStorage.getItem("politician_id")
+console.log(id)
+const RAPIDAPI_API_URL = 'https://api.propublica.org/congress/v1/members/' + id + '.json';
+
+console.log(RAPIDAPI_API_URL)
 
 var request = new XMLHttpRequest()
 request.open('GET', RAPIDAPI_API_URL, true)
