@@ -1,0 +1,147 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+        <!-- Bootstrap CSS -->
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+
+    <link href="style.css" rel="stylesheet" />
+
+    <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+      <a class="navbar-brand" href="Splash.html">poli<strong>tea</strong></a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse"  aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarCollapse">
+          <ul class="navbar-nav mr-auto">
+            <li class="nav-item active">
+              <a class="nav-link" href="./about.html">About<span class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item active">
+              <a class="nav-link" href="./index.html">Politicians<span class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item active">
+              <a class="nav-link" href="./Legislation.html">Legislation<span class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item active">
+              <a class="nav-link" href="./state_overview.html">State Overview<span class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item active">
+              <a class="nav-link" href="./address.html">Get Involved<span class="sr-only">(current)</span></a>
+            </li>
+          </ul>
+          </form>
+        </div>
+      </nav>
+    <br><br>
+
+    <title>Poll Locations</title>
+    <br><br>
+
+    <div class=container>
+    <h1>Poll Locations Near Me</h1>
+    <script>
+      /**
+       * Build and execute request to look up voter info for provided address.
+       * @param {string} address Address for which to fetch voter info.
+       * @param {function(Object)} callback Function which takes the
+       *     response object as a parameter.
+       */
+       function lookup(address, callback) {
+       /**
+         * Election ID for which to fetch voter info.
+         * @type {number}
+         */
+
+
+        /**
+         * Request object for given parameters.
+         * @type {gapi.client.HttpRequest}
+         */
+        var req = gapi.client.request({
+            'path' : '/civicinfo/v2/voterinfo',
+            'params' : {'address' : address}
+        }  );
+        var el = document.getElementById('results');
+        var h4 = document.createElement("h4");
+        h4.textContent = "Searching for locations near \"" + address + "\" ";
+        el.appendChild(h4);
+        el.appendChild(document.createElement("br"));
+
+       req.execute(callback);
+      }
+
+      /**
+       * Render results in the DOM.
+       * @param {Object} response Response object returned by the API.
+       * @param {Object} rawResponse Raw response from the API.
+       */
+      function renderResults(response, rawResponse) {
+      //  console.log(response);
+        var el = document.getElementById('results');
+
+        if (response.error.message == "Election unknown"){
+          el.appendChild(document.createTextNode( 'There are no upcoming elections. '));
+          var br = document.createElement("br");
+          var br1 = document.createElement("br");
+
+          el.appendChild( br );
+          el.appendChild( br1 );
+          el.appendChild(document.createTextNode( 'Please check back two to four weeks before your next election to find available polling locations near you.'));
+          return;
+
+        }
+        if (!response || response.error) {
+          el.appendChild(document.createTextNode(
+              'Error while trying to fetch polling place'));
+          return;
+        }
+
+        var normalizedAddress = response.normalizedInput.line1 + ' ' +
+            response.normalizedInput.city + ', ' +
+            response.normalizedInput.state + ' ' +
+            response.normalizedInput.zip;
+
+        var normEl = document.createElement('strong');
+        if (response.pollingLocations.length > 0) {
+        normEl.appendChild(document.createTextNode(
+            'Polling places for ' + normalizedAddress + ': '));
+
+          for(var i = 0;i <response.pollingLocations.length;i++){
+            var pollingLocation = response.pollingLocations[i].address;
+            var pollingAddress = pollingLocation.locationName + ', ' +
+                pollingLocation.line1 + ' ' +
+                pollingLocation.city + ', ' +
+                pollingLocation.state + ' ' +
+                pollingLocation.zip;
+
+            el.appendChild(normEl);
+            el.appendChild(document.createTextNode(pollingAddress));
+          }
+        } else {
+          el.appendChild(document.createTextNode(
+              'Could not find polling place for ' + normalizedAddress));
+        }
+      }
+
+      /**
+       * Initialize the API client and make a request.
+       */
+      function load() {
+        gapi.client.setApiKey('AIzaSyBxblHg9N0p6-un0y8HD0QOgD7sryfhcKQ');
+        lookup('110 Inner Campus Drive Austin, TX', renderResults);
+      }
+    </script>
+    <script src="https://apis.google.com/js/client.js?onload=load"></script>
+  </head>
+  <body>
+    <div id="results"></div>
+  </div>
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+  </body>
+</html>
