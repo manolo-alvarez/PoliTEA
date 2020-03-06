@@ -3,14 +3,14 @@
  * @lastRevised: 03/05/2020
  * @summary: Javascript file that pulls politician information/bio from ProPublic API
  */
- 
+
 const app = document.getElementById('root')
 const container = document.createElement('div')
 container.setAttribute('class', 'container')
 app.appendChild(container)
 
 // Constant URL value for ProPublica API. This pulls all members in the current (116) house
-const RAPIDAPI_API_URL = 'https://api.propublica.org/congress/v1/116/house/members.json';
+const RAPIDAPI_API_URL = 'https://api.propublica.org/congress/v1/members/P000197.json';
 
 var request = new XMLHttpRequest()
 request.open('GET', RAPIDAPI_API_URL, true)
@@ -26,7 +26,7 @@ request.onload = function() {
   if (request.status >= 200 && request.status < 400) {
 
     // Creates an HTML element and appends it to index.html
-    var member = data.results[0].members[0]
+    var member = data.results[0]
 
     for (var element in member) {
 
