@@ -11106,7 +11106,7 @@ client.makeRequest('candIndustry', {cid: 'N00007360', output: 'xml'})
   var result = convert.xml2json(res, {compact: true, spaces: 4});
   var result = JSON.parse(result)
 
-  document.getElementById("header").innerHTML = "Top Ten Industries Contributing to " + result.response.industries._attributes.cand_name + "<br>";
+  document.getElementById("header").innerHTML = "Top Ten Industries Contributing to " + result.response.industries._attributes.cand_name + "in 2016 <br>";
 
   var br = document.createElement("br");
   elem.appendChild(br)
