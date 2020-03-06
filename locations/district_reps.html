@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">        
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+        <title>Hello, world!</title>
+    </head>
+    <body>
+        <script src="https://apis.google.com/js/api.js"></script>
+        <script>
+            /**
+            * Sample JavaScript code for civicinfo.representatives.representativeInfoByAddress
+            * See instructions for running APIs Explorer code samples locally:
+            * https://developers.google.com/explorer-help/guides/code_samples#javascript
+            */
+        
+            function loadClient() {
+            gapi.client.setApiKey("AIzaSyBxblHg9N0p6-un0y8HD0QOgD7sryfhcKQ");
+            return gapi.client.load("https://content.googleapis.com/discovery/v1/apis/civicinfo/v2/rest")
+                .then(function() { console.log("GAPI client loaded for API"); },
+                        function(err) { console.error("Error loading GAPI client for API", err); });
+            }
+            // Make sure the client is loaded before calling this method.
+            function execute() {
+            return gapi.client.civicinfo.representatives.representativeInfoByAddress({
+                "address": "110 Inner Campus Drive, Austin, TX 78712"
+            })
+                .then(function(response) {
+                        // Handle the results here (response.result has the parsed body).
+                        console.log("Response", response.result);
+                        },
+                        function(err) { console.error("Execute error", err); });
+            }
+            gapi.load("client");
+        </script>
+        <button onclick="loadClient()">load</button>
+        <button onclick="execute()">execute</button>            
+        <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>        
+    </body>
+</html>
