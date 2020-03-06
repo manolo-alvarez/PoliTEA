@@ -1,45 +1,29 @@
-// var OpenSecrets = require('opensecrets-js')
-// var API = new OpenSecretsAPI(process.env.API_KEY)
-
-// console.log(OpenSecretsAPI.getLegislators("TX"))
-// OpenSecrets.candSummary("TX", window.print())
-// OpenSecrets.memPFDprofile(2016, 00000528, document.write())
-
-// OpenSecrets.candSummary("TX")
-
-
-
-// console.log(OpenSecrets.candSummary("N00000528"))
-
 var OpenSecretsClient = require('opensecrets-client');
 var client = new OpenSecretsClient('52f80155d9bb4bd043b2ef5c7e05e9cc');
-client.makeRequest('candIndustry', {cid: 'N00007360', output: 'json'})
+var convert = require('xml-js');
+
+client.makeRequest('candIndustry', {cid: 'N00007360', output: 'xml'})
 .on('complete', function(res) {
-  // if (res instanceof Error) console.log('Something went wrong');
   if (res instanceof Error) console.log('Something went wrong');
-  // document.write(res)
   var elem = document.getElementById('results')
+  var header = document.getElementById('header')
 
-  res_string = JSON.stringify(res)
+  var result = convert.xml2json(res, {compact: true, spaces: 4});
+  var result = JSON.parse(result)
 
-  var data = res_string.replace(/\\/g, "")
-  var finalData = data.replace("/@//g","")
-  //
-  finalData = JSON.parse(res_string)
-  // var text = JSON.stringify(res, function (key, value) {
-  //   if (key == "firstlast\\") {
-  //     return value.toUpperCase();
-  //   } else {
-  //     return value;
-  //   }
-  // });
-  // for (name in finalData) {
-    // document.getElementById("results").innerHTML += name + "<br>";
-    // for(x in finalData) {
-    //   document.getElementById("results").innerHTML += x + "<br>";
-    // }
-    // elem.appendChild(document.createTextNode(finalData.response.legislator."@attributes".cid))
-    elem.appendChild(document.createTextNode(finalData))
-  // }
-  console.log(finalData)
+  document.getElementById("header").innerHTML = "Top Ten Industries Contributing to " + result.response.industries._attributes.cand_name + "<br>";
+
+  var br = document.createElement("br");
+  elem.appendChild(br)
+  elem.appendChild(br)
+
+  for(var i = 0; i < result.response.industries.industry.length; i++) {
+        var industry_title = (i+1) + ". " + result.response.industries.industry[i]._attributes.industry_name + "<br>";
+        document.getElementById("results").innerHTML += industry_title.bold();
+        // document.getElementById("results").innerHTML += (i+1) + ". " + result.response.industries.industry[i]._attributes.industry_name + "<br>";
+        document.getElementById("results").innerHTML += "Total from large individual contributions: " + result.response.industries.industry[i]._attributes.indivs + "<br>";
+        document.getElementById("results").innerHTML += "Total from PACs: " + result.response.industries.industry[i]._attributes.pacs + "<br>";
+        document.getElementById("results").innerHTML += "Total from all itemized sources: " + result.response.industries.industry[i]._attributes.total + "<br>" + "<br>";
+  }
+  console.log(result)
 });
