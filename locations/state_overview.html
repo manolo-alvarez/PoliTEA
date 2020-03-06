@@ -2,11 +2,11 @@
 <html>
     <head>
         <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">        
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
         <title>politea</title>
         <!-- Custom styles for this template -->
-        <link href="locations.css" rel="stylesheet">
+        <!-- <link href="locations.css" rel="stylesheet"> -->
         <style>
             .bd-placeholder-img {
                 font-size: 1.125rem;
@@ -16,7 +16,7 @@
                 -ms-user-select: none;
                 user-select: none;
             }
-        
+
             @media (min-width: 768px) {
                 .bd-placeholder-img-lg {
                 font-size: 3.5rem;
@@ -24,8 +24,40 @@
             }
         </style>
         <script src="https://apis.google.com/js/api.js"></script>
+
+
+        <!-- Nav Bar -->
+        <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+          <a class="navbar-brand" href="Splash.html">poli<strong>tea</strong></a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse"  aria-expanded="false" aria-label="Toggle navigation">
+              <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarCollapse">
+              <ul class="navbar-nav mr-auto">
+                <li class="nav-item active">
+                  <a class="nav-link" href="../about.html">About<span class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item active">
+                  <a class="nav-link" href="../index.html">Politicians<span class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item active">
+                  <a class="nav-link" href="../Legislation.html">Legislation<span class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item disabled">
+                  <a class="nav-link disabled" href="#"  tabindex="-1" aria-disabled="true">State Overview<span class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item active">
+                  <a class="nav-link" href="./address.html">Get Involved<span class="sr-only">(current)</span></a>
+                </li>
+              </ul>
+              </form>
+            </div>
+          </nav>
+          <br><br>
+
     </head>
     <body>
+        <button onclick="location.href = 'address.html';">Click me</button>
         <div id="root"></div>
         <script>
             /**
@@ -36,10 +68,10 @@
             function loadClient() {
             gapi.client.setApiKey("AIzaSyBxblHg9N0p6-un0y8HD0QOgD7sryfhcKQ");
             return gapi.client.load("https://content.googleapis.com/discovery/v1/apis/civicinfo/v2/rest")
-                .then( function() { 
+                .then( function() {
                         //console.log("loaded");
                         return gapi.client.civicinfo.representatives.representativeInfoByDivision({
-                        "ocdId": "ocd-division/country:us/state:tx"})}, 
+                        "ocdId": "ocd-division/country:us/state:tx"})},
                         function(err) { console.error("Error loading GAPI client for API", err);})
                 .then(function(response) {
                         //console.log("hello");
@@ -68,18 +100,22 @@
                                 var h4 = document.createElement('h4')
                                 var h5 = document.createElement('h5')
                                 var a = document.createElement('a')
+                                var br = document.createElement('br')
                                 //var img = document.createElement('img')
-                                h4.textContent = (official).party
-                                h2.textcontext = (official).name
+                                h4.textContent = official.party
+                                h2.textContent = official.name
+                                console.log(official.name)
                                 a.href = (official.urls)[0]
                                 a.textContent = "Visit Website"
                                 h5.textContent = (official.phones)[0]
                                 //img.src= official.photoUrl
                                 //card.appendChild(img)
+
                                 card.appendChild(h2)
                                 card.appendChild(h4)
                                 card.appendChild(h5)
                                 card.appendChild(a)
+                                card.appendChild(br)
                             }
                         }
 
@@ -92,6 +128,6 @@
         <!-- <button onclick="loadClient()">load</button> -->
         <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
         <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
-        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>        
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
     </body>
 </html>
