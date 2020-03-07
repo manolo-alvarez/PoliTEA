@@ -57,7 +57,7 @@
                 <br><br>
     </head>
     <body>
-        <div id="root" class=container></div>
+        <div id="root"></div>
         <script>
             /**
             * Sample JavaScript code for civicinfo.representatives.representativeInfoByDivision
@@ -78,26 +78,18 @@
                         // Handle the results here (response.result has the parsed body).
                         var app = document.getElementById('root')
                         var container = document.createElement('div')
-                        container.setAttribute('class', 'row mb-2')
+                        container.setAttribute('class', 'container')
                         app.appendChild(container)
                         var officeIndeces = [3,7,6,17,18,19,20,21,22,23,24,8,9,25,]
                         for (var i =0;i< officeIndeces.length;i++) {
                             // card is a wrapper for each element and title
                             var card = document.createElement('div')
-                            var innercard = document.createElement('div')
-                            var outercard = document.createElement('div')
-                            var middlecard = document.createElement('div')
                             // h1 is the header of each card (title of element for that politician),
                             var h1 = document.createElement('h1')
-                            card.setAttribute('class', "col-md-6")
-                            innercard.setAttribute('class', "row no-gutters border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative")
-                            outercard.setAttribute('class', "col-auto d-none d-lg-block")
-                            middlecard.setAttribute('class', "col p-4 d-flex flex-column position-static")
+                            card.setAttribute('class', 'card')
                             h1.textContent = (response.result.offices[officeIndeces[i]]).name
                             container.appendChild(card)
-                            card.appendChild(innercard)
-                            innercard.appendChild(middlecard)
-                            innercard.appendChild(h1)
+                            card.appendChild(h1)
                             console.log((response.result.offices[officeIndeces[i]]).officialIndices)
                             num_officials = (response.result.offices[officeIndeces[i]]).officialIndices.length
                             console.log(num_officials)
@@ -121,13 +113,12 @@
                                 //img.src= official.photoUrl
                                 //card.appendChild(img)
 
-                                innercard.appendChild(h2)
-                                innercard.appendChild(h4)
-                                innercard.appendChild(h5)
-                                innercard.appendChild(br)
-                                innercard.appendChild(a)
+                                card.appendChild(h2)
+                                card.appendChild(h4)
+                                card.appendChild(h5)
+                                card.appendChild(br)
+                                card.appendChild(a)
                             }
-                            innercard.appendChild(outercard)
                         }
 
                     },
