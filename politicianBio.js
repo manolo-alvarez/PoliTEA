@@ -60,3 +60,7 @@ request.onload = function() {
 }
 
 request.send()
+
+function f1(){
+  alert("YEEEESSS")
+}
