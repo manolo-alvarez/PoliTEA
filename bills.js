@@ -51,7 +51,7 @@ request.onload = function() {
 
       title.textContent = result.short_title
       number.textContent = result.number
-      sponsor.textContent = result.sponsor_title + " " + result.sponsor_name + " (" + result.sponsor_party + ") " + result.sponsor_state
+      sponsor.textContent = result.sponsor_title + " " + result.sponsor_name + " (" + result.sponsor_party + ") " + result.sponsor_state + " -- (Link to Politicians Model coming soon)"
       date.textContent = "Introduced on: " + result.introduced_date
       summary.textContent = result.summary
       link_site.textContent = "Congress.gov Link"
