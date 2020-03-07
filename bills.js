@@ -4,11 +4,11 @@
  * @summary: Javascript file that pulls politicians ProPublica API
  */
 
-const app = document.getElementById('root')
+const app = document.getElementById('billsRoot')
 const container = document.createElement('div')
 const cards = document.createElement('div')
 container.setAttribute('class', 'container')
-cards.setAttribute('class', 'card-deck mb-3 text-center')
+cards.setAttribute('class', 'card-body')
 app.appendChild(container)
 container.appendChild(cards)
 
@@ -29,7 +29,7 @@ request.onload = function() {
   // Succesful request?
   if (request.status >= 200 && request.status < 400) {
 
-    data.results[0].results.forEach(result => {
+    data.results.forEach(result => {
 
       localStorage.setItem("bill_id", result.bill_id);
 
@@ -44,12 +44,12 @@ request.onload = function() {
       const link_site = document.createElement('a')
 
 
-      politician.setAttribute('class', 'p-4')
+      bill.setAttribute('class', 'p-4')
       title.setAttribute('class', 'font-italic')
       attributes.setAttribute('class', 'list-unstyled mb-0')
-      link_site.setAttribute('href', 'result.congressdotgov_url')
+      link_site.setAttribute('href', result.congressdotgov_url)
 
-      title.textContent = result.title
+      title.textContent = result.short_title
       number.textContent = result.number
       sponsor.textContent = result.sponsor_title + " " + result.sponsor_name + " (" + result.sponsor_party + ") " + result.sponsor_state
       date.textContent = "Introduced on: " + result.introduced_date
@@ -59,9 +59,12 @@ request.onload = function() {
 
       cards.appendChild(bill)
       bill.appendChild(title)
-      bill.appendChild(attributes)
-      attributes.appendChild(gov_link)
-      gov_link.appendChild(link_site)
+      bill.appendChild(number)
+      bill.appendChild(sponsor)
+      bill.appendChild(date)
+      if (result.summary != null) {bill.appendChild(summary)}
+      bill.appendChild(gov_site)
+      gov_site.appendChild(link_site)
 
 
     });
