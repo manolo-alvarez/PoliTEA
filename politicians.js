@@ -4,6 +4,7 @@
  * @summary: Javascript file that pulls politicians ProPublica API
  */
 
+
 const app = document.getElementById('root')
 const container = document.createElement('div')
 const cards = document.createElement('div')
@@ -18,7 +19,7 @@ const HOUSE_MEMBERS_URL = 'https://api.propublica.org/congress/v1/116/house/memb
 const SENATE_MEMBERS_URL = 'https://api.propublica.org/congress/v1/116/senate/members.json';
 
 var request = new XMLHttpRequest()
-request.open('GET', SENATE_MEMBERS_URL, true)
+request.open('GET', HOUSE_MEMBERS_URL, true)
 
 // Must send request with API key as a header. Key can be used at most 1000 times/day
 request.setRequestHeader('X-API-Key', 'P3QUvk64v2F2XNUHwHPyhhfqs22CVRE2NVlUvELJ')
@@ -32,8 +33,6 @@ request.onload = function() {
 
     data.results[0].members.forEach(member => {
 
-      localStorage.setItem("politician_id", member.id);
-
       const politician = document.createElement('div')
       const name = document.createElement('h4')
       const attributes = document.createElement('ol')
@@ -46,6 +45,7 @@ request.onload = function() {
       name.setAttribute('class', 'font-italic')
       attributes.setAttribute('class', 'list-unstyled mb-0')
       bioPage.setAttribute('href', 'politicianBio.html')
+      bioPage.setAttribute('onClick', 'f1(member.id)')
       votingHistPage.setAttribute('href', 'politicianVotingHistory.html')
 
       name.textContent = member.first_name + " " + member.last_name
@@ -71,3 +71,8 @@ request.onload = function() {
 }
 
 request.send()
+
+function f1(id){
+  localStorage.setItem("politician_id", id);
+  alert(id)
+}
