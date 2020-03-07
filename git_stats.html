@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!-- Required meta tags -->
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+      <!-- Bootstrap CSS -->
+      <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <title>Page Stats</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.3/dist/Chart.min.js"></script>
+    <!-- Custom styles for this template -->
+    <link href="carousel.css" rel="stylesheet">
+
+
+            <!-- Nav Bar -->
+            <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+              <a class="navbar-brand" href="Splash.html">poli<strong>tea</strong></a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse"  aria-expanded="false" aria-label="Toggle navigation">
+                  <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarCollapse">
+                  <ul class="navbar-nav mr-auto">
+                    <li class="nav-item active">
+                      <a class="nav-link" href="./about.html">About<span class="sr-only">(current)</span></a>
+                    </li>
+                    <li class="nav-item active">
+                      <a class="nav-link" href="./index.html">Politicians<span class="sr-only">(current)</span></a>
+                    </li>
+                    <li class="nav-item active">
+                      <a class="nav-link" href="./Legislation.html">Legislation<span class="sr-only">(current)</span></a>
+                    </li>
+                    <li class="nav-item active">
+                      <a class="nav-link" href="./state_overview.html">State Overview<span class="sr-only">(current)</span></a>
+                    </li>
+                    <li class="nav-item active">
+                      <a class="nav-link" href="./address.html">Get Involved<span class="sr-only">(current)</span></a>
+                    </li>
+                    <li class="nav-item">
+                      <a class="nav-link disabled" href="#"  tabindex="-1" aria-disabled="true">Page Stats<span class="sr-only">(current)</span></a>
+                    </li>
+                  </ul>
+                  </form>
+                </div>
+              </nav>
+
+
+</head>
+<body>
+  <br><br>
+  <br><br>
+
+  <div class=container>
+
+    <h1>Github Insight</h1> <br>
+    <!-- <button id = 'btnRepos'>Repos</button> -->
+    <div id = 'divResult'></div>
+  </div>
+  <br><br>
+  <div class=container>
+
+    <h4>Git Commits per User to Master Branch</h4>
+    <canvas id="barChart"></canvas>
+    </div>
+
+    <script>
+    // const btnRepos = document.getElementById("btnRepos")
+    const divResult = document.getElementById("divResult")
+    // btnRepos.addEventListener("click", getRepos)
+    //btnCommits.addEventListener("click", e=> getCommits())
+    getCommits();
+    getTraffic();
+
+    async function getTraffic() {
+        clear();
+        const url = "https://api.github.com/repos/malvarez0722/ee461l-team-project/traffic/views?access_token=a5d5fb2e6e4ab4ecbeac68d43bfbfb597b2d058e"
+        const response = await fetch(url)
+        const result = await response.json()
+
+        getViews(result);
+
+    }
+
+
+    async function getCommits(url="https://api.github.com/repos/malvarez0722/ee461l-team-project/commits? ") {
+        clear();
+
+        const headers = {
+            "Accept" : "application/vnd.github.cloak-preview"
+        }
+        const response = await fetch(url, {
+            "method" : "GET",
+            // "headers" : headers
+        })
+
+        const result = await response.json()
+
+        //init
+        users = {
+            "neetishah": 0,
+            "bailloj": 0,
+            "aidanmcgraw": 0,
+            "mtmn19": 0,
+            "malvarez0722": 0,
+            "aaa4521": 0
+        };
+
+        // var users_arr = ["neetishah", "bailloj", "aidanmcgraw", "mtmn19", "malvarez0722", "asad"];
+        // temporarily hard coded contributors
+        for ( var i =0; i< result.length; i++){
+          var committer = result[i].committer.login;
+            if (committer == "neetishah")
+              users.neetishah++;
+            if (committer == "bailloj")
+              users.bailloj++;
+            if (committer == "aidanmcgraw")
+              users.aidanmcgraw++;
+            if (committer == "mtmn19")
+              users.mtmn19++;
+            if (committer == "malvarez0722")
+              users.malvarez0722++;
+            if (committer == "aaa4521")
+              users.aaa4521++;
+        }
+        console.log( users);
+//bar chart
+        bar(users);
+
+    }
+
+    function bar(users){
+      //bar chart
+          var ctxB = document.getElementById("barChart").getContext('2d');
+          var myBarChart = new Chart(ctxB, {
+          type: 'bar',
+          data: {
+          labels: ["neetishah", "bailloj", "aidanmcgraw", "mtmn19", "malvarez0722", "aaa4521"],
+          datasets: [{
+          label: '# of Commits',
+          data: [users.neetishah, users.bailloj, users.aidanmcgraw, users.mtmn19, users.malvarez0722, users.aaa4521],
+          backgroundColor: [
+          'rgba(255, 99, 132, 0.2)',
+          'rgba(54, 162, 235, 0.2)',
+          'rgba(255, 206, 86, 0.2)',
+          'rgba(75, 192, 192, 0.2)',
+          'rgba(153, 102, 255, 0.2)',
+          'rgba(255, 159, 64, 0.2)'
+          ],
+          borderColor: [
+          'rgba(255,99,132,1)',
+          'rgba(54, 162, 235, 1)',
+          'rgba(255, 206, 86, 1)',
+          'rgba(75, 192, 192, 1)',
+          'rgba(153, 102, 255, 1)',
+          'rgba(255, 159, 64, 1)'
+          ],
+          borderWidth: 1
+          }]
+          },
+          options: {
+          scales: {
+          yAxes: [{
+          ticks: {
+          beginAtZero: true
+          }
+          }]
+          }
+          }
+          });
+
+
+    }
+
+    function getViews(result){
+        var count = result.count;
+        var unique = result.uniques;
+
+        var head1 = document.createElement('h4');
+        var head2 = document.createElement('h4');
+
+        var bold1 = document.createElement('strong');
+        var bold2 = document.createElement('strong');
+        bold1.appendChild(document.createTextNode( "Total  Page Visits: "));
+        bold2.appendChild(document.createTextNode( "Unique  Page Visits: "));
+
+
+          head1.appendChild(bold1);
+          head2.appendChild(bold2);
+          head1.appendChild(document.createTextNode( count ));
+          head2.appendChild(document.createTextNode( unique ));
+          divResult.appendChild(head1);
+          divResult.appendChild(head2);
+
+
+    }
+
+    function clear(){
+        while(divResult.firstChild)
+            divResult.removeChild(divResult.firstChild)
+    }
+    </script>
+
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+</body>
+</html>
