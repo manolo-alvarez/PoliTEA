@@ -21,7 +21,7 @@ Neeti Shah -- ns28392 -- neetishah
 
 ## Website Link
 
-[*Placeholder link, goes to our canvas team page*](https://utexas.instructure.com/groups/312991)
+[politea.info](politea.info)
 
 
 ## Estimated completion time for each member (hours : int)
