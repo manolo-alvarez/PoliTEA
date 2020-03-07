@@ -26,8 +26,18 @@ Neeti Shah -- ns28392 -- neetishah
 
 ## Estimated completion time for each member (hours : int)
 
-TBD
+Manolo - hours : 15
+Neeti - hours : 18
+Megan - hours : 15
+Jireh - hours : 15
+Aidan - hours : 13
+Asad - hours : 13
 
 ## Actual completion time for each member (hours : int)
 
-TBD
+Manolo - hours : 30
+Neeti - hours : 35
+Asad - hours : 28
+Megan - hours : 30
+Jireh - hours : 35
+Aidan - hours : 35 
