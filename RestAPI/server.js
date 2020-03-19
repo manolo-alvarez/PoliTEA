@@ -4,6 +4,8 @@ const app = express();
 const mongoose = require('mongoose');
 mongoose.connect(uri, {useNewUrlParser: true});
 const db = mongoose.connection;
+db.on('error', console.error.bind(console, 'connection error:'));
+db.once('open', () => console.log("Connected!"))
 
 const politicianSchema = new mongoose.Schema({
     first_name: String,
@@ -28,10 +30,17 @@ const billSchema = new mongoose.Schema({
     description: String,
     politicians_involved: [mongoose.ObjectId] 
 });
-const politicians = mongoose.model('politician', politicianSchema);
-const locations = mongoose.model('location', politicianSchema);
-const bills = mongoose.model('politician', politicianSchema);
+const politicians = mongoose.model('politicians', politicianSchema);
+const locations = mongoose.model('locations', locationSchema);
+const bills = mongoose.model('bills', billSchema);
 
-db.on('error', console.error.bind(console, 'connection error:'));
-db.once('open', () => console.log("Connected!"))
-
+let guy = new politicians({
+    first_name: 'Bill',
+    last_name: 'Clinton',
+    house:'Congress',
+    party:'Democrat',
+    Age:'100',
+    bills:['I','didnt','inhale'],
+    donors:['Monica','Lewinsky']
+})
+guy.save();
