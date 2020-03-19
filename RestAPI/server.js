@@ -14,7 +14,7 @@ const politicianSchema = new mongoose.Schema({
     party: String,
     age: String,
     bills: [String],
-    donors: [mongoose.ObjectId],
+    donors:{}
 
 });
 const locationSchema = new mongoose.Schema({
