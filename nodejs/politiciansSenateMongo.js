@@ -69,7 +69,7 @@ const Politicians = new Schema({
   votes_against_party_pct: Number
 });
 
-var politician = mongoose.model('politician', Politicians);
+var politician = module.exports = mongoose.model('politician', Politicians);
 
 try{
 

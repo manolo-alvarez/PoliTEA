@@ -4,119 +4,76 @@
  * @summary: Javascript file that pulls politicians ProPublica API and populates MongoDB
  */
 
-// Using Node.js `require()`
-const mongoose = require('mongoose');
-// Constant URL value for ProPublica API. This pulls all members in the current (116) senate
-const SENATE_MEMBERS_URL = 'https://api.propublica.org/congress/v1/116/senate/members/';
-// Constant https
-const https = require('https');
+ 'use strict';
 
-mongoose.set('bufferCommands', false);
+ const mongoose = require('mongoose');
 
-mongoose.connect('mongodb+srv://truther:berniebitches420@cluster0-p5cmn.mongodb.net/test?retryWrites=true&w=majority', {
-  useNewUrlParser: true,
-  useUnifiedTopology: true
-}).catch(err => console.log("THIS IS THE PROBLEM"));
+ mongoose.set('bufferCommands', false);
 
-const Schema = mongoose.Schema;
+ mongoose.connect('mongodb+srv://truther:berniebitches420@cluster0-p5cmn.mongodb.net/test?retryWrites=true&w=majority', {
+   useNewUrlParser: true,
+   useUnifiedTopology: true
+ }).catch(err => console.log("THIS IS THE PROBLEM"));
 
-const Politicians = new Schema({
-  id: String,
-  title: String,
-  short_title: String,
-  api_uri: String,
-  first_name: String,
-  middle_name: String,
-  last_name: String,
-  suffix: String,
-  date_of_birth: String,
-  gender: String,
-  party: String,
-  leadership_role: String,
-  twitter_account: String,
-  facebook_account: String,
-  youtube_account: String,
-  govtrack_id: String,
-  cspan_id: String,
-  votesmart_id: String,
-  icpsr_id: String,
-  crp_id: String,
-  google_entity_id: String,
-  fec_candidate_id: String,
-  url: String,
-  rss_url: String,
-  contact_form: String,
-  in_office: Boolean,
-  cook_pvi: String,
-  dw_nominate: Number,
-  ideal_point: Number,
-  seniority: String,
-  next_election: String,
-  total_votes: Number,
-  missed_votes: Number,
-  total_present: Number,
-  last_updated: String,
-  ocd_id: String,
-  office: String,
-  phone: String,
-  fax: String,
-  state: String,
-  district: String,
-  at_large: Boolean,
-  geoid: String,
-  missed_votes_pct: Number,
-  votes_with_party_pct: Number,
-  votes_against_party_pct: Number,
-  votes: Array
-});
+ const Schema = mongoose.Schema;
 
-var politician = mongoose.model('politician', Politicians);
+ const Politicians = new Schema({
+   id: String,
+   title: String,
+   short_title: String,
+   api_uri: String,
+   first_name: String,
+   middle_name: String,
+   last_name: String,
+   suffix: String,
+   date_of_birth: String,
+   gender: String,
+   party: String,
+   leadership_role: String,
+   twitter_account: String,
+   facebook_account: String,
+   youtube_account: String,
+   govtrack_id: String,
+   cspan_id: String,
+   votesmart_id: String,
+   icpsr_id: String,
+   crp_id: String,
+   google_entity_id: String,
+   fec_candidate_id: String,
+   url: String,
+   rss_url: String,
+   contact_form: String,
+   in_office: Boolean,
+   cook_pvi: String,
+   dw_nominate: Number,
+   ideal_point: Number,
+   seniority: String,
+   next_election: String,
+   total_votes: Number,
+   missed_votes: Number,
+   total_present: Number,
+   last_updated: String,
+   ocd_id: String,
+   office: String,
+   phone: String,
+   fax: String,
+   state: String,
+   district: String,
+   at_large: Boolean,
+   geoid: String,
+   missed_votes_pct: Number,
+   votes_with_party_pct: Number,
+   votes_against_party_pct: Number
+ });
 
-politician.find({last_name : "Amash"}, 'first_name', function(err, person){
+ const politician = mongoose.model('politician', Politicians);
+
+ politician.findOne({ 'last_name': 'Amash' }, 'first_name', function (err, person) {
   if (err) return handleError(err);
   // Prints "Space Ghost is a talk show host".
-  console.log('%s', person.first_name);
+  console.log(person);
 });
 
-try{
-
-  const queryAllUsers = () => {
-    //Where User is you mongoose user model
-    politician.find({} , (err, member) => {
-        if(err) console.log(err);
-
-        politician.map(member => {
-
-          https.get(SENATE_MEMBERS_URL + '/' + member.id + '/votes.json', {headers: {'X-API-Key': 'P3QUvk64v2F2XNUHwHPyhhfqs22CVRE2NVlUvELJ'}}, (resp) => {
-            let json = '';
-
-            // A chunk of data has been recieved.
-            resp.on('data', (chunk) => {
-              json += chunk;
-            });
-
-            // The whole response has been received. Print out the result.
-            resp.on('end', () => {
-              var data = JSON.parse(json)
-              var votes = new Array();
-
-              data.results[0].votes.forEach(specificVote => {
-                votes.push(specificVote)
-              });
-
-              politician.update({_id : member._id },{$set : {votes: votes}}, function(done){
-                console.log("done")
-              });
-
-            });
-
-          }).on("error", function(error) {
-                console.log("prob here");
-          });
-
-        })
-    })
-  }
-} catch {
-  console.log("Not working")
-}
+ function handleError(err){
+   console.log(err)
+ }
