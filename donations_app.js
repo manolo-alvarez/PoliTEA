@@ -67,13 +67,13 @@ const url = `https://www.opensecrets.org/api/?method=${method}&year=${year}&cid=
 //   console.log(person);
 // });
 
-var query = politicians.find({'last_name': 'Amash'})
-// query.select('donors')
-
-query.exec(function (err, person) {
-  if (err) console.log('error is ' + err);
-  console.log(person);
-});
+// var query = politicians.find({'last_name': 'Amash'})
+// // query.select('donors')
+//
+// query.exec(function (err, person) {
+//   if (err) console.log('error is ' + err);
+//   console.log(person);
+// });
 
 https.get(url, (res) => {
   console.log('statusCode:', res.statusCode);
@@ -99,7 +99,7 @@ https.get(url, (res) => {
     result.response.contributors.contributor.forEach(contributor => {
         // console.log(contributor)
 
-        politicians.update({last_name: 'Amash'},
+        politicians.updateMany({id: 'A000374'},
           {
             "$push": {
               "donors": {
@@ -108,7 +108,7 @@ https.get(url, (res) => {
                 "total": contributor._attributes.total,
                 "pacs": contributor._attributes.pacs,
                 "indivs": contributor._attributes.indivs
-              }
+              }, $sort: {"total":1}
             }
           },
           {safe: true},
@@ -121,7 +121,7 @@ https.get(url, (res) => {
   console.error('ERROR IS ' + e);
 });
 
-var query = politicians.find({'last_name': 'Amash'})
+var query = politicians.find({id: 'A000374'})
 query.select('donors')
 
 query.exec(function (err, person) {
