@@ -4,20 +4,20 @@
  * @summary: Javascript file that pulls politicians ProPublica API and populates MongoDB
  */
 
- 'use strict';
+ //'use strict';
 
  const mongoose = require('mongoose');
-
- mongoose.set('bufferCommands', false);
-
  mongoose.connect('mongodb+srv://truther:berniebitches420@cluster0-p5cmn.mongodb.net/test?retryWrites=true&w=majority', {
-   useNewUrlParser: true,
-   useUnifiedTopology: true
- }).catch(err => console.log("THIS IS THE PROBLEM"));
+   useNewUrlParser: true
+ })
+ var db = mongoose.connection;
+ db.on('error', console.error.bind(console, 'connection error:'));
+ db.once('open', function() {
+   console.log("we're connected!")
+ });
+ 
 
- const Schema = mongoose.Schema;
-
- const Politicians = new Schema({
+ const Politicians = new mongoose.Schema({
    id: String,
    title: String,
    short_title: String,
@@ -68,12 +68,11 @@
 
  const politician = mongoose.model('politician', Politicians);
 
- politician.findOne({ 'last_name': 'Amash' }, 'first_name', function (err, person) {
-  if (err) return handleError(err);
-  // Prints "Space Ghost is a talk show host".
-  console.log(person);
+ politician.findOne({ 'last_name': 'Amash' }, function (err, person) {
+  if (err) {
+    console.log(err)
+  }
+  else{
+    console.log(person);
+  }
 });
-
- function handleError(err){
-   console.log(err)
- }
