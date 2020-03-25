@@ -13,6 +13,86 @@ const db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error:'));
 db.once('open', () => console.log("Connected!"))
 
+////////////////////////////////////////////////////////////////////////////////
+// get array of crp_ids in database
+////////////////////////////////////////////////////////////////////////////////
+var crp_array = []
+
+politicians.find({}, 'crp_id', function (err, docs) {
+  if (err) return err
+
+  docs.forEach(docs => {
+    if (docs.crp_id!=null)
+      crp_array.push(docs.crp_id)
+  })
+
+  console.log('array is ' + crp_array)
+
+})
+////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+
+
+////////////////////////////////////////////////////////////////////////////////
+// Retrieve contribution data from OpenSecrets API and update database
+////////////////////////////////////////////////////////////////////////////////
+var method = 'candContrib'
+var year = '2020'
+var cid = 'N00007360'
+const url = `https://www.opensecrets.org/api/?method=${method}&year=${year}&cid=${cid}&output=json&apikey=52f80155d9bb4bd043b2ef5c7e05e9cc`
+//
+
+https.get(url, (res) => {
+  console.log('statusCode:', res.statusCode);
+  // console.log('headers:', res.headers);
+
+  let result = '';
+  res.on('data', (d) => {
+    // process.stdout.write(d);
+    result += d;
+  });
+
+  res.on('end', () =>  {
+    result = JSON.parse(result)
+    result = JSON.stringify(result)
+    result = result.replace(/@/g, "_")
+    result = JSON.parse(result)
+    // console.log(result)
+
+    var cid = result.response.contributors._attributes.cid
+    var cycle = result.response.contributors._attributes.cycle
+    console.log(cid)
+    console.log(cycle)
+
+//     result.response.contributors.contributor.forEach(contributor => {
+//         // console.log(contributor)
+//
+//         politicians.updateMany({id: 'A000374'},
+//           {
+//             "$push": {
+//               "donors": {
+//                 "year": cycle,
+//                 "org_name": contributor._attributes.org_name,
+//                 "total": contributor._attributes.total,
+//                 "pacs": contributor._attributes.pacs,
+//                 "indivs": contributor._attributes.indivs
+//               }, $sort: {"total":1}
+//             }
+//           },
+//           {safe: true},
+//           function(err, model) {
+//               console.log('error IS ' + err);
+//         })
+//     })
+}) //end of res on end
+}).on('error', (e) => {
+  console.error('ERROR IS ' + e);
+});
+////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+
+
+
 // const contributionSchema = new mongoose.Schema({
 //     crp_id: String,
 //     cycle: String,
@@ -54,11 +134,7 @@ db.once('open', () => console.log("Connected!"))
 //     console.log(err);
 // })
 
-var method = 'candContrib'
-var year = '2020'
-var cid = 'N00007360'
-const url = `https://www.opensecrets.org/api/?method=${method}&year=${year}&cid=${cid}&output=json&apikey=52f80155d9bb4bd043b2ef5c7e05e9cc`
-//
+
 // var query = politicians.findOne({'crp_id': cid})
 // query.select('donors')
 //
@@ -75,56 +151,28 @@ const url = `https://www.opensecrets.org/api/?method=${method}&year=${year}&cid=
 //   console.log(person);
 // });
 
-https.get(url, (res) => {
-  console.log('statusCode:', res.statusCode);
-  // console.log('headers:', res.headers);
 
-  let result = '';
-  res.on('data', (d) => {
-    // process.stdout.write(d);
-    result += d;
-  });
-  res.on('end', () =>  {
-    result = JSON.parse(result)
-    result = JSON.stringify(result)
-    result = result.replace(/@/g, "_")
-    result = JSON.parse(result)
-    // console.log(result)
+// var query = politicians.find({id: 'A000374'})
+// query.select('donors')
+//
+// query.exec(function (err, person) {
+//   if (err) console.log('error is ' + err);
+//   console.log(person);
+// });
 
-    var cid = result.response.contributors._attributes.cid
-    var cycle = result.response.contributors._attributes.cycle
-    console.log(cid)
-    console.log(cycle)
 
-    result.response.contributors.contributor.forEach(contributor => {
-        // console.log(contributor)
 
-        politicians.updateMany({id: 'A000374'},
-          {
-            "$push": {
-              "donors": {
-                "year": cycle,
-                "org_name": contributor._attributes.org_name,
-                "total": contributor._attributes.total,
-                "pacs": contributor._attributes.pacs,
-                "indivs": contributor._attributes.indivs
-              }, $sort: {"total":1}
-            }
-          },
-          {safe: true},
-          function(err, model) {
-              console.log('error IS ' + err);
-        })
-    })
-  })
-}).on('error', (e) => {
-  console.error('ERROR IS ' + e);
-});
+// var query = politicians.find({})
+// query.select('crp_id')
+//
+// query.exec(function (err, person) {
+//   if (err) console.log('error is ' + err);
+//   console.log(person);
+// });
 
-var query = politicians.find({id: 'A000374'})
-query.select('donors')
-
-query.exec(function (err, person) {
-  if (err) console.log('error is ' + err);
-  console.log(person);
-});
+//
+// politicians.find({}, 'crp_id', function (err, person) {
+//   if (err) return err;
+//
+//   console.log(person);
+// });
