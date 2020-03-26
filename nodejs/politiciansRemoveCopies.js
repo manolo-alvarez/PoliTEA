@@ -74,45 +74,28 @@
 
  const politician = mongoose.model('politician', Politicians);
 
-politician.find({short_title: "Rep."}, function(err, doc){
+  politician.aggregate([
+    { $match: {
+      id: { "$ne": '' }
+    }},
+    { $group: {
+      _id: { id: "$id"}, // can be grouped on multiple properties
+      uniqueIds: { "$addToSet": "$_id" },
+      count: { "$sum": 1 }
+    }},
+    { $match: {
+      count: { "$gt": 1 }    // Duplicates considered as count greater than one
+    }}
+  ]).allowDiskUse(true).exec(function(err, data){
+    if(err) console.log("ERROR");
 
-  if (err) console.log(err)
+    data.forEach(function(doc) {
+      doc.uniqueIds.shift();      // First element skipped for deleting
+      politician.remove({_id : {$in: doc.uniqueIds }}).remove(function(err, numRemoved){
 
-  doc.forEach((member) => {
+        if(err) console.log(err)
 
-    var url = MEMBERS_URL + member.id + "/votes.json";
-
-    https.get(url, {headers: {'X-API-Key': 'P3QUvk64v2F2XNUHwHPyhhfqs22CVRE2NVlUvELJ'}}, (resp) => {
-      let json = '';
-
-      // A chunk of data has been recieved.
-      resp.on('data', (chunk) => {
-        json += chunk;
-      });
-
-      // The whole response has been received. Print out the result.
-      resp.on('end', () => {
-        var data = JSON.parse(json)
-        var votes = new Array();
-
-        data.results[0].votes.forEach(specificVote => {
-
-          votes.push(specificVote)
-        });
-
-        politician.updateOne({_id : member._id }, {votes: votes}, {multi:true}, function(err, done){
-
-          if(err) console.log(err)
-
-          console.log("Added votes for " + member.first_name + " " + member.last_name)
-        });
-
-      });
-
-    }).on("error", function(error) {
-          console.log(error);
+        console.log(numRemoved)
+      }) // Delete remaining duplicates
     });
-
-  });
-
-});
+  });              // You can display result until this and check duplicates
