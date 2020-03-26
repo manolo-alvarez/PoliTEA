@@ -1,5 +1,6 @@
 const politicians = require('./RestAPI/server')
-const uri = "mongodb+srv://megan:123@clustertest-wsnll.mongodb.net/test?retryWrites=true&w=majority"
+const uri = 'mongodb+srv://truther:berniebitches420@cluster0-p5cmn.mongodb.net/test?retryWrites=true&w=majority'
+// const uri = "mongodb+srv://megan:123@clustertest-wsnll.mongodb.net/test?retryWrites=true&w=majority"
 const express = require('express');
 const app = express();
 const mongoose = require('mongoose');
@@ -26,7 +27,8 @@ function connectDb(callback) {
 
   db.once('open', function() {
       console.log('Connected')
-      if (callback) callback()
+      // if (callback) callback()
+      getCrp()
   })
 }
 
@@ -48,14 +50,16 @@ function getCrp(callback) {
     })
     console.log('array is ' + crp_array)
     if (callback) callback()
-    // else console.log("callback error in getCrp")
-    // console.log('array is ' + crp_array)
+    populateDonors()
   })
 
 }
 ////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
 
+function printArray() {
+  console.log('global array is ' + crp_array)
+}
 
 ////////////////////////////////////////////////////////////////////////////////
 // Retrieve contribution data from OpenSecrets API and update database
@@ -118,8 +122,8 @@ function populateDonors() {
                           console.log('docs is ' + docs)
                         })
                     })
-              }) // finished updating remote database
-          }) //finished retrieving and updating data for current crp_id
+              }) // finished pushing one contributor to database for current cid
+          }) //finished updating all donors for current crp_id
       } //end of if statment (status code is 200)
       }).on('error', (e) => {
         console.error('GET error: ' + e);
@@ -129,92 +133,4 @@ function populateDonors() {
 ////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
 
-// connectDb(getCrp(populateDonors()))
-// getCrp()
-connectDb(populateDonors())
-// populateDonors()
-
-
-// const contributionSchema = new mongoose.Schema({
-//     crp_id: String,
-//     cycle: String,
-//     contributors: [{
-//       org_name: String,
-//       total: String,
-//       pacs: String,
-//       indivs: String
-//     }]
-// });
-//
-// const Contributions = mongoose.model('Contributions', contributionSchema);
-
-// let c = new Contributions({
-//     crp_id: 'N0001',
-//     cycle: '2020',
-//     contributors: [{org_name: "FB", total: '1', pacs: '2', indivs: '3'}, {org_name: 'Google', total: '4', pacs: '5', indivs: '6'}]
-// })
-// c.save();
-//
-// politicians.updateOne({crp_id: 'N0001'}, {
-//     net_worth: '4',
-// }, function(err, numberAffected, rawResponse) {
-//     console.log(err);
-// })
-
-// var query = politicians.findOne({'crp_id': 'N0003'})
-// query.select('donors')
-//
-// query.exec(function (err, person) {
-//   if (err) console.log('error is ' + err);
-//   console.log(person);
-// });
-
-
-// politicians.updateOne({last_name: 'Amash'}, {
-//     first_name: 'Test',
-// }, function(err, numberAffected, rawResponse) {
-//     console.log(err);
-// })
-
-
-// var query = politicians.findOne({'crp_id': cid})
-// query.select('donors')
-//
-// query.exec(function (err, person) {
-//   if (err) console.log('error is ' + err);
-//   console.log(person);
-// });
-
-// var query = politicians.find({'last_name': 'Amash'})
-// // query.select('donors')
-//
-// query.exec(function (err, person) {
-//   if (err) console.log('error is ' + err);
-//   console.log(person);
-// });
-
-
-// var query = politicians.find({id: 'A000374'})
-// query.select('donors')
-//
-// query.exec(function (err, person) {
-//   if (err) console.log('error is ' + err);
-//   console.log(person);
-// });
-
-
-
-// var query = politicians.find({})
-// query.select('crp_id')
-//
-// query.exec(function (err, person) {
-//   if (err) console.log('error is ' + err);
-//   console.log(person);
-// });
-
-//
-// politicians.find({}, 'crp_id', function (err, person) {
-//   if (err) return err;
-//
-//   console.log(person);
-// });
+connectDb()
