@@ -6,7 +6,6 @@ const url = `http://www.opensecrets.org/api/?method=${method}&year=${year}&cid=$
 var request = new XMLHttpRequest()
 request.open('GET', url, true)
 
-// Must send request with API key as a header. Key can be used at most 1000 times/day
 // request.setRequestHeader('X-API-Key', '52f80155d9bb4bd043b2ef5c7e05e9cc')
 request.onreadystatechange = function() {
   if (this.readyState == 4 && this.status == 200) {
