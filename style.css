@@ -13,6 +13,19 @@
     border: 1px solid gray;
 }
 
+#us{
+    float: left;
+    margin-left: 0;
+    margin-right: 4;
+    
+}
+
+#git{
+    float: left;
+    margin-left: 4;
+    margin-right: 4;}
+
+
 @media screen and (min-width: 600px) {
     .card {
         flex: 1 1 calc(50% - 2rem);

@@ -71,61 +71,36 @@
 
 
 function show_events(){
+      
+     let oData = JSON.parse(localStorage.getItem("eventObj"));
+     console.log("this is object passed from find: " +oData);
 
-   var oArgs = {
+     for(var i = 0;i < oData.events.event.length;i++){
+      var title = oData.events.event[i].title;
+      var time = oData.events.event[i].start_time;
+      if (time != null){
+        if (oData.events.event[i].stop_time != null)
+          time +=' - '+oData.events.event[i].stop_time;
+        time = time + "  |  ";
+      }
 
-      app_key: "sWWmrMk9BSdFZKQL",
+      addr = "";
+      if (oData.events.event[i].venue_address != null)
+        addr = oData.events.event[i].venue_address;
+      time = time + addr;
 
-      c: "politics_activism",
-
-      where: "chicago",
-
-      "date": "Future",
-
-      page_size: 50,
-
-      sort_order: "popularity",
-
-   };
-
-   EVDB.API.call("/events/search", oArgs, function(oData) {
-     oData = JSON.stringify(oData);
-     oData = JSON.parse(oData);
-    // var myTitles = document.getElementById("event_title");
-    // var para = document.createElement("title");   // Create a  <p> node
-     //var t =  document.createTextNode("This is a paragraph.");
-     var data = '';
-     console.log(oData);
-
-            for(var i = 0;i < oData.events.event.length;i++){
-              var title = oData.events.event[i].title;
-              var time = oData.events.event[i].start_time;
-              if (time != null){
-                if (oData.events.event[i].stop_time != null)
-                  time +=' - '+oData.events.event[i].stop_time;
-                time = time + "  |  ";
-              }
-
-              addr = "";
-              if (oData.events.event[i].venue_address != null)
-                addr = oData.events.event[i].venue_address;
-              time = time + addr;
-
-              description = "";
-              if (oData.events.event[i].description != null)
-                description = oData.events.event[i].description;
+      description = "";
+      if (oData.events.event[i].description != null)
+        description = oData.events.event[i].description;
 
 
-              url = oData.events.event[i].url;
-              if (url != null)
-                url = "Visit for more information: <br>"+url;
-              data += '<h3 id="ev_title">'+title+'</h3>'+'<h4 id="ev_time">'+ time+'</h4>'+'<p>'+ description+'</p>'+'<p>'+ url+'</p>'+'<br>';
-          }
+      url = oData.events.event[i].url;
+      if (url != null)
+        url = "Visit for more information: <br>"+url;
+      data += '<h3 id="ev_title">'+title+'</h3>'+'<h4 id="ev_time">'+ time+'</h4>'+'<p>'+ description+'</p>'+'<p>'+ url+'</p>'+'<br>';
+     }
            document.getElementById('event_data').innerHTML  =   data;
-            //console.log(oData.events.event[1]);
-    })
-    //});
-
+            // console.log(oData.events.event[1]);
 }
 
 </script>
@@ -134,6 +109,8 @@ function show_events(){
 
 <body>
 
+<script src="./mongo/bundle.js"></script>
+<!-- <script src="./mongo/findEventsMongo.js"></script> -->
 <script>show_events();</script>
 </div>
 <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>

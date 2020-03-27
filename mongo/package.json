@@ -10,7 +10,11 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.17.1",
     "fetch-inject": "^1.7.2",
-    "mongodb": "^3.5.5"
+    "mongodb": "^3.5.5",
+    "mongoose": "^5.9.6",
+    "uniq": "^1.0.1"
   }
 }

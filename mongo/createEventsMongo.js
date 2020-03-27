@@ -2,7 +2,8 @@ async function main(oArgs){
 
     const mongoose = require('mongoose');
     const https = require('http');  
-    const uri = "mongodb+srv://neeti:fundofun@cluster0-iqc07.mongodb.net/locations?retryWrites=true&w=majority";
+    // const uri = "mongodb+srv://neeti:fundofun@cluster0-iqc07.mongodb.net/locations?retryWrites=true&w=majority";
+    const uri = "mongodb+srv://truther:berniebitches420@cluster0-p5cmn.mongodb.net/locations?retryWrites=true&w=majority"
     const EVENTFUL_ROOT_URL = 'http://api.eventful.com/json';
     try {
       // Connect to the MongoDB cluster
@@ -76,11 +77,17 @@ async function main(oArgs){
           // The whole response has been received. Print out the result.
           resp.on('end', () => {
               var odata = JSON.parse(json);
-              // console.table(odata);
+              // console.log("----Currently iterating through " + odata.page_number);
+              var page_no = odata.page_number;
               odata.events.event.forEach(eventObj => {
-
                   event.create(eventObj, function (err, eventObj) {
-                    if (err) return "error creating";
+                    if (err) {
+                      return "error creating"; 
+                      console.log(err);}
+                    else {
+                        console.log("Creating page" + page_no +" docs...");
+                      }
+
                   });
               });
           });
@@ -89,7 +96,7 @@ async function main(oArgs){
           console.log("get problem");
     });
       ////////logevent end
-      mongoose.connection.close();
+      // mongoose.connection.close();
     } catch (e) {
       console.error(e);
     } 
@@ -136,8 +143,8 @@ async function main(oArgs){
  
     async  function setURL(EVENTFUL_ROOT_URL, oArgs){
 
-    var c, where, date, page_size, sort_order;
-    c = where = date= page_size= sort_order = '';
+    var c, where, date, page_size, location, page_number;
+    c = where = date= page_size= location = '';
 
     if (oArgs.c !=null) 
         c=  "&&c=" + oArgs.c;
@@ -147,16 +154,23 @@ async function main(oArgs){
         date = "&&date=" + oArgs.date;
     if (oArgs.page_size !=null)  
         page_size = "&&page_size=" + oArgs.page_size;
-    if (oArgs.sort_order !=null) 
-        sort_order = "&&sort_order=" + oArgs.sort_order;
-
-    var EVENTFUL_URL = EVENTFUL_ROOT_URL + "/events/search?app_key=" + oArgs.app_key+c+where+date+page_size+sort_order;
+    if (oArgs.page_number !=null)  
+        page_number = "&&page_number=" + oArgs.page_number;
+    if (oArgs.location !=null) {
+        location = "&&location=" + oArgs.location;
+        if (location = "United States")
+          location = "&&location=United%20States";
+    }
+    var EVENTFUL_URL = EVENTFUL_ROOT_URL + "/events/search?app_key=" + oArgs.app_key+c+where+date+page_size+page_number+location;
     console.log(EVENTFUL_URL);
     return EVENTFUL_URL;
     }
 
 //"page_number":"2","page_size":"1","page_items":null, "page_count":"5
-  var oArgs = {
+// const page_count =4;
+// for (var i =0; i < page_count; i++){  
+//TOFIX: MANUALLY RAN CODE $PAGE_COUNT TIME (4)
+var oArgs = {
   
     app_key: "sWWmrMk9BSdFZKQL",
 
@@ -166,11 +180,13 @@ async function main(oArgs){
 
     "date": "Future",
 
-    page_size: 1500
+    page_size: 250,
 
-    // sort_order: "popularity",
+    page_number:4,
+
+    location: "United States"
 
   };
   main(oArgs).catch(console.error);
-  
+// }
   

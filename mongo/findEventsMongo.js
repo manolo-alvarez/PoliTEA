@@ -1,6 +1,6 @@
-var mongoose = require('mongoose');
+// function main(oArgs){
+var mongoose = require('mongoose/browser');
 const uri = "mongodb+srv://neeti:fundofun@cluster0-iqc07.mongodb.net/locations?retryWrites=true&w=majority";
-
 
 mongoose.connect(uri, {
   useNewUrlParser: true,
@@ -26,9 +26,24 @@ const Event = new Schema({
 });
 
 var event = mongoose.model('event', Event);
+var oArgs = {
+  'city_name': 'Chicago'
+};
+event.find(oArgs , (err, result) => {
+  if (err) {
+      localStorage.setItem("eventObj", "ERROR FINDING");
+      console.log(err);
+  } else {
+      console.log(result);
+      localStorage.setItem("eventObj", JSON.stringify(result));
+      mongoose.connection.close()
 
-event.findOne({}, function(err, result) {
-    if (err) throw err;
-    console.log(result);
-  });
-  mongoose.connection.close()
+  }
+});
+
+// }
+// var oArgs = {
+//   'city_name': 'Chicago'
+// };
+// main(oArgs);
+
