@@ -37,98 +37,132 @@
         <!-- Custom styles for this template -->
         <link href="address.css" rel="stylesheet">
 
-        <!-- Nav Bar -->
-        <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
-          <a class="navbar-brand" href="Splash.html">poli<strong>tea</strong></a>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse"  aria-expanded="false" aria-label="Toggle navigation">
-              <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarCollapse">
-              <ul class="navbar-nav mr-auto">
-                <li class="nav-item active">
-                  <a class="nav-link" href="./about.html">About<span class="sr-only">(current)</span></a>
-                </li>
-                <li class="nav-item active">
-                  <a class="nav-link" href="./politicians.html">Politicians<span class="sr-only">(current)</span></a>
-                </li>
-                <li class="nav-item active">
-                  <a class="nav-link" href="./Legislation.html">Legislation<span class="sr-only">(current)</span></a>
-                </li>
-                <li class="nav-item active">
-                  <a class="nav-link" href="./state_overview.html">State Overview<span class="sr-only">(current)</span></a>
-                </li>
-                <li class="nav-item ">
-                  <a class="nav-link disabled" href="#"  tabindex="-1" aria-disabled="true">Get Involved<span class="sr-only">(current)</span></a>
-                </li>
-              </ul>
-              </form>
-            </div>
-          </nav>
-          <br><br>
-
+              <!-- Nav Bar -->
+              <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+                  <a class="navbar-brand" href="Splash.html">poli<strong>tea</strong></a>
+                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse"  aria-expanded="false" aria-label="Toggle navigation">
+                      <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="collapse navbar-collapse" id="navbarCollapse">
+                      <ul class="navbar-nav mr-auto">
+                        <li class="nav-item active">
+                          <a class="nav-link" href="./about.html">About<span class="sr-only">(current)</span></a>
+                        </li>
+                        <li class="nav-item active">
+                          <a class="nav-link" href="./politicians.html">Politicians<span class="sr-only">(current)</span></a>
+                        </li>
+                        <li class="nav-item active">
+                          <a class="nav-link" href="./Legislation.html">Legislation<span class="sr-only">(current)</span></a>
+                        </li>
+                        <li class="nav-item ">
+                          <a class="nav-link disabled" href="#"  tabindex="-1" aria-disabled="true">Get Involved<span class="sr-only">(current)</span></a>
+                        </li>
+                      </ul>
+                    </div>
+                  </nav>
+                  <br>
+                  <br>
+                                  
     </head>
+
     <body>
-        <div class="container">
-                <div class="jumbotron p-4 p-md-5 text-white rounded bg-dark">
-                    <div class="col-md-6 px-0">
-                    <h1 class="display-4 font-italic">Enter a location to learn more!</h1>
-                    <p class="lead my-3">Find events, polling locations, and current district representatives </p>
-                    <div class="input-group input-group-lg">
-                        <div class="input-group-prepend">
-                            <span class="input-group-text" id="inputGroup-sizing-lg">Address</span>
-                        </div>
-                        <input type="text" value= "110 Inner Campus Drive, Austin, TX 78712" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-lg">
-                    </div>
 
+      <div class ="container">
+          <div class="jumbotron jumbotron-fluid text-white rounded bg-dark">
+              <div class="container">
+              <h1 class="display-4 font-italic">Enter a location to learn more!</h1>
+              <p class="lead my-3">Find events, polling locations, and current state & district representatives </p>
+                  <Form>
+                <div class="form-row">
+                      <div class="form-group col-md-12">
+                          <label for="inputAddress">Address</label>
+                          <input  type="text" class="form-control" id="inputAddress">
+                      </div>
+                      <div class="form-group col-md-6">
+                        <label for="inputCity">City</label>
+                        <input type="text" class="form-control" id="inputCity">
+                      </div>
+                      <div class="form-group col-md-4">
+                        <label for="inputState">State Abbreviation</label>
+                        <input type="text" id="inputState" class="form-control">
+                      </div>
+                      <div class="form-group col-md-2">
+                        <label for="inputZip">Zip</label>
+                        <input type="text" class="form-control" id="inputZip">
+                      </div>
+                    </div>
+                  </Form>
+                             
+              </div>
+          </div>
+
+          <div class="row mb-2">
+              <div class="col-md-6">
+                <div class="row no-gutters border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
+                    <div class="col p-4 d-flex flex-column position-static">
+                    <h3 class="mb-0"> Political Events</h3>
+                    <p class="card-text mb-auto">Information regarding political events near you.</p>
+                    <a href="./Events.html" class="btn btn-primary" onclick="saveAddress(this);return false;"> Let's Rally!</a>
+                    </div>
+                    <div class="col-auto d-none d-lg-block">
                     </div>
                 </div>
+              </div>
 
-                <div class="row mb-2">
-                    <div class="col-md-6">
-                    <div class="row no-gutters border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
-                        <div class="col p-4 d-flex flex-column position-static">
-                        <h3 class="mb-0"> Political Events</h3>
-                        <p class="card-text mb-auto">Information regarding political events near you.</p>
-                        <a href="./Events.html" class="btn btn-primary"> Let's Rally!</a>
-                        </div>
-                        <div class="col-auto d-none d-lg-block">
-                        </div>
+              <div class="col-md-6">
+                <div class="row no-gutters border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
+                    <div class="col p-4 d-flex flex-column position-static">
+                    <h3 class="mb-0"> State Representatives </h3>
+                    <p class="card-text mb-auto">Information regarding your State representatives.</p>
+                    <a href="./district_reps.html" class="btn btn-primary" onclick="saveAddress(this);return false;"> Get Familiar!</a>
                     </div>
+                    <div class="col-auto d-none d-lg-block">
                     </div>
-
-                    <div class="col-md-6">
-                        <div class="row no-gutters border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
-                            <div class="col p-4 d-flex flex-column position-static">
-                            <h3 class="mb-0"> District Representatives </h3>
-                            <p class="card-text mb-auto">Information regarding your district representatives.</p>
-                            <a href="./district_reps.html" class="btn btn-primary"> Stay Informed!</a>
-                            </div>
-                            <div class="col-auto d-none d-lg-block">
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col-md-6">
-                            <div class="row no-gutters border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
-                                <div class="col p-4 d-flex flex-column position-static">
-                                <h3 class="mb-0"> Polling Locations</h3>
-                                <p class="card-text mb-auto">Information regarding polling locations near you.</p>
-                                <a href="./Polls.html" class="btn btn-primary"> Let's vote!</a>
-                                </div>
-                                <div class="col-auto d-none d-lg-block">
-                                </div>
-                            </div>
-                        </div>
-
                 </div>
+              </div>
+
+              <div class="col-md-6">
+                  <div class="row no-gutters border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
+                      <div class="col p-4 d-flex flex-column position-static">
+                      <h3 class="mb-0"> Polling Locations</h3>
+                      <p class="card-text mb-auto">Information regarding polling locations near you.</p>
+                      <a href="./Polls.html" class="btn btn-primary" onclick="saveAddress(this);return false;"> Let's vote!</a>
+                      </div>
+                      <div class="col-auto d-none d-lg-block">
+                      </div>
+                  </div>
+              </div>
+
+              <div class="col-md-6">
+                <div class="row no-gutters border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
+                    <div class="col p-4 d-flex flex-column position-static">
+                    <h3 class="mb-0"> District Representatives </h3>
+                    <p class="card-text mb-auto">Information regarding your district representatives.</p>
+                    <a href="./district_reps.html" class="btn btn-primary" onclick="saveAddress(this);return false;"> Stay Informed!</a>
+                    </div>
+                    <div class="col-auto d-none d-lg-block">
+                    </div>
+                </div>
+              </div>
+
+
             </div>
+          </div>
 
         <footer class="blog-footer">
         <p>
             <a href="#">Back to top</a>
         </p>
         </footer>
-
+        <script>
+          function saveAddress(elmnt) {
+            localStorage.setItem("address",document.getElementById('inputAddress').value);
+            localStorage.setItem("city",document.getElementById('inputCity').value)
+            localStorage.setItem("state",document.getElementById('inputState').value)
+            localStorage.setItem("zip",document.getElementById('inputZip').value)
+            location.href=elmnt.href;
+          }
+        </script>
         <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
         <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
