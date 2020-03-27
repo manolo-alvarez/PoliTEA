@@ -133,7 +133,12 @@
                         }
 
                     },
-                        function(err) { console.error("Execution error", err); })
+                    function(err) { 
+                          console.error("Execution error", err);
+                          alert("Enter a valid address!")
+                          location.href="./address.html";
+                        
+                        })
             }
             gapi.load("client");
             window.onload = loadClient;

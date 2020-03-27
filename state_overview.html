@@ -59,8 +59,6 @@
     <body>
     
         <div id="root" class="container">
-            <button onclick="location.href = 'address.html';" class="btn btn-primary btn-lg btn-block">Find out more!</button>
-            <br>
         </div>
 
         <script>
@@ -70,12 +68,13 @@
             * https://developers.google.com/explorer-help/guides/code_samples#javascript
             */
             function loadClient() {
+            const division = "ocd-division/country:us/state:"+localStorage.getItem("state")
             gapi.client.setApiKey("AIzaSyBxblHg9N0p6-un0y8HD0QOgD7sryfhcKQ");
             return gapi.client.load("https://content.googleapis.com/discovery/v1/apis/civicinfo/v2/rest")
                 .then( function() {
                         //console.log("loaded");
                         return gapi.client.civicinfo.representatives.representativeInfoByDivision({
-                        "ocdId": "ocd-division/country:us/state:tx"})},
+                        "ocdId": division})},
                         function(err) { console.error("Error loading GAPI client for API", err);})
                 .then(function(response) {
                         //console.log("hello");
@@ -124,7 +123,11 @@
                         }
 
                     },
-                        function(err) { console.error("Execution error", err); })
+                        function(err) { 
+                          console.error("Execution error", err);
+                          alert("Enter a valid address!");
+                          location.href="./address.html";
+                        })
             }
             gapi.load("client");
             window.onload = loadClient;
