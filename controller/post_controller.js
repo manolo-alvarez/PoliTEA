@@ -6,7 +6,7 @@ exports.showIndex = (req, res, next) => {
 
 
 exports.showPolitician = (req, res, next) => {
-  politicians.find({"last_name": "Amash"},  function (err, docs) {
+  politicians.find({"id": req.params.id},  function (err, docs) {
     if (err) return err
     res.status(200).json(docs)
   })

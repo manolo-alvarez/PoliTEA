@@ -90,7 +90,26 @@ const politicianSchema = new mongoose.Schema({
       total: String,
       pacs: String,
       indivs: String
-    }]
+    }],
+  industries:
+    [{
+      year: String,
+      industry_name: String,
+      total: String,
+      pacs: String,
+      indivs: String
+    }],
+  finances:
+  [{
+      year: String,
+      net_worth: Number,
+      total_assets: Number,
+  }],
+  assets: [{
+    year: String,
+    name: String,
+    asset_value: Number
+  }]
 });
 
 const locationSchema = new mongoose.Schema({

@@ -7,7 +7,7 @@ router.get('/',postcontroller.showIndex)
 
 
 
-router.get('/politician', postcontroller.showPolitician);
+router.get('/politician/:id', postcontroller.showPolitician);
 
 
 
