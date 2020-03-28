@@ -21,7 +21,7 @@ async function main(oArgs){
         // calendar_count: String,
         // comment_count: String,
         // region_abbr: String,
-        // postal_code: String,
+        postal_code: String,
         // going_count: String,
         // all_day: String,
         // latitude: String,
