@@ -5,6 +5,7 @@ const Event = new Schema({
     url: String,
     id: String,
     city_name: String,
+    region_abbr: String,
     postal_code: String,
     country_name: String,
     region_name: String,

@@ -19,7 +19,7 @@ async function main(oArgs){
         // olson_path: String,
         // calendar_count: String,
         // comment_count: String,
-        // region_abbr: String,
+        region_abbr: String,
         postal_code: String,
         // going_count: String,
         // all_day: String,
@@ -51,7 +51,28 @@ async function main(oArgs){
         // going: String,
         // country_abbr2: String,
         // image: String,
-        // created: String,
+      //   image:[{
+      //     // small:[{
+      //     //     width: String,
+      //     //     url: String,
+      //     //     height: String
+      //     // }],
+      //     width: String,
+      //     caption: String,
+      //     // medium:[{
+      //     //     width: String,
+      //     //     url: String,
+      //     //     height: String
+      //     // }],
+      //     url: String,
+      //     // thumb:[{
+      //     //     width: String,
+      //     //     url: String,
+      //     //     height: String
+      //     // }],
+      //         height: String
+      // }],
+          // created: String,
         // venue_id: String,
         // tz_city: String,
         stop_time: String,
@@ -61,10 +82,12 @@ async function main(oArgs){
       });
       
       var event = mongoose.model('event', Event);
-    //   await logEvent(location, EVENTFUL_ROOT_URL, https, oArgs);
-      ////////logevent begin
       var EVENTFUL_URL = await setURL(EVENTFUL_ROOT_URL, oArgs);
- 
+     
+      //TEMP FOR TESTING
+      // var EVENTFUL_URL = "http://api.eventful.com/json/events/search?app_key=sWWmrMk9BSdFZKQL&&c=politics_activism&&location=Chicago&&date=Future&&page_size=1&&page_number=1&&location=United%20States";
+      // console.log(EVENTFUL_URL);
+
       https.get(EVENTFUL_URL, (resp) => {
           let json = '';
 
@@ -84,7 +107,7 @@ async function main(oArgs){
                       return "error creating"; 
                       console.log(err);}
                     else {
-                        console.log("Creating page" + page_no +" docs...");
+                        console.log("Creating page " + page_no +" docs...");
                       }
 
                   });
@@ -93,77 +116,40 @@ async function main(oArgs){
 
       }).on("error", function(error) {
           console.log("get problem");
-    });
-      ////////logevent end
-      // mongoose.connection.close();
+    }).on('data', (chunk) => {
+      json += chunk;
+  });
+
     } catch (e) {
       console.error(e);
     } 
 }
   
 
-    async function logEvent(location,  EVENTFUL_ROOT_URL, https, oArgs){
+async  function setURL(EVENTFUL_ROOT_URL, oArgs){
 
-        var EVENTFUL_URL = await setURL(EVENTFUL_ROOT_URL, oArgs);
-        console.log("eventufl url: " + EVENTFUL_URL)
-   
-        https.get(EVENTFUL_URL, (resp) => {
-            let json = '';
+  var c, where, date, page_size, location, page_number;
+  c = where = date= page_size= location = '';
 
-            // A chunk of data has been recieved.
-            resp.on('data', (chunk) => {
-                json += chunk;
-            });
-
-            // The whole response has been received. Print out the result.
-            resp.on('end', () => {
-                var odata = JSON.parse(json)
-                odata.events.event.forEach(event => {
-                    console.log(event.title);
-
-                    // var title = event.title;
-                    // var start_time = event.start_time;
-                    // var stop_time = event.stop_time;
-                    // var addr = event.venue_address;
-                    // var description = event.description;
-                    // var url = event.url;
-
-
-                    location.create(event, function (err, event) {
-                      if (err) return "error creating";
-                    });
-                });
-            });
-
-        }).on("error", function(error) {
-            console.log("prob here");
-      });
-    }
- 
-    async  function setURL(EVENTFUL_ROOT_URL, oArgs){
-
-    var c, where, date, page_size, location, page_number;
-    c = where = date= page_size= location = '';
-
-    if (oArgs.c !=null) 
-        c=  "&&c=" + oArgs.c;
-    if (oArgs.where !=null) 
-        where = "&&location=" + oArgs.where;
-    if (oArgs.date !=null) 
-        date = "&&date=" + oArgs.date;
-    if (oArgs.page_size !=null)  
-        page_size = "&&page_size=" + oArgs.page_size;
-    if (oArgs.page_number !=null)  
-        page_number = "&&page_number=" + oArgs.page_number;
-    if (oArgs.location !=null) {
-        location = "&&location=" + oArgs.location;
-        if (location = "United States")
-          location = "&&location=United%20States";
-    }
-    var EVENTFUL_URL = EVENTFUL_ROOT_URL + "/events/search?app_key=" + oArgs.app_key+c+where+date+page_size+page_number+location;
-    console.log(EVENTFUL_URL);
-    return EVENTFUL_URL;
-    }
+  if (oArgs.c !=null) 
+      c=  "&&c=" + oArgs.c;
+  if (oArgs.where !=null) 
+      where = "&&location=" + oArgs.where;
+  if (oArgs.date !=null) 
+      date = "&&date=" + oArgs.date;
+  if (oArgs.page_size !=null)  
+      page_size = "&&page_size=" + oArgs.page_size;
+  if (oArgs.page_number !=null)  
+      page_number = "&&page_number=" + oArgs.page_number;
+  if (oArgs.location !=null) {
+      location = "&&location=" + oArgs.location;
+      if (location = "United States")
+        location = "&&location=United%20States";
+  }
+  var EVENTFUL_URL = EVENTFUL_ROOT_URL + "/events/search?app_key=" + oArgs.app_key+c+where+date+page_size+page_number+location;
+  console.log(EVENTFUL_URL);
+  return EVENTFUL_URL;
+  }
 
 //"page_number":"2","page_size":"1","page_items":null, "page_count":"5
 // const page_count =4;
@@ -186,6 +172,6 @@ var oArgs = {
     location: "United States"
 
   };
+
   main(oArgs).catch(console.error);
-// }
   

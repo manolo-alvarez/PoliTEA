@@ -2,61 +2,58 @@
 const loadBooks = () => {
   const xhttp = new XMLHttpRequest();
 
-  xhttp.open("GET", "http://localhost:3000/events/city/Dallas", false);
+  xhttp.open("GET", "http://localhost:3000/events/city/chicago", false);
   xhttp.send();
+  show_events(xhttp);
+}
+
+
+function show_events (xhttp){
 
   const oData = JSON.parse(xhttp.responseText);
-  // for (let book of books) {
-  //     const x = `
-  //         <div class="col-4">
-  //             <div class="card">
-  //                 <div class="card-body">
-  //                     <h5 class="card-title">${book.title}</h5>
-  //                     <h6 class="card-subtitle mb-2 text-muted">${book.start_time}</h6>
+    
+  for (let event of oData) {
+    var title = "";
+    if (event.title != null)
+        title = event.title;
 
-  //                     <div>Description: ${book.description}</div>
-  //                     <div>Address: ${book.venue_address}</div>
-  //                     <div>More Information: ${book.url}</div>
+    var time = "";
+    time = event.start_time;
+    if (time != null){
+      if (event.stop_time != null)
+        time +=' - '+event.stop_time;
+    }
 
-  //                     <hr>
-  //                 </div>
-  //             </div>
-  //         </div>
-  //     `
+    var addr = "";
+    if (event.venue_address != null)
+      addr = event.venue_address;
 
-      
-  //     // document.getElementById('event_data').innerHTML = document.getElementById('event_data').innerHTML + x;
+    var description = "";  
+    if (event.description != null)
+      description = event.description;
 
-  // }
-      console.log(oData);
-      var data = '';
+    var url = "";
+    if (event.url != null)
+        url = event.url;
 
-      for(var i = 0;i < oData.length;i++){
-        var title = oData[i].title;
-        var time = oData[i].start_time;
-        if (time != null){
-          if (oData[i].stop_time != null)
-            time +=' - '+oData[i].stop_time;
-          time = time + "  |  ";
-        }
-  
-        addr = "";
-        if (oData[i].venue_address != null)
-          addr = oData[i].venue_address;
-        time = time + addr;
-  
-        description = "";
-        if (oData[i].description != null)
-          description = oData[i].description;
-  
-  
-        url = oData[i].url;
-        if (url != null)
-          url = "Visit for more information: <br>"+url;
+    const x = `
+        <div>
+            <div class="row no-gutters border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
+                <div class="card-body">
+                    <h5 class="card-title">${title}</h5>
+                    <h6 class="card-subtitle mb-2 text-muted">${time}</h6>
+                    <h6 class="card-subtitle mb-2 text-primary">${addr}</h6>
+                    <div>${description}</div>
+                    <hr>
+                    <button onclick="window.location.href = '${url}';" class="btn btn-primary">More Info</button>
 
-        data += '<h3 id="ev_title">'+title+'</h3>'+'<h4 id="ev_time">'+ time+'</h4>'+'<p>'+ description+'</p>'+'<p>'+ url+'</p>'+'<br>';
-      }
-      document.getElementById('event_data').innerHTML  =   data;
+                </div>
+            </div>
+        </div>
+    `
+    document.getElementById('event_data').innerHTML = document.getElementById('event_data').innerHTML + x;
+    }
+
 }
 
 loadBooks();
