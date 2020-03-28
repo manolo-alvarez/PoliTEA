@@ -10,9 +10,9 @@ exports.showZipCodeEvents = (req, res, next) => {
     if (err || docs.length==0) {
       return res.status(404).send('No upcoming events found within zip code ' + req.params.id)
     }
-    var A = new Date(); 
-    res.status(200).json({"date":A})
-    // res.status(200).json(docs)
+    // var A = new Date(); 
+    // res.status(200).json({"date":A})
+    res.status(200).json(docs)
   })
 }
 
