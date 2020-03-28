@@ -57,9 +57,6 @@ const loadBooks = () => {
         data += '<h3 id="ev_title">'+title+'</h3>'+'<h4 id="ev_time">'+ time+'</h4>'+'<p>'+ description+'</p>'+'<p>'+ url+'</p>'+'<br>';
       }
       document.getElementById('event_data').innerHTML  =   data;
-
-      // document.getElementById('event_data').innerHTML = document.getElementById('event_data').innerHTML + y;
-
 }
 
 loadBooks();

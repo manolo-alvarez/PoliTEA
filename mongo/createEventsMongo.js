@@ -2,7 +2,6 @@ async function main(oArgs){
 
     const mongoose = require('mongoose');
     const https = require('http');  
-    // const uri = "mongodb+srv://neeti:fundofun@cluster0-iqc07.mongodb.net/locations?retryWrites=true&w=majority";
     const uri = "mongodb+srv://truther:berniebitches420@cluster0-p5cmn.mongodb.net/locations?retryWrites=true&w=majority"
     const EVENTFUL_ROOT_URL = 'http://api.eventful.com/json';
     try {
