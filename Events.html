@@ -56,23 +56,19 @@
 </div>
 <br>
 
-<script type="text/javascript" src="http://api.eventful.com/js/api"> </script>
-<script type="text/javascript">
-
-
-</script>
+<!-- <script type="text/javascript" src="http://api.eventful.com/js/api"> </script> -->
+<script type="text/javascript"></script>
 
 <div class=container>
-  <ul id="event_data"></ul>
+  <!-- <ul id="event_data"></ul> -->
+  <div class="row" id="event_data"></div>
 </div>
 
 <script>
-
-
-
 function show_events(){
-      
-     let oData = JSON.parse(localStorage.getItem("eventObj"));
+
+    let oData = JSON.parse(document.getElementById('event_data').innerHTML);
+    //  let oData = JSON.parse(localStorage.getItem("eventObj"));
      console.log("this is object passed from find: " +oData);
 
      for(var i = 0;i < oData.events.event.length;i++){
@@ -102,16 +98,14 @@ function show_events(){
            document.getElementById('event_data').innerHTML  =   data;
             // console.log(oData.events.event[1]);
 }
-
 </script>
 
 
 
 <body>
 
-<script src="./mongo/bundle.js"></script>
-<!-- <script src="./mongo/findEventsMongo.js"></script> -->
-<script>show_events();</script>
+<script src="./test.js"></script>
+<!-- <script>show_events();</script> -->
 </div>
 <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
