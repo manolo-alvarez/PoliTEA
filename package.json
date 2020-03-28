@@ -1,0 +1,26 @@
+{
+  "name": "donations-app",
+  "version": "1.0.0",
+  "description": "Populate database from pulling from OpenSecrets API",
+  "main": "app.js",
+  "dependencies": {
+    "express": "^4.17.1",
+    "mongoose": "^5.9.5"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.2"
+  },
+  "scripts": {
+    "dev": "nodemon app.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/malvarez0722/ee461l-team-project.git"
+  },
+  "author": "Megan Nguyen",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/malvarez0722/ee461l-team-project/issues"
+  },
+  "homepage": "https://github.com/malvarez0722/ee461l-team-project#readme"
+}
