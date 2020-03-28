@@ -1,5 +1,5 @@
 // function main(oArgs){
-var mongoose = require('mongoose/browser');
+var mongoose = require('mongoose');
 const uri = "mongodb+srv://neeti:fundofun@cluster0-iqc07.mongodb.net/locations?retryWrites=true&w=majority";
 
 mongoose.connect(uri, {
@@ -35,7 +35,8 @@ event.find(oArgs , (err, result) => {
       console.log(err);
   } else {
       console.log(result);
-      localStorage.setItem("eventObj", JSON.stringify(result));
+      var sendobj = JSON.stringify(result);
+      localStorage.setItem("eventObj", "hey" );
       mongoose.connection.close()
 
   }
