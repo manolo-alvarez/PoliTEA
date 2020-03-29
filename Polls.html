@@ -42,7 +42,15 @@
     <br><br>
 
     <div class=container>
-    <h1>Poll Locations Near Me</h1>
+    <h1>Poll Locations Near You</h1>
+    <script>
+      if ((localStorage.getItem("zip") == "") || localStorage.getItem("city") == "" || localStorage.getItem("state") == ""){
+        window.alert("You must enter a complete address!");
+        window.location.href = "./address.html";
+      }
+
+    </script>
+
     <script>
       /**
        * Build and execute request to look up voter info for provided address.
@@ -132,7 +140,9 @@
        */
       function load() {
         gapi.client.setApiKey('AIzaSyBxblHg9N0p6-un0y8HD0QOgD7sryfhcKQ');
-        lookup('110 Inner Campus Drive Austin, TX', renderResults);
+        // addr = "4612 Dalrock Dr, Plano TX";
+        let addr = localStorage.getItem("address") + ", " + localStorage.getItem("city") + ", "+ localStorage.getItem("state") + " "+ localStorage.getItem("zip");
+        lookup(addr, renderResults);
       }
     </script>
     <script src="https://apis.google.com/js/client.js?onload=load"></script>

@@ -21,4 +21,12 @@ router.get('/finances/:id', postcontroller.showFinances);
 
 router.get('/assets/:id', postcontroller.showAssets)
 
+router.get('/events/zip/:id', postcontroller.showZipCodeEvents);
+
+router.get('/events/city/:id', postcontroller.showCityEvents);
+
+router.get('/events/state/:id', postcontroller.showStateEvents);
+
+router.get('/events/stateAbbr/:id', postcontroller.showStateAbbrEvents);
+
 module.exports = router;

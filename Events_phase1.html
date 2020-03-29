@@ -31,6 +31,9 @@
           <a class="nav-link" href="./Legislation.html">Legislation<span class="sr-only">(current)</span></a>
         </li>
         <li class="nav-item active">
+          <a class="nav-link" href="./state_overview.html">State Overview<span class="sr-only">(current)</span></a>
+        </li>
+        <li class="nav-item active">
           <a class="nav-link" href="./address.html">Get Involved<span class="sr-only">(current)</span></a>
         </li>
       </ul>
@@ -38,47 +41,100 @@
     </div>
   </nav>
 <br><br>
-<!-- End of NavBar, Formatting, & Bootstrap -->
 
 <title>Events</title>
 
 <br>
 <br>
 <div class=container>
-  <h1>Events Near You</h1>
+  <h1>Events Near Me</h1>
 </div>
+
+<div class=container>
+<p>Upcoming events near "110 Inner Campus Drive"</p>
 <hr>
-<script>
+</div>
+<br>
+
+<script type="text/javascript" src="http://api.eventful.com/js/api"> </script>
+<script type="text/javascript">
 
 
-  function chooseRange(range){
-    localStorage.setItem("searchRange", range)
-    window.location.reload();
-  }
 </script>
 
 <div class=container>
-  <h5 >Search for events by: </h5>
-  <button onclick="chooseRange('zip');" class="btn btn-danger ml-4 ">Zip Code</button> 
-  <button onclick="chooseRange('city')" class="btn btn-danger ml-4 ">City</button>
-  <button onclick="chooseRange('state')" class="btn btn-danger ml-4 ">State</button> 
-</div> 
-<br>
-
-
-<div class=container>
-    <p id="display_msg"></p>
+  <ul id="event_data"></ul>
 </div>
 
-<script type="text/javascript"></script>
+<script>
 
-<div class=container>
-  <div class="row" id="event_data"></div>
-</div>
+
+
+function show_events(){
+
+   var oArgs = {
+
+      app_key: "sWWmrMk9BSdFZKQL",
+
+      c: "politics_activism",
+
+      where: "chicago",
+
+      "date": "Future",
+
+      page_size: 50,
+
+      sort_order: "popularity",
+
+   };
+
+   EVDB.API.call("/events/search", oArgs, function(oData) {
+     oData = JSON.stringify(oData);
+     oData = JSON.parse(oData);
+    // var myTitles = document.getElementById("event_title");
+    // var para = document.createElement("title");   // Create a  <p> node
+     //var t =  document.createTextNode("This is a paragraph.");
+     var data = '';
+     console.log(oData);
+
+            for(var i = 0;i < oData.events.event.length;i++){
+              var title = oData.events.event[i].title;
+              var time = oData.events.event[i].start_time;
+              if (time != null){
+                if (oData.events.event[i].stop_time != null)
+                  time +=' - '+oData.events.event[i].stop_time;
+                time = time + "  |  ";
+              }
+
+              addr = "";
+              if (oData.events.event[i].venue_address != null)
+                addr = oData.events.event[i].venue_address;
+              time = time + addr;
+
+              description = "";
+              if (oData.events.event[i].description != null)
+                description = oData.events.event[i].description;
+
+
+              url = oData.events.event[i].url;
+              if (url != null)
+                url = "Visit for more information: <br>"+url;
+              data += '<h3 id="ev_title">'+title+'</h3>'+'<h4 id="ev_time">'+ time+'</h4>'+'<p>'+ description+'</p>'+'<p>'+ url+'</p>'+'<br>';
+          }
+           document.getElementById('event_data').innerHTML  =   data;
+            //console.log(oData.events.event[1]);
+    })
+    //});
+
+}
+
+</script>
+
+
 
 <body>
 
-<script src="./loadEvents.js"></script>
+<script>show_events();</script>
 </div>
 <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
