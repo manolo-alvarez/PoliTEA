@@ -59,9 +59,8 @@
     <body>
     
         <div id="root" class="container">
-            <button onclick="location.href = 'address.html';" class="btn btn-primary btn-lg btn-block">Find out more!</button>
-            <br>
         </div>
+
         <script>
             /**
             * Sample JavaScript code for civicinfo.representatives.representativeInfoByDivision
@@ -69,12 +68,13 @@
             * https://developers.google.com/explorer-help/guides/code_samples#javascript
             */
             function loadClient() {
+            const division = "ocd-division/country:us/state:"+localStorage.getItem("state")
             gapi.client.setApiKey("AIzaSyBxblHg9N0p6-un0y8HD0QOgD7sryfhcKQ");
             return gapi.client.load("https://content.googleapis.com/discovery/v1/apis/civicinfo/v2/rest")
                 .then( function() {
                         //console.log("loaded");
                         return gapi.client.civicinfo.representatives.representativeInfoByDivision({
-                        "ocdId": "ocd-division/country:us/state:tx"})},
+                        "ocdId": division})},
                         function(err) { console.error("Error loading GAPI client for API", err);})
                 .then(function(response) {
                         //console.log("hello");
@@ -123,11 +123,16 @@
                         }
 
                     },
-                        function(err) { console.error("Execution error", err); })
+                        function(err) { 
+                          console.error("Execution error", err);
+                          alert("Enter a valid address!");
+                          location.href="./address.html";
+                        })
             }
             gapi.load("client");
             window.onload = loadClient;
         </script>
+        
         <!-- <button onclick="loadClient()">load</button> -->
         <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
         <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>

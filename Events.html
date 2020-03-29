@@ -47,14 +47,30 @@
 <br>
 <br>
 <div class=container>
-  <h1>Events Near Me</h1>
+  <h1>Events Near You</h1>
 </div>
+<hr>
+<script>
+
+
+  function chooseRange(range){
+    localStorage.setItem("searchRange", range)
+    window.location.reload();
+  }
+</script>
 
 <div class=container>
-<p>Upcoming events near "110 Inner Campus Drive"</p>
-<hr>
-</div>
+  <h5 >Search for events by: </h5>
+  <button onclick="chooseRange('zip');" class="btn btn-danger ml-4 ">Zip Code</button> 
+  <button onclick="chooseRange('city')" class="btn btn-danger ml-4 ">City</button>
+  <button onclick="chooseRange('state')" class="btn btn-danger ml-4 ">State</button> 
+</div> 
 <br>
+
+
+<div class=container>
+    <p id="display_msg"></p>
+</div>
 
 <!-- <script type="text/javascript" src="http://api.eventful.com/js/api"> </script> -->
 <script type="text/javascript"></script>
@@ -63,44 +79,6 @@
   <!-- <ul id="event_data"></ul> -->
   <div class="row" id="event_data"></div>
 </div>
-
-<!-- show_events not used anymore -->
-<script>
-function show_events(){
-
-    let oData = JSON.parse(document.getElementById('event_data').innerHTML);
-     console.log("this is object passed from find: " +oData);
-
-     for(var i = 0;i < oData.events.event.length;i++){
-      var title = oData.events.event[i].title;
-      var time = oData.events.event[i].start_time;
-      if (time != null){
-        if (oData.events.event[i].stop_time != null)
-          time +=' - '+oData.events.event[i].stop_time;
-        time = time + "  |  ";
-      }
-
-      addr = "";
-      if (oData.events.event[i].venue_address != null)
-        addr = oData.events.event[i].venue_address;
-      time = time + addr;
-
-      description = "";
-      if (oData.events.event[i].description != null)
-        description = oData.events.event[i].description;
-
-
-      url = oData.events.event[i].url;
-      if (url != null)
-        url = "Visit for more information: <br>"+url;
-      data += '<h3 id="ev_title">'+title+'</h3>'+'<h4 id="ev_time">'+ time+'</h4>'+'<p>'+ description+'</p>'+'<p>'+ url+'</p>'+'<br>';
-     }
-           document.getElementById('event_data').innerHTML  =   data;
-            // console.log(oData.events.event[1]);
-}
-</script>
-
-
 
 <body>
 

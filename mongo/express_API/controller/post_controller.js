@@ -8,7 +8,7 @@ exports.showIndex = (req, res, next) => {
 exports.showZipCodeEvents = (req, res, next) => {
   events.find({"postal_code": req.params.id},  function (err, docs) {
     if (err || docs.length==0) {
-      return res.status(404).send('No upcoming events found within zip code ' + req.params.id)
+      return res.status(404).send('No upcoming events found in zip code <strong>' + req.params.id + '</strong>')
     }
     // var A = new Date(); 
     // res.status(200).json({"date":A})
@@ -20,7 +20,7 @@ exports.showCityEvents = (req, res, next) => {
   let city = titleCase(req.params.id);
   events.find({"city_name": city}, function (err, docs) {
     if (err || docs.length==0) {
-      return res.status(404).send('No upcoming events found in ' + city);
+      return res.status(404).send('No upcoming events found in <strong>' + city + '</strong>');
     }
     res.status(200).json(docs)
   })
@@ -30,7 +30,7 @@ exports.showStateEvents = (req, res, next) => {
   let state = titleCase(req.params.id);
   events.find({"region_name": state}, function (err, docs) {
     if (err || docs.length==0) {
-      return res.status(404).send('No upcoming events found in ' + state +'. (Please enter your full state name rather than an abbreviation).')
+      return res.status(404).send('No upcoming events found in <strong>' + state + '</strong>. (Please enter your full state name rather than an abbreviation).')
     }
     res.status(200).json(docs)
   })
