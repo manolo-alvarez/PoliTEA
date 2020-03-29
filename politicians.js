@@ -4,75 +4,57 @@
  * @summary: Javascript file that pulls politicians ProPublica API
  */
 
+ ///////////////// HTML elements////////////////////////////////////////////////////
+ const root = document.getElementById('root')
+ const container = document.createElement('div')
+ const cards = document.createElement('div')
+ container.setAttribute('class', 'container')
+ cards.setAttribute('class', 'card-deck mb-3 text-center')
+ root.appendChild(container)
+ container.appendChild(cards)
+ /////////////////////////////////////////////////////////////////////////////
 
-const app = document.getElementById('root')
-const container = document.createElement('div')
-const cards = document.createElement('div')
-container.setAttribute('class', 'container')
-cards.setAttribute('class', 'card-deck mb-3 text-center')
-app.appendChild(container)
-container.appendChild(cards)
 
-// Constant URL value for ProPublica API. This pulls all members in the current (116) house
-const HOUSE_MEMBERS_URL = 'https://api.propublica.org/congress/v1/116/house/members.json';
-// Constant URL value for ProPublica API. This pulls all members in the current (116) senate
-const SENATE_MEMBERS_URL = 'https://api.propublica.org/congress/v1/116/senate/members.json';
+var xhttp = new XMLHttpRequest();
+xhttp.open('GET', 'http://localhost:3000/politicians/senators', false);
+xhttp.send();
 
-var request = new XMLHttpRequest()
-request.open('GET', HOUSE_MEMBERS_URL, true)
+const senators = JSON.parse(xhttp.responseText);
 
-// Must send request with API key as a header. Key can be used at most 1000 times/day
-request.setRequestHeader('X-API-Key', 'P3QUvk64v2F2XNUHwHPyhhfqs22CVRE2NVlUvELJ')
-request.onload = function() {
+senators.forEach(member => {
 
-  // Parse JSON and create JSON Object
-  var data = JSON.parse(this.response)
+  const politician = document.createElement('div')
+  const name = document.createElement('h4')
+  const attributes = document.createElement('ol')
+  const linkBio = document.createElement('li')
+  const linkVotingHistory = document.createElement('li')
+  const bioPage = document.createElement('a')
+  const votingHistPage = document.createElement('a')
 
-  // Succesful request?
-  if (request.status >= 200 && request.status < 400) {
+  politician.setAttribute('class', 'p-4')
+  name.setAttribute('class', 'font-italic')
+  attributes.setAttribute('class', 'list-unstyled mb-0')
+  bioPage.setAttribute('href', 'politicianBio.html')
+  bioPage.setAttribute('onClick', 'f1(member.id)')
+  votingHistPage.setAttribute('href', 'politicianVotingHistory.html')
 
-    data.results[0].members.forEach(member => {
+  name.textContent = member.first_name;
+  if(member.middle_name != null) name.textContent += " " + member.middle_name;
+  name.textContent += " " + member.last_name;
+  bioPage.textContent = "Bio"
+  votingHistPage.textContent = "Voting History"
 
-      const politician = document.createElement('div')
-      const name = document.createElement('h4')
-      const attributes = document.createElement('ol')
-      const linkBio = document.createElement('li')
-      const linkVotingHistory = document.createElement('li')
-      const bioPage = document.createElement('a')
-      const votingHistPage = document.createElement('a')
+  cards.appendChild(politician)
+  politician.appendChild(name)
+  politician.appendChild(attributes)
+  attributes.appendChild(linkBio)
+  linkBio.appendChild(bioPage)
+  attributes.appendChild(linkVotingHistory)
+  linkVotingHistory.appendChild(votingHistPage)
 
-      politician.setAttribute('class', 'p-4')
-      name.setAttribute('class', 'font-italic')
-      attributes.setAttribute('class', 'list-unstyled mb-0')
-      bioPage.setAttribute('href', 'politicianBio.html')
-      bioPage.setAttribute('onClick', 'f1(member.id)')
-      votingHistPage.setAttribute('href', 'politicianVotingHistory.html')
-
-      name.textContent = member.first_name + " " + member.last_name
-      bioPage.textContent = "Bio"
-      votingHistPage.textContent = "Voting History"
-
-      cards.appendChild(politician)
-      politician.appendChild(name)
-      politician.appendChild(attributes)
-      attributes.appendChild(linkBio)
-      linkBio.appendChild(bioPage)
-      attributes.appendChild(linkVotingHistory)
-      linkVotingHistory.appendChild(votingHistPage)
-
-    });
-
-    // for debugging... check the data received from the API call
-    console.log(data)
-
-  } else {
-    alert("Bad request!")
-  }
-}
-
-request.send()
+});
 
 function f1(id){
-  localStorage.setItem("politician_id", id);
-  alert(id)
+  localStorage.setItem('politician_id', id);
+  alert(id);
 }
