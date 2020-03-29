@@ -5,7 +5,13 @@ const router = express.Router();
 
 router.get('/',postcontroller.showIndex)
 
-router.get('/politician/:id', postcontroller.showPolitician);
+router.get('/politicians/Senators', postcontroller.showAllSenators);
+
+router.get('/politicians/Congressman', postcontroller.showAllCongressman);
+
+router.get('/politicians/:id', postcontroller.showPolitician);
+
+router.get('/votes/:id', postcontroller.showVotes);
 
 router.get('/donors/:id', postcontroller.showDonors);
 
