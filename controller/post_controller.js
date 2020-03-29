@@ -1,5 +1,6 @@
 const politicians = require('../model/post_model');
 const events = require('../model/event_model');
+// const model = require('../model/post_model');
 
 exports.showIndex = (req, res, next) => {
        res.send('ruunning node api');
@@ -143,7 +144,7 @@ exports.showCityEvents = (req, res, next) => {
 
 exports.showStateAbbrEvents = (req, res, next) => {
   let abbr = (req.params.id).toUpperCase();
-    events.find({"region_abbr": abbr}, function (err, docs) {
+  events.find({"region_abbr": abbr}, function (err, docs) {
       if (err || docs.length==0) {
         return res.status(404).send('No upcoming events found in <strong>' + abbr + '</strong>');
       }
