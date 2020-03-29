@@ -1,6 +1,6 @@
 // function main(oArgs){
 var mongoose = require('mongoose');
-const uri = "mongodb+srv://neeti:fundofun@cluster0-iqc07.mongodb.net/locations?retryWrites=true&w=majority";
+const uri = "mongodb+srv://neeti:fundofun@cluster0-iqc07.mongodb.net/test?retryWrites=true&w=majority";
 
 mongoose.connect(uri, {
   useNewUrlParser: true,

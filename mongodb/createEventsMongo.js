@@ -2,7 +2,7 @@ async function main(oArgs){
 
     const mongoose = require('mongoose');
     const https = require('http');  
-    const uri = "mongodb+srv://truther:berniebitches420@cluster0-p5cmn.mongodb.net/locations?retryWrites=true&w=majority"
+    const uri = "mongodb+srv://truther:berniebitches420@cluster0-p5cmn.mongodb.net/test?retryWrites=true&w=majority"
     const EVENTFUL_ROOT_URL = 'http://api.eventful.com/json';
     try {
       // Connect to the MongoDB cluster
@@ -99,7 +99,7 @@ async function main(oArgs){
           // The whole response has been received. Print out the result.
           resp.on('end', () => {
               var odata = JSON.parse(json);
-              // console.log("----Currently iterating through " + odata.page_number);
+              console.log("----Currently iterating through " + odata.page_number);
               var page_no = odata.page_number;
               odata.events.event.forEach(eventObj => {
                   event.create(eventObj, function (err, eventObj) {
