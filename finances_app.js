@@ -67,6 +67,12 @@ function findEmptyFinances() {
   var exists_array = []
   var exists_array2 = []
 
+  politicians.find( {}, function(err, docs) {
+    if (err) return err
+    console.log('total docs' + docs.length)
+
+  });
+
   politicians.find( {finances: {$exists : true }}, function(err, docs) {
     if (err) return err
     console.log('docs with finances length is ' + docs.length)
@@ -85,8 +91,8 @@ function findEmptyFinances() {
         new_array.push(docs.crp_id)
     })
     crp_array = new_array
-    // printArray()
-    populateFinances()
+    printArray()
+    // populateFinances()
   });
 
   // politicians.find( {assets: {$exists : true }}, function(err, docs) {
@@ -123,11 +129,11 @@ function populateFinances() {
   var cid
   var url
   // var api_key = '52f80155d9bb4bd043b2ef5c7e05e9cc' //utexas
-  var api_key = '17670ea6524ff0d3a02e77c6d6835d08' //maemeigh
+  // var api_key = '17670ea6524ff0d3a02e77c6d6835d08' //maemeigh
   // var api_key = '8501d386724d739584d71c1328ce4feb' //mtn gmail
   // var api_key = 'ed0ccb4fd1f64fdbce4e8915564c40e2' // ee461
-  // var api_key = '00d06946b742b2613873185d48895a2e' // res org
-  // var api_key = '2332f6dd943afd1e54c4548560d94769' //res ut 
+  var api_key = '00d06946b742b2613873185d48895a2e' // res org
+  // var api_key = '2332f6dd943afd1e54c4548560d94769' //res ut
 
   for(var i = 0; i < crp_array.length; i++) {
       cid = crp_array[i]

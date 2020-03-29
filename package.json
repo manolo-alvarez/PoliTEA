@@ -1,9 +1,11 @@
 {
-  "name": "donations-app",
+  "name": "app",
   "version": "1.0.0",
-  "description": "Populate database from pulling from OpenSecrets API",
+  "description": "Create API pulling from MongoDB Database",
   "main": "app.js",
   "dependencies": {
+    "body-parser": "^1.19.0",
+    "cors": "^2.8.5",
     "express": "^4.17.1",
     "mongoose": "^5.9.5"
   },
