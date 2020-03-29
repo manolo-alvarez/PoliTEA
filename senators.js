@@ -4,6 +4,8 @@
  * @summary: Javascript file that pulls politicians ProPublica API
  */
 
+ localStorage.clear();
+
  ///////////////// HTML elements////////////////////////////////////////////////////
  const root = document.getElementById('root')
  const container = document.createElement('div')
@@ -14,9 +16,8 @@
  container.appendChild(cards)
  /////////////////////////////////////////////////////////////////////////////
 
-
 var xhttp = new XMLHttpRequest();
-xhttp.open('GET', 'http://localhost:3000/politicians/senators', false);
+xhttp.open('GET', 'https://reflected-flux-270220.appspot.com/politicians/senators', false);
 xhttp.send();
 
 const senators = JSON.parse(xhttp.responseText);
@@ -34,8 +35,9 @@ senators.forEach(member => {
   politician.setAttribute('class', 'p-4')
   name.setAttribute('class', 'font-italic')
   attributes.setAttribute('class', 'list-unstyled mb-0')
-  bioPage.setAttribute('href', 'politicianBio.html')
-  bioPage.setAttribute('onClick', 'f1(member.id)')
+  bioPage.setAttribute('id', `${member.id}`)
+  bioPage.setAttribute('onclick', `f1("${member.id}", "${member.first_name}", "${member.last_name}", "${member.party}");`)
+  bioPage.setAttribute('href', 'politiciansBio.html')
   votingHistPage.setAttribute('href', 'politicianVotingHistory.html')
 
   name.textContent = member.first_name;
@@ -54,7 +56,9 @@ senators.forEach(member => {
 
 });
 
-function f1(id){
+function f1(id, firstName, lastName, party){
   localStorage.setItem('politician_id', id);
-  alert(id);
-}
+  localStorage.setItem('politician_firstName', firstName);
+  localStorage.setItem('politician_lastName', lastName);
+  localStorage.setItem('politician_party', party);
+};
