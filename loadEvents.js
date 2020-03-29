@@ -1,7 +1,6 @@
 
 const loadEvents = (url_path) => {
   const xhttp = new XMLHttpRequest();
-  //   xhttp.open("GET", url_path, false);
   xhttp.open("GET", url_path, false);
   xhttp.send();
   show_events(xhttp);
@@ -9,7 +8,8 @@ const loadEvents = (url_path) => {
 
 
 function show_events (xhttp){
-  if (xhttp.status == "404"){
+  let status = xhttp.status;
+  if (status == "404"){
       const x = `
           <div>
               <br><br>
@@ -19,7 +19,13 @@ function show_events (xhttp){
        `;
     document.getElementById('display_msg').innerHTML = x;
   } 
-  else{
+  else if (status == "303"){
+      //redirecting bc could not find any state matchings, check state matchings with state abbreviation
+      let url_path = "http://localhost:3000/events/stateAbbr/" + localStorage.getItem("state"); 
+      loadEvents(url_path);
+    }
+  else {
+    
   
   showUpcomingMsg();
 
@@ -92,14 +98,20 @@ function showUpcomingMsg(){
 
 }
 
+
+
+
 const range = localStorage.getItem("searchRange");
 
 let url_path = "http://localhost:3000/";
 
-console.log("from test.js range is: " + range);
+if ((localStorage.getItem("zip") == "") || localStorage.getItem("city") == "" || localStorage.getItem("state") == ""){
+  window.alert("You must enter a complete address!");
+  window.location.href = "./address.html";
+}
+
 if (range=="zip"){
   url_path = url_path + "events/zip/" + localStorage.getItem("zip"); 
-  console.log(url_path);
 }
 else if (range=="city"){
   url_path = url_path + "events/city/" + localStorage.getItem("city"); 

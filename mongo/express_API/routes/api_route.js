@@ -11,6 +11,9 @@ router.get('/events/city/:id', postcontroller.showCityEvents);
 
 router.get('/events/state/:id', postcontroller.showStateEvents);
 
+router.get('/events/stateAbbr/:id', postcontroller.showStateAbbrEvents);
+
+
 // router.get('/finances/:id', postcontroller.showFinances);
 
 // router.get('/assets/:id', postcontroller.showAssets)

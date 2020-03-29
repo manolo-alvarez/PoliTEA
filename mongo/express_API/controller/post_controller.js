@@ -25,34 +25,33 @@ exports.showCityEvents = (req, res, next) => {
     res.status(200).json(docs)
   })
 }
+
+exports.showStateAbbrEvents = (req, res, next) => {
+  let abbr = (req.params.id).toUpperCase();
+    events.find({"region_abbr": abbr}, function (err, docs) {
+      if (err || docs.length==0) {
+        return res.status(404).send('No upcoming events found in <strong>' + abbr + '</strong>');
+      }
+      res.status(200).json(docs)
+    })
+  }
  
 exports.showStateEvents = (req, res, next) => {
   let state = titleCase(req.params.id);
+  let abbr = (req.params.id).toUpperCase();
   events.find({"region_name": state}, function (err, docs) {
-    if (err || docs.length==0) {
-      return res.status(404).send('No upcoming events found in <strong>' + state + '</strong>. (Please enter your full state name rather than an abbreviation).')
+    if (docs.length==0) {
+      return res.status(303).send('Redirecting to showAbbr')
+    } if (err){
+      return res.status(404).send('No upcoming events found in <strong>' + state + '</strong>.')
     }
+
+    // if (err || docs.length==0) {
+    //   return res.status(404).send('No upcoming events found in <strong>' + state + '</strong>. (Please enter your full state name rather than an abbreviation).')
+    // }
     res.status(200).json(docs)
   })
 }
-
-// exports.showFinances = (req, res, next) => {
-//   events.find({"id": req.params.id}, 'finances', function (err, docs) {
-//     if (err || docs.length==0) {
-//       return res.status(404).send('Finances for this politician not found')
-//     }
-//     res.status(200).json(docs)
-//   })
-// }
-
-// exports.showAssets = (req, res, next) => {
-//   events.find({"id": req.params.id}, 'assets', function (err, docs) {
-//     if (err || docs.length==0) {
-//       return res.status(404).send('Assets for this politician not found')
-//     }
-//     res.status(200).json(docs)
-//   })
-// }
 
 function titleCase(string) {
     var sentence = string.toLowerCase().split(" ");
