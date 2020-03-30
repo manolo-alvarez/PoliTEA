@@ -157,7 +157,7 @@ exports.showStateAbbrEvents = (req, res, next) => {
       res.status(200).json(docs)
     })
   }
- 
+
 exports.showStateEvents = (req, res, next) => {
   let state = titleCase(req.params.id);
   let abbr = (req.params.id).toUpperCase();
@@ -179,4 +179,3 @@ function titleCase(string) {
     sentence = sentence.join(" ");
  return sentence;
  }
-

@@ -46,7 +46,7 @@ jumbotron.appendChild(col);
 col.appendChild(name);
 col.appendChild(party);
 col.appendChild(state);
-col.appendChild(district);
+if (repDistrict != null) col.appendChild(district);
 
 const url = 'http://localhost:3000/votes/' + id;
 
