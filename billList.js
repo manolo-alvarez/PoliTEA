@@ -1,10 +1,18 @@
 
-
+/* 
 var query = require('url').parse(req.url,true).query;
 var topic = query.id;
-var option = query.option;
+var option = query.option; */
+
+
 
 localStorage.clear();
+
+/* var topic = req.query.tagid; */
+
+const queryString = window.location.search;
+console.log(queryString);
+topic = queryString.split('=')[1];
 
 ///////////////// HTML elements////////////////////////////////////////////////////
 const list = document.getElementById('list')

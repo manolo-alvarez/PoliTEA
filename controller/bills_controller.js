@@ -1,8 +1,65 @@
-const politicians = require('../model/bills_model');
+const billsModel = require('../model/bills_model');
 
 exports.showIndex = (req, res, next) => {
        res.send('ruunning node api');
 }
+
+/////////////////////// Aidan ///////////////////////////////////////
+
+exports.showAllBills = (req, res, next) => {
+
+    let bills = [];
+/*     billsModel.find({short_title: 'Sen.'},  function (err, docs) {
+      if (err || docs.length==0) {
+        return res.status(404).send('Politician not found')
+      } */
+  
+      docs.forEach((bill) => {
+        bills.push({
+            number: bill.number,
+            title: bill.title,
+            short_title: bill.short_title,
+            sponsor_title: bill.sponsor_title,
+            sponsor_name: bill.sponsor_name,
+            sponsor_state: bill.sponsor_state,
+            sponsor_party: bill.sponsor_party});
+      })
+  
+      res.status(200).json(members)
+    })
+  }
+
+
+  exports.showBillsByTopic = (req, res, next) => {
+
+    let bills = [];
+/*     billsModel.find({short_title: 'Sen.'},  function (err, docs) {
+      if (err || docs.length==0) {
+        return res.status(404).send('Politician not found')
+      } */
+
+      politicians.find({short_title: 'Sen.'},  function (err, docs) {
+        if (err || docs.length==0) {
+          return res.status(404).send('Politician not found')
+        }
+  
+      docs.forEach((bill) => {
+        bills.push({
+            number: bill.number,
+            title: bill.title,
+            short_title: bill.short_title,
+            sponsor_title: bill.sponsor_title,
+            sponsor_name: bill.sponsor_name,
+            sponsor_state: bill.sponsor_state,
+            sponsor_party: bill.sponsor_party});
+      })
+  
+      res.status(200).json(members)
+    }
+}
+  
+
+
 
 /////////////////////// Manolo ///////////////////////////////////////
 
