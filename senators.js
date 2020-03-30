@@ -44,6 +44,7 @@ function DisplayList (senators, rows_per_page, page) {
     const paragraph1 = document.createElement('p');
     const bioPage = document.createElement('a');
     const blankSpace = document.createElement('p');
+    const financesPage = document.createElement('a');
 
     row.setAttribute('class', 'row mb-2');
     col.setAttribute('class', 'col mb-2');
@@ -57,6 +58,11 @@ function DisplayList (senators, rows_per_page, page) {
     bioPage.setAttribute('onclick', `f1("${senators[i].id}", "${senators[i].first_name}", "${senators[i].last_name}", "${senators[i].party}", "${senators[i].state}", "${senators[i].district}");`)
     bioPage.setAttribute('href', 'politiciansBio.html')
 
+    financesPage.setAttribute('class', 'btn btn-primary');
+    financesPage.setAttribute('id', `${senators[i].id}`)
+    financesPage.setAttribute('onclick', `f1("${senators[i].id}", "${senators[i].first_name}", "${senators[i].last_name}", "${senators[i].party}", "${senators[i].state}", "${senators[i].district}");`)
+    financesPage.setAttribute('href', 'financial_main.html')
+
     head1.textContent = senators[i].first_name;
     if(senators[i].middle_name != null) head1.textContent += " " + senators[i].middle_name;
     head1.textContent += " " + senators[i].last_name;
@@ -65,6 +71,7 @@ function DisplayList (senators, rows_per_page, page) {
     paragraph1.textContent = "State: " + senators[i].state;
     bioPage.textContent = "Biography";
     blankSpace.textContent = " ";
+    financesPage.textContent = "Donors and Finances"
 
     list.appendChild(row);
     row.appendChild(col);
@@ -76,6 +83,8 @@ function DisplayList (senators, rows_per_page, page) {
     position.appendChild(blankSpace);
     position.appendChild(paragraph1);
     position.appendChild(bioPage);
+    position.appendChild(document.createElement("br"));
+    position.appendChild(financesPage);
 
 	}
 }

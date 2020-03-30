@@ -12,7 +12,7 @@
  /////////////////////////////////////////////////////////////////////////////
 
 var xhttp = new XMLHttpRequest();
-xhttp.open('GET', 'http://localhost:3000/politicians/congressman', false);
+xhttp.open('GET', 'https://reflected-flux-270220.appspot.com/politicians/congressman', false);
 xhttp.send();
 
 const representatives = JSON.parse(xhttp.responseText);
@@ -45,6 +45,7 @@ function DisplayList (representatives, rows_per_page, page) {
     const paragraph2 = document.createElement('p');
     const bioPage = document.createElement('a');
     const blankSpace = document.createElement('p');
+    const financesPage = document.createElement('a');
 
     row.setAttribute('class', 'row mb-2');
     col.setAttribute('class', 'col mb-2');
@@ -59,6 +60,11 @@ function DisplayList (representatives, rows_per_page, page) {
     bioPage.setAttribute('onclick', `f1("${representatives[i].id}", "${representatives[i].first_name}", "${representatives[i].last_name}", "${representatives[i].party}", "${representatives[i].state}", "${representatives[i].district}");`)
     bioPage.setAttribute('href', 'politiciansBio.html')
 
+    financesPage.setAttribute('class', 'btn btn-primary');
+    financesPage.setAttribute('id', `${representatives[i].id}`)
+    financesPage.setAttribute('onclick', `f1("${representatives[i].id}", "${representatives[i].first_name}", "${representatives[i].last_name}", "${representatives[i].party}", "${representatives[i].state}", "${representatives[i].district}");`)
+    financesPage.setAttribute('href', 'financial_main.html')
+
     head1.textContent = representatives[i].first_name;
     if(representatives[i].middle_name != null) head1.textContent += " " + representatives[i].middle_name;
     head1.textContent += " " + representatives[i].last_name;
@@ -68,6 +74,7 @@ function DisplayList (representatives, rows_per_page, page) {
     paragraph2.textContent = "District: " + representatives[i].district;
     bioPage.textContent = "Biography";
     blankSpace.textContent = " ";
+    financesPage.textContent = "Donors and Finances"
 
     list.appendChild(row);
     row.appendChild(col);
@@ -80,6 +87,9 @@ function DisplayList (representatives, rows_per_page, page) {
     position.appendChild(paragraph1);
     position.appendChild(paragraph2);
     position.appendChild(bioPage);
+    position.appendChild(document.createElement("br"));
+    position.appendChild(financesPage);
+
   }
 }
 
