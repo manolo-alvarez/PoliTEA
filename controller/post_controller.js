@@ -12,14 +12,14 @@ exports.showIndex = (req, res, next) => {
 
 exports.showAllBills = (req, res, next) => {
 
-  let bills = [];
+  let billz = [];
 /*     billsModel.find({short_title: 'Sen.'},  function (err, docs) {
     if (err || docs.length==0) {
       return res.status(404).send('Politician not found')
     } */
 
     docs.forEach((bill) => {
-      bills.push({
+      billz.push({
           number: bill.number,
           title: bill.title,
           short_title: bill.short_title,
@@ -29,7 +29,7 @@ exports.showAllBills = (req, res, next) => {
           sponsor_party: bill.sponsor_party});
     })
 
-    res.status(200).json(bills)
+    res.status(200).json(billz)
   
 }
 
