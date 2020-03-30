@@ -1,6 +1,7 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
+const cors = require('cors');
 
 const app = express();
 const uri = "mongodb+srv://truther:berniebitches420@cluster0-p5cmn.mongodb.net/test?retryWrites=true&w=majority"
@@ -11,6 +12,7 @@ app.use(express.urlencoded({
     extended: false
 }));
 
+app.use(cors());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
@@ -20,9 +22,8 @@ app.get('/', (req, res, next) => {
     res.send('running node-api');
 });
 
-/////// Manolo ///////////////////////////////////////////////////////
 const port = process.env.PORT || 3000;
-//////////////////////////////////////////////////////////////////////
+
 mongoose
     .connect(uri, {
         useNewUrlParser: true,
