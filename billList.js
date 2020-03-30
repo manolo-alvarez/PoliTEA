@@ -52,6 +52,7 @@ function DisplayList (billsParse, rows_per_page, page) {
    const head1 = document.createElement('h3');
    const head2 = document.createElement('h6');
    const paragraph1 = document.createElement('p');
+   const blankSpace = document.createElement('p');
    const bioPage = document.createElement('a');
 /*    const blankSpace = document.createElement('p');
    const financesPage = document.createElement('a'); */
@@ -73,12 +74,14 @@ function DisplayList (billsParse, rows_per_page, page) {
    financesPage.setAttribute('onclick', `f1("${senators[i].id}", "${senators[i].first_name}", "${senators[i].last_name}", "${senators[i].party}", "${senators[i].state}", "${senators[i].district}");`)
    financesPage.setAttribute('href', 'financial_main.html') */
 
-   if(billsParse[i].short_title != null)head1.textContent = billsParse[i].short_title;
-   head1.textContent += " (" + billsParse[i].number + ")";
+  /*  if(billsParse[i].short_title != null) */
+   head1.textContent = billsParse[i].short_title += " (" + billsParse[i].number + ")";
+   //head1.textContent += " (" + billsParse[i].number + ")";
    head2.textContent = billsParse[i].title;
 
    paragraph1.textContent = billsParse[i].sponsor_title + " " + billsParse[i].sponsor_name + " (" + billsParse[i].sponsor_party + ") " + billsParse[i].sponsor_state + " -- (Link to Politicians Model coming soon)"
 
+   blankSpace.textContent = " ";
 
    bioPage.textContent = "Biography";
 

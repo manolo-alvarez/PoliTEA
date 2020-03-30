@@ -7,6 +7,7 @@ const billsSchema = new Schema({
     number:  String,
     bill_uri:   String,
     title:   String,
+    short_title: String,
     sponsor_title:  String,
     sponsor_id:   String,
     sponsor_name:   String,
