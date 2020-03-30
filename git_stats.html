@@ -144,11 +144,16 @@
           let user = result[i].user.login;
           issues[user] = 0;
         }
-        console.log[issues];
+        //Adding issues under first thread 
+        issues["aidanmcgraw"] = 4;
+        issues["bailloj"] = 1;
+
         for ( var i =0; i< result.length; i++){
           let user = result[i].user.login;
           issues[user] = issues[user] +1;
+
         }
+
         console.log(Object.keys(issues));
         console.log(Object.values(issues));
 

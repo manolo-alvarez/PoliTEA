@@ -21,7 +21,7 @@ function show_events (xhttp){
   } 
   else if (status == "303"){
       //redirecting bc could not find any state matchings, check state matchings with state abbreviation
-      let url_path = "http://localhost:3000/events/stateAbbr/" + localStorage.getItem("state"); 
+      let url_path = "https://reflected-flux-270220.appspot.com/events/stateAbbr/" + localStorage.getItem("state"); 
       loadEvents(url_path);
     }
   else {
@@ -159,7 +159,7 @@ let rows = 5;
 
 const range = localStorage.getItem("searchRange");
 
-let url_path = "http://localhost:3000/";
+let url_path = "https://reflected-flux-270220.appspot.com/";
 
 if ((localStorage.getItem("zip") == "") || localStorage.getItem("city") == "" || localStorage.getItem("state") == ""){
   window.alert("You must enter a complete address!");
