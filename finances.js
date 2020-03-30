@@ -39,13 +39,13 @@ request.onload = function() {
       elem.appendChild(br)
       elem.appendChild(br)
 
-      if(finances.net_worth >= 0) {
+      if(Number(finances.net_worth) > 0) {
         document.getElementById("networth").innerHTML = "Estimated Net Worth: $" + finances.net_worth + "<br>";
       } else {
         document.getElementById("networth").innerHTML = "Net Worth Not Available" + "<br>";
       }
 
-      if(finances.total_assets >= 0) {
+      if(Number(finances.total_assets) > 0) {
         document.getElementById("assetheader").innerHTML = "Estimated Total Asset Value: $" + finances.total_assets + "<br>";
       } else {
         document.getElementById("assetheader").innerHTML = "Total Asset Value Not Available" + "<br>";
