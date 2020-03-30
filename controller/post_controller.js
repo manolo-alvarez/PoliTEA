@@ -1,4 +1,6 @@
 const politicians = require('../model/post_model');
+const events = require('../model/event_model');
+// const model = require('../model/post_model');
 
 exports.showIndex = (req, res, next) => {
        res.send('ruunning node api');
@@ -41,7 +43,10 @@ exports.showAllSenators = (req, res, next) => {
         last_name: senator.last_name,
         gender: senator.gender,
         party: senator.party,
-        date_of_birth: senator.date_of_birth});
+        date_of_birth: senator.date_of_birth,
+        state: senator.state,
+        district: senator.district
+      });
     })
 
     res.status(200).json(members)
@@ -65,7 +70,10 @@ exports.showAllCongressman = (req, res, next) => {
         last_name: congressman.last_name,
         gender: congressman.gender,
         party: congressman.party,
-        date_of_birth: congressman.date_of_birth});
+        date_of_birth: congressman.date_of_birth,
+        state: congressman.state,
+        district: congressman.district
+      });
     })
 
     res.status(200).json(members)
@@ -118,3 +126,56 @@ exports.showAssets = (req, res, next) => {
     res.status(200).json(docs)
   })
 }
+
+/////////////////////// Neeti ///////////////////////////////////////
+
+exports.showZipCodeEvents = (req, res, next) => {
+  events.find({"postal_code": req.params.id},  function (err, docs) {
+    if (err || docs.length==0) {
+      return res.status(404).send('No upcoming events found in zip code <strong>' + req.params.id + '</strong>')
+    }
+    res.status(200).json(docs)
+  })
+}
+
+exports.showCityEvents = (req, res, next) => {
+  let city = titleCase(req.params.id);
+  events.find({"city_name": city}, function (err, docs) {
+    if (err || docs.length==0) {
+      return res.status(404).send('No upcoming events found in <strong>' + city + '</strong>');
+    }
+    res.status(200).json(docs)
+  })
+}
+
+exports.showStateAbbrEvents = (req, res, next) => {
+  let abbr = (req.params.id).toUpperCase();
+  events.find({"region_abbr": abbr}, function (err, docs) {
+      if (err || docs.length==0) {
+        return res.status(404).send('No upcoming events found in <strong>' + abbr + '</strong>');
+      }
+      res.status(200).json(docs)
+    })
+  }
+
+exports.showStateEvents = (req, res, next) => {
+  let state = titleCase(req.params.id);
+  let abbr = (req.params.id).toUpperCase();
+  events.find({"region_name": state}, function (err, docs) {
+    if (docs.length==0) {
+      return res.status(303).send('Redirecting to showAbbr')
+    } if (err){
+      return res.status(404).send('No upcoming events found in <strong>' + state + '</strong>.')
+    }
+    res.status(200).json(docs)
+  })
+}
+
+function titleCase(string) {
+    var sentence = string.toLowerCase().split(" ");
+    for(var i = 0; i< sentence.length; i++){
+       sentence[i] = sentence[i][0].toUpperCase() + sentence[i].slice(1);
+    }
+    sentence = sentence.join(" ");
+ return sentence;
+ }

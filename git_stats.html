@@ -58,8 +58,9 @@
   <br><br>
   <div class=container>
 
-    <h4>Git Commits per User to Master Branch</h4>
-    <canvas id="barChart"></canvas>
+    <div id = barCharts>
+      <!-- <canvas id="barChart"></canvas> -->
+    </div>
     </div>
 
     <script>
@@ -68,11 +69,14 @@
     // btnRepos.addEventListener("click", getRepos)
     //btnCommits.addEventListener("click", e=> getCommits())
     getCommits();
+    getIssues();
+    getTests();
     getTraffic();
+    
 
     async function getTraffic() {
         clear();
-        const url = "https://api.github.com/repos/malvarez0722/ee461l-team-project/traffic/views?access_token=70caacb1f3d8a23f24e25387eb301c4b667cad74"
+        const url = "https://api.github.com/repos/malvarez0722/ee461l-team-project/traffic/views?access_token=5355e64db62ef3d344dd520335e065f5ade1e283"
         const response = await fetch(url)
         const result = await response.json()
 
@@ -81,7 +85,7 @@
     }
 
 
-    async function getCommits(url="https://api.github.com/repos/malvarez0722/ee461l-team-project/commits? ") {
+    async function getCommits(url="https://api.github.com/repos/malvarez0722/ee461l-team-project/contributors") {
         clear();
 
         const headers = {
@@ -94,49 +98,84 @@
 
         const result = await response.json()
 
-        //init
-        users = {
-            "neetishah": 0,
-            "bailloj": 0,
-            "aidanmcgraw": 0,
-            "mtmn19": 0,
-            "malvarez0722": 0,
-            "aaa4521": 0
-        };
-
-        // var users_arr = ["neetishah", "bailloj", "aidanmcgraw", "mtmn19", "malvarez0722", "asad"];
-        // temporarily hard coded contributors
+        var users = new Object();
         for ( var i =0; i< result.length; i++){
-          var committer = result[i].committer.login;
-            if (committer == "neetishah")
-              users.neetishah++;
-            if (committer == "bailloj")
-              users.bailloj++;
-            if (committer == "aidanmcgraw")
-              users.aidanmcgraw++;
-            if (committer == "mtmn19")
-              users.mtmn19++;
-            if (committer == "malvarez0722")
-              users.malvarez0722++;
-            if (committer == "aaa4521")
-              users.aaa4521++;
+          let user = result[i].login;
+          let commits = result[i].contributions;
+          users[user] = commits;
         }
-        console.log( users);
-//bar chart
-        bar(users);
 
-    }
+        //bar chart
+        bar(users, "Git Commits per User to Master Branch");
+      }
 
-    function bar(users){
-      //bar chart
-          var ctxB = document.getElementById("barChart").getContext('2d');
+      async function getTests(){
+        var tests = new Object();
+
+        //manually write how many tests each created
+        tests["neetishah"] = "3";
+        tests["bailloj"] = "3";
+        tests["malvarez0722"] = "3";
+        tests["mtmn19"] = "3";
+        tests["aidanmcgraw"] = "3";
+        tests["aaa4521"] = "3";
+
+        bar(tests, "Unit Tests per User");
+      }
+
+    async function getIssues(){
+        url="https://api.github.com/repos/malvarez0722/ee461l-team-project/issues?";
+        clear();
+
+        const headers = {
+            "Accept" : "application/vnd.github.cloak-preview"
+        }
+        const response = await fetch(url, {
+            "method" : "GET",
+            // "headers" : headers
+        })
+
+        const result = await response.json()
+        console.log(result)
+
+        var issues = new Object();
+        //initialize all to 0
+        for ( var i =0; i< result.length; i++){
+          let user = result[i].user.login;
+          issues[user] = 0;
+        }
+        //Adding issues under first thread 
+        issues["aidanmcgraw"] = 4;
+        issues["bailloj"] = 1;
+
+        for ( var i =0; i< result.length; i++){
+          let user = result[i].user.login;
+          issues[user] = issues[user] +1;
+
+        }
+
+        console.log(Object.keys(issues));
+        console.log(Object.values(issues));
+
+        bar(issues, "Git Issues Provided by User");
+    }  
+
+
+    function bar(users, name){
+          //bar chart
+          var t = document.createTextNode(name); 
+          var title = document.createElement("H4");
+          title.appendChild(t);
+          var ctxB = document.createElement("CANVAS");
+          var charts = document.getElementById("barCharts");
+
           var myBarChart = new Chart(ctxB, {
           type: 'bar',
           data: {
-          labels: ["neetishah", "bailloj", "aidanmcgraw", "mtmn19", "malvarez0722", "aaa4521"],
+          labels: Object.keys(users),
           datasets: [{
-          label: '# of Commits',
-          data: [users.neetishah, users.bailloj, users.aidanmcgraw, users.mtmn19, users.malvarez0722, users.aaa4521],
+          label: 'Count',
+          data: Object.values(users),
           backgroundColor: [
           'rgba(255, 99, 132, 0.2)',
           'rgba(54, 162, 235, 0.2)',
@@ -166,8 +205,8 @@
           }
           }
           });
-
-
+          charts.appendChild(title); 
+          charts.appendChild(ctxB); 
     }
 
     function getViews(result){
