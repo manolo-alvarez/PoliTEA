@@ -81,7 +81,7 @@
     }
 
 
-    async function getCommits(url="https://api.github.com/repos/malvarez0722/ee461l-team-project/commits? ") {
+    async function getCommits(url="https://api.github.com/repos/malvarez0722/ee461l-team-project/contributors") {
         clear();
 
         const headers = {
@@ -94,52 +94,13 @@
 
         const result = await response.json()
 
-        //init
-        users = {
-            "neetishah": 0,
-            "bailloj": 0,
-            "aidanmcgraw": 0,
-            "mtmn19": 0,
-            "malvarez0722": 0,
-            "aaa4521": 0
-        };
-
-        // var users_arr = ["neetishah", "bailloj", "aidanmcgraw", "mtmn19", "malvarez0722", "asad"];
-        // temporarily hard coded contributors
+        var users = new Object();
         for ( var i =0; i< result.length; i++){
-          if (result[i].committer != null){
-          var committer = result[i].committer.login;
-            if (committer == "neetishah")
-              users.neetishah++;
-            if (committer == "bailloj")
-              users.bailloj++;
-            if (committer == "aidanmcgraw")
-              users.aidanmcgraw++;
-            if (committer == "mtmn19" || result[i].author.name=="Megan Nguyen" )
-              users.mtmn19++;
-            if (committer == "malvarez0722")
-              users.malvarez0722++;
-            if (committer == "aaa4521")
-              users.aaa4521++;
-            } else {
-              if (result[i].commit.author != null){
-                var committer = result[i].commit.author.name;
-                  if (committer == "neeti")
-                    users.neetishah++;
-                  if (committer == "Jireh")
-                    users.bailloj++;
-                  if (committer == "aidanmcgraw")
-                    users.aidanmcgraw++;
-                  if (committer == "Megan Nguyen" )
-                    users.mtmn19++;
-                  if (committer == "Manolo Alvarez Cristiano")
-                    users.malvarez0722++;
-                  if (committer == "Asad")
-                    users.aaa4521++;
-                }
-            }
+          let user = result[i].login;
+          let commits = result[i].contributions;
+          users[user] = commits;
         }
-        console.log( users);
+
 //bar chart
         bar(users);
 
