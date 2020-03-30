@@ -13,7 +13,6 @@ app.use(express.urlencoded({
 }));
 
 app.use(cors());
-
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
@@ -23,9 +22,8 @@ app.get('/', (req, res, next) => {
     res.send('running node-api');
 });
 
-/////// Manolo ///////////////////////////////////////////////////////
 const port = process.env.PORT || 3000;
-//////////////////////////////////////////////////////////////////////
+
 mongoose
     .connect(uri, {
         useNewUrlParser: true,

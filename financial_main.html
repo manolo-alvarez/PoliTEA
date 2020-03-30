@@ -5,40 +5,43 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <title>Top Industry Donors Summary</title>
+  <title>Top Donors and Personal Finances</title>
 
-  <!-- <link href="https://fonts.googleapis.com/css?family=Dosis:400,700" rel="stylesheet"> -->
-  <!-- <link href="style.css" rel="stylesheet"> -->
+  <link href="https://fonts.googleapis.com/css?family=Playfair+Display:700,900" rel="stylesheet">
+  <link href="address.css" rel="stylesheet">
 
 </head>
 
 
-<nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
-    <a class="navbar-brand" href="#">poli<strong>tea</strong></a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse"  aria-expanded="false" aria-label="Toggle navigation">
+<!-- Nav Bar -->
+</head>
+<body><nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+  <a class="navbar-brand" href="Splash.html">poli<strong>tea</strong></a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarCollapse">
       <ul class="navbar-nav mr-auto">
         <li class="nav-item active">
-          <a class="nav-link" href="./Splash.html">Home<span class="sr-only">(current)</span></a>
+          <a class="nav-link" href="./about.html">About<span class="sr-only">(current)</span></a>
         </li>
         <li class="nav-item active">
-          <a class="nav-link" href="./index.html">Politicians<span class="sr-only">(current)</span></a>
+          <a class="nav-link" href="./representatives.html">Representatives<span class="sr-only">(current)</span></a>
+        </li>
+        <li class="nav-item active">
+          <a class="nav-link" href="./senators.html">Senators<span class="sr-only">(current)</span></a>
         </li>
         <li class="nav-item active">
           <a class="nav-link" href="./Legislation.html">Legislation<span class="sr-only">(current)</span></a>
         </li>
         <li class="nav-item active">
-          <a class="nav-link" href="./state_overview.html">State Overview<span class="sr-only">(current)</span></a>
-        </li>
-        <li class="nav-item active">
           <a class="nav-link" href="./address.html">Get Involved<span class="sr-only">(current)</span></a>
         </li>
       </ul>
-      </form>
+
     </div>
   </nav>
+
 <br><br>
 
 <div class=container></div>
@@ -55,17 +58,30 @@
 <div class="container marketing">
 <body class="vsc-initialized">
   <br><br>
-  <h2 id="header" class="featurette-heading"> Financial Information and Donors </h2>
+
+  <h1 id="header" class="featurette-heading"> Financial Information </h1>
   <br>
-  <a href="finances.html" class="lead">Personal Finances</a>
+  <script>
+    if (localStorage.getItem("politician_firstName") != null) {
+      document.getElementById("header").innerHTML = "Financial Information for " + localStorage.getItem("politician_firstName") + " " + localStorage.getItem("politician_lastName");
+    }
+  </script>
+
   <br>
+
+  <h2 id="header" class="featurette-heading"> Top Donors </h2>
   <a href="contrib.html" class="lead">Top Contributors by Organization</a>
   <br>
   <a href="industry.html" class="lead">Top Contributors by Industry</a>
 
+  <br> <br> <br>
+  <h2 id="header" class="featurette-heading"> Personal Finances </h2>
+  <a href="finances.html" class="lead">Net Worth and Assets</a>
+
+</body>
   <!-- <p id="results" class="lead"> </p> -->
   <!-- <script type="text/javascript" src="industry.js"></script> -->
-
+</body>
 </div>
 
 </html>

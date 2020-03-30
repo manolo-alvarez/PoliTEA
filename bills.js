@@ -12,26 +12,21 @@ cards.setAttribute('class', 'card-body')
 app.appendChild(container)
 container.appendChild(cards)
 
+const bill_number = localStorage.getItem('bill_number');
+const bill_title = localStorage.getItem('politician_firstName');
+const bill_date = localStorage.getItem('bill_date');
+const sponsor_title = localStorage.getItem('bill_sTitle');
+const sponsor_name = localStorage.getItem('bill_sName');
+const sponsor_state = localStorage.getItem('bill_sState');
+const sponsor_party = localStorage.getItem('bill_sParty');
+const bill_subject = localStorage.getItem('primary_subject');
+const bill_summary = localStorage.getItem('bill_summary');
+const bill_website = localStorage.getItem('bill_website');
 
-// Constant URL value for ProPublica API. This pulls all members in the current (116) senate
-const BILL_SUBJECT_URL = 'https://api.propublica.org/congress/v1/bills/subjects/commerce.json';
 
-var request = new XMLHttpRequest()
-request.open('GET', BILL_SUBJECT_URL, true)
 
-// Must send request with API key as a header. Key can be used at most 1000 times/day
-request.setRequestHeader('X-API-Key', 'P3QUvk64v2F2XNUHwHPyhhfqs22CVRE2NVlUvELJ')
-request.onload = function() {
 
-  // Parse JSON and create JSON Object
-  var data = JSON.parse(this.response)
 
-  // Succesful request?
-  if (request.status >= 200 && request.status < 400) {
-
-    data.results.forEach(result => {
-
-      localStorage.setItem("bill_id", result.bill_id);
 
       const bill = document.createElement('div')
       const title = document.createElement('h4')
@@ -47,34 +42,23 @@ request.onload = function() {
       bill.setAttribute('class', 'p-4')
       title.setAttribute('class', 'font-italic')
       attributes.setAttribute('class', 'list-unstyled mb-0')
-      link_site.setAttribute('href', result.congressdotgov_url)
+      link_site.setAttribute('href', bill_website)
 
-      title.textContent = result.short_title
-      number.textContent = result.number
-      sponsor.textContent = result.sponsor_title + " " + result.sponsor_name + " (" + result.sponsor_party + ") " + result.sponsor_state + " -- (Link to Politicians Model coming soon)"
-      date.textContent = "Introduced on: " + result.introduced_date
-      summary.textContent = result.summary
-      link_site.textContent = "Congress.gov Link"
-
-
-      cards.appendChild(bill)
-      bill.appendChild(title)
-      bill.appendChild(number)
-      bill.appendChild(sponsor)
-      bill.appendChild(date)
-      if (result.summary != null) {bill.appendChild(summary)}
-      bill.appendChild(gov_site)
-      gov_site.appendChild(link_site)
+      title.textContent = bill_title;
+      number.textContent = bill_number;
+      sponsor.textContent = sponsor_title + " " + sponsor_name + " (" + sponsor_party + ") " + sponsor_state;
+      summary.textContent = summary;
+      link_site.textContent = "Congress.gov Link";
 
 
-    });
+      cards.appendChild(bill);
+      bill.appendChild(title);
+      bill.appendChild(number);
+      bill.appendChild(sponsor);
+      bill.appendChild(date);
+      if (summary != null) {bill.appendChild(summary);}
+      bill.appendChild(gov_site);
+      gov_site.appendChild(link_site);
 
-    // for debugging... check the data received from the API call
-    console.log(data)
 
-  } else {
-    alert("Bad request!")
-  }
-}
-
-request.send()
+  

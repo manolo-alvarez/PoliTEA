@@ -49,7 +49,10 @@
                           <a class="nav-link" href="./about.html">About<span class="sr-only">(current)</span></a>
                         </li>
                         <li class="nav-item active">
-                          <a class="nav-link" href="./politicians.html">Politicians<span class="sr-only">(current)</span></a>
+                          <a class="nav-link" href="./representatives.html">Representatives<span class="sr-only">(current)</span></a>
+                        </li>
+                        <li class="nav-item active">
+                          <a class="nav-link" href="./senators.html">Senators<span class="sr-only">(current)</span></a>
                         </li>
                         <li class="nav-item active">
                           <a class="nav-link" href="./Legislation.html">Legislation<span class="sr-only">(current)</span></a>
@@ -160,6 +163,7 @@
             localStorage.setItem("city",document.getElementById('inputCity').value)
             localStorage.setItem("state",document.getElementById('inputState').value)
             localStorage.setItem("zip",document.getElementById('inputZip').value)
+            localStorage.setItem("searchRange", "zip")
             location.href=elmnt.href;
           }
         </script>
