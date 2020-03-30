@@ -39,13 +39,13 @@ request.onload = function() {
       elem.appendChild(br)
       elem.appendChild(br)
 
-      if(finances.net_worth >= 0) {
+      if(Number(finances.net_worth) > 0) {
         document.getElementById("networth").innerHTML = "Estimated Net Worth: $" + finances.net_worth + "<br>";
       } else {
         document.getElementById("networth").innerHTML = "Net Worth Not Available" + "<br>";
       }
 
-      if(finances.total_assets >= 0) {
+      if(Number(finances.total_assets) > 0) {
         document.getElementById("assetheader").innerHTML = "Estimated Total Asset Value: $" + finances.total_assets + "<br>";
       } else {
         document.getElementById("assetheader").innerHTML = "Total Asset Value Not Available" + "<br>";
@@ -55,11 +55,12 @@ request.onload = function() {
       elem.appendChild(br)
 
       if(assets.length==0) {
-        document.getElementById("results").innerHTML = "No assets available for " + first_last
+        document.getElementById("assets").innerHTML = "No assets available for " + first_last
       }
 
       for(var i = 0; i < assets.length; i++) {
             var asset_title = (i+1) + ". " + assets[i].name + "<br>";
+            if(assets[i].name=='') asset_title = (i+1) + ". Unspecified Asset <br>"
             document.getElementById("assets").innerHTML += asset_title.bold();
             document.getElementById("assets").innerHTML += "Estimated Asset Value: $" + assets[i].asset_value + "<br>" + "<br>";
       }
