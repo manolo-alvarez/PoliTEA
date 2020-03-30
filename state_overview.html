@@ -188,8 +188,8 @@
                                 var a = document.createElement('a')
                                 var br = document.createElement('br')
                                 //var img = document.createElement('img')
-                                h4.textContent = official.party
                                 h2.textContent = official.name
+                                h4.textContent = official.party
                                 console.log(official.name)
                                 a.href = (official.urls)[0]
                                 a.textContent = "Visit Website"
@@ -201,6 +201,10 @@
                                 card.appendChild(h4)
                                 card.appendChild(h5)
                                 card.appendChild(a)
+                                if(ofices[i].name=="U.S. Senator"){
+                                  var politican_link=document.create('a')
+                                  politician_link.href = 
+                                }
                                 card.appendChild(br)
                             }
                         }
