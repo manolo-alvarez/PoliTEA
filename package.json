@@ -1,4 +1,5 @@
 {
+<<<<<<< HEAD
   "name": "app",
   "version": "1.0.0",
   "description": "Create API pulling from MongoDB Database",
@@ -7,13 +8,27 @@
     "body-parser": "^1.19.0",
     "cors": "^2.8.5",
     "express": "^4.17.1",
+=======
+  "name": "donations-app",
+  "version": "1.0.0",
+  "description": "Populate database from pulling from OpenSecrets API",
+  "main": "app.js",
+  "dependencies": {
+    "express": "^4.17.1",
+    "live-server": "^1.2.1",
+>>>>>>> master
     "mongoose": "^5.9.5"
   },
   "devDependencies": {
     "nodemon": "^2.0.2"
   },
   "scripts": {
+<<<<<<< HEAD
     "dev": "nodemon app.js"
+=======
+    "dev": "nodemon app.js",
+    "start": "node app.js"
+>>>>>>> master
   },
   "repository": {
     "type": "git",
