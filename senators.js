@@ -7,53 +7,62 @@
  localStorage.clear();
 
  ///////////////// HTML elements////////////////////////////////////////////////////
- const root = document.getElementById('root')
- const container = document.createElement('div')
- const cards = document.createElement('div')
- container.setAttribute('class', 'container')
- cards.setAttribute('class', 'card-deck mb-3 text-center')
- root.appendChild(container)
- container.appendChild(cards)
+ const container = document.getElementById('cards')
+
  /////////////////////////////////////////////////////////////////////////////
 
 var xhttp = new XMLHttpRequest();
-xhttp.open('GET', 'https://reflected-flux-270220.appspot.com/politicians/senators', false);
+xhttp.open('GET', 'http://localhost:3000/politicians/senators', false);
 xhttp.send();
 
 const senators = JSON.parse(xhttp.responseText);
 
 senators.forEach(member => {
 
-  const politician = document.createElement('div')
-  const name = document.createElement('h4')
-  const attributes = document.createElement('ol')
-  const linkBio = document.createElement('li')
-  const linkVotingHistory = document.createElement('li')
-  const bioPage = document.createElement('a')
-  const votingHistPage = document.createElement('a')
+  const row = document.createElement('div');
+  const col = document.createElement('div');
+  const card = document.createElement('div');
+  const position = document.createElement('div');
+  const head1 = document.createElement('h3');
+  const head2 = document.createElement('h6');
+  const paragraph = document.createElement('p');
+  const bioPage = document.createElement('a');
+  const votingHistPage = document.createElement('a');
 
-  politician.setAttribute('class', 'p-4')
-  name.setAttribute('class', 'font-italic')
-  attributes.setAttribute('class', 'list-unstyled mb-0')
+
+  row.setAttribute('class', 'row mb-2');
+  col.setAttribute('class', 'col mb-2');
+  card.setAttribute('class' , 'row no-gutters border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative');
+  position.setAttribute('class', 'col p-4 d-flex flex-column position-static');
+  head1.setAttribute('class', 'mb-0');
+  head2.setAttribute('class', 'mb-0');
+  paragraph.setAttribute('class', 'card-text mb-auto');
+  bioPage.setAttribute('class', 'btn btn-primary');
   bioPage.setAttribute('id', `${member.id}`)
   bioPage.setAttribute('onclick', `f1("${member.id}", "${member.first_name}", "${member.last_name}", "${member.party}");`)
   bioPage.setAttribute('href', 'politiciansBio.html')
+  votingHistPage.setAttribute('class', 'btn btn-primary');
   votingHistPage.setAttribute('href', 'politicianVotingHistory.html')
 
-  name.textContent = member.first_name;
-  if(member.middle_name != null) name.textContent += " " + member.middle_name;
-  name.textContent += " " + member.last_name;
-  bioPage.textContent = "Bio"
-  votingHistPage.textContent = "Voting History"
 
-  cards.appendChild(politician)
-  politician.appendChild(name)
-  politician.appendChild(attributes)
-  attributes.appendChild(linkBio)
-  linkBio.appendChild(bioPage)
-  attributes.appendChild(linkVotingHistory)
-  linkVotingHistory.appendChild(votingHistPage)
+  head1.textContent = member.first_name;
+  if(member.middle_name != null) head1.textContent += " " + member.middle_name;
+  head1.textContent += " " + member.last_name;
+  if(member.party == 'R') head2.textContent = 'Republican';
+  else head2.textContent = 'Democrat';
+  paragraph.textContent = "State: " + member.state + "\n" + "District: " + member.district;
+  bioPage.textContent = "Biography";
+  votingHistPage.textContent = "Voting History";
 
+  container.appendChild(row);
+  row.appendChild(col);
+  col.appendChild(card);
+  card.appendChild(position);
+  position.appendChild(head1);
+  position.appendChild(head2);
+  position.appendChild(paragraph);
+  position.appendChild(bioPage);
+  position.appendChild(votingHistPage);
 });
 
 function f1(id, firstName, lastName, party){
