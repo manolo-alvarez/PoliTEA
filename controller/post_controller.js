@@ -43,7 +43,10 @@ exports.showAllSenators = (req, res, next) => {
         last_name: senator.last_name,
         gender: senator.gender,
         party: senator.party,
-        date_of_birth: senator.date_of_birth});
+        date_of_birth: senator.date_of_birth,
+        state: senator.state,
+        district: senator.district
+      });
     })
 
     res.status(200).json(members)
@@ -67,7 +70,10 @@ exports.showAllCongressman = (req, res, next) => {
         last_name: congressman.last_name,
         gender: congressman.gender,
         party: congressman.party,
-        date_of_birth: congressman.date_of_birth});
+        date_of_birth: congressman.date_of_birth,
+        state: congressman.state,
+        district: congressman.district
+      });
     })
 
     res.status(200).json(members)
@@ -151,7 +157,7 @@ exports.showStateAbbrEvents = (req, res, next) => {
       res.status(200).json(docs)
     })
   }
- 
+
 exports.showStateEvents = (req, res, next) => {
   let state = titleCase(req.params.id);
   let abbr = (req.params.id).toUpperCase();
@@ -173,4 +179,3 @@ function titleCase(string) {
     sentence = sentence.join(" ");
  return sentence;
  }
-

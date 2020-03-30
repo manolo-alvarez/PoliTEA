@@ -1,30 +1,20 @@
 <!DOCTYPE html>
-
-<!--
- - @author: Manolo Alvarez
- - @lastRevised: 03/05/2020
- - @summary: HTML page in charge of displaying the voting history of a Politician. ALL HARDCODED.
--->
-
 <html lang="en">
+
 <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Politicians</title>
+  <title>Top Donors and Personal Finances</title>
 
-    <link href="https://fonts.googleapis.com/css?family=Dosis:400,700" rel="stylesheet" />
-    <link href="style.css" rel="stylesheet" />
+  <!-- <link href="https://fonts.googleapis.com/css?family=Dosis:400,700" rel="stylesheet"> -->
+  <!-- <link href="style.css" rel="stylesheet"> -->
+
 </head>
 
-<!-- Required meta tags -->
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<!-- Bootstrap CSS -->
-<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
 
 <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
-    <a class="navbar-brand" href="#">politea</a>
+    <a class="navbar-brand" href="#">poli<strong>tea</strong></a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse"  aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
@@ -34,7 +24,7 @@
           <a class="nav-link" href="./Splash.html">Home<span class="sr-only">(current)</span></a>
         </li>
         <li class="nav-item active">
-          <a class="nav-link" href="./politicians.html">Politicians<span class="sr-only">(current)</span></a>
+          <a class="nav-link" href="./index.html">Politicians<span class="sr-only">(current)</span></a>
         </li>
         <li class="nav-item active">
           <a class="nav-link" href="./Legislation.html">Legislation<span class="sr-only">(current)</span></a>
@@ -50,22 +40,45 @@
     </div>
   </nav>
 <br><br>
-<div class=container>
-<body>
-    <table>
-      <tr>
-        <td colspan="2" style="font-weight:bold">Nancy Pelosi Voting History on Bills:</td>
-      </tr>
-      <tr>
-        <td><h6 id="header6">Bill 3510: Federal Ban on AR-15</h6></td>
-      </tr>
-      <tr>
-        <td><p id="p1">Voted YES</p></td>
-      </tr>
-    </table>
-</body>
+
+<div class=container></div>
+<!-- Required meta tags -->
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<!-- Bootstrap CSS -->
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+
 <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+
+<div class="container marketing">
+<body class="vsc-initialized">
+  <br><br>
+
+  <h1 id="header" class="featurette-heading"> Financial Information </h1>
+  <br>
+  <script>
+    if (localStorage.getItem("politician_firstName") != null) {
+      document.getElementById("header").innerHTML = "Financial Information for " + localStorage.getItem("politician_firstName") + " " + localStorage.getItem("politician_lastName");
+    }
+  </script>
+
+  <br>
+
+  <h2 id="header" class="featurette-heading"> Top Donors </h2>
+  <a href="contrib.html" class="lead">Top Contributors by Organization</a>
+  <br>
+  <a href="industry.html" class="lead">Top Contributors by Industry</a>
+
+  <br> <br> <br>
+  <h2 id="header" class="featurette-heading"> Personal Finances </h2>
+  <a href="finances.html" class="lead">Net Worth and Assets</a>
+
+</body>
+  <!-- <p id="results" class="lead"> </p> -->
+  <!-- <script type="text/javascript" src="industry.js"></script> -->
+
 </div>
+
 </html>
