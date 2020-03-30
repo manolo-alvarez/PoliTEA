@@ -1,4 +1,4 @@
-const politicians = require('./RestAPI/server')
+const politicians = require('../RestAPI/server')
 const uri = 'mongodb+srv://truther:berniebitches420@cluster0-p5cmn.mongodb.net/test?retryWrites=true&w=majority'
 // const uri = "mongodb+srv://megan:123@clustertest-wsnll.mongodb.net/test?retryWrites=true&w=majority"
 const express = require('express');
@@ -80,7 +80,7 @@ function findEmptyFinances() {
       if (docs.crp_id!=null)
         exists_array.push(docs.crp_id)
     })
-    console.log('existing finances array is ' + exists_array)
+    // console.log('existing finances array is ' + exists_array)
   });
 
   politicians.find( {finances: {$exists : false }}, function(err, docs) {
@@ -122,7 +122,8 @@ function findEmptyFinances() {
 // Retrieve contribution data from OpenSecrets API and update database
 ////////////////////////////////////////////////////////////////////////////////
 function populateFinances() {
-  // crp_array = ['N00028152', 'N00035451', 'badid']
+  // crp_array = ['N00001093']
+  // crp_array = ['','','','N00001093','']
   console.log('In populateDonors, array is ' + crp_array)
   var method = 'memPFDprofile'
   var year = '2020'
@@ -131,20 +132,21 @@ function populateFinances() {
   // var api_key = '52f80155d9bb4bd043b2ef5c7e05e9cc' //utexas
   // var api_key = '17670ea6524ff0d3a02e77c6d6835d08' //maemeigh
   // var api_key = '8501d386724d739584d71c1328ce4feb' //mtn gmail
-  // var api_key = 'ed0ccb4fd1f64fdbce4e8915564c40e2' // ee461
-  var api_key = '00d06946b742b2613873185d48895a2e' // res org
+  var api_key = 'ed0ccb4fd1f64fdbce4e8915564c40e2' // ee461
+  // var api_key = '00d06946b742b2613873185d48895a2e' // res org
   // var api_key = '2332f6dd943afd1e54c4548560d94769' //res ut
 
   for(var i = 0; i < crp_array.length; i++) {
       cid = crp_array[i]
       console.log('cid is '+ cid)
       url = `https://www.opensecrets.org/api/?method=${method}&year=${year}&cid=${cid}&output=json&apikey=${api_key}`
-      console.log('get ' + url)
 
       https.get(url, (res) => {
         console.log('statusCode:', res.statusCode);
         // console.log('headers:', res.headers);
         if(res.statusCode=='200') {
+            console.log('get ' + url)
+
             let result = '';
             res.on('data', (d) => {
               // process.stdout.write(d);
@@ -152,6 +154,7 @@ function populateFinances() {
             });
 
             res.on('end', () =>  {
+              console.log('json result is ' + result)
               result = JSON.parse(result)
               result = JSON.stringify(result)
               result = result.replace(/@/g, "_")
@@ -187,7 +190,7 @@ function populateFinances() {
                         try {
                            result.response.member_profile.assets.asset.forEach(asset => {
                                // console.log(contributor)
-                               console.log('cid in for each loop ' + cid)
+                               console.log('add assets for ' + cid)
                                var asset_value = (Number(asset._attributes.holdings_low) + Number(asset._attributes.holdings_high))/2
 
                                politicians.updateMany(
@@ -208,7 +211,7 @@ function populateFinances() {
                                  })
                            }) // finished pushing one asset to database for current cid
                          } catch(err) {
-                            console.log(err)
+                            console.log('asset error with cid ' + cid)
                          }
                        }
                   }

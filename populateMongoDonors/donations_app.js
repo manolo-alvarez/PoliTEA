@@ -1,4 +1,4 @@
-const politicians = require('./RestAPI/server')
+const politicians = require('../RestAPI/server')
 const uri = 'mongodb+srv://truther:berniebitches420@cluster0-p5cmn.mongodb.net/test?retryWrites=true&w=majority'
 // const uri = "mongodb+srv://megan:123@clustertest-wsnll.mongodb.net/test?retryWrites=true&w=majority"
 const express = require('express');
@@ -103,7 +103,7 @@ function populateDonors() {
   // var api_key = '8501d386724d739584d71c1328ce4feb' //mtn gmail
   // var api_key = 'ed0ccb4fd1f64fdbce4e8915564c40e2' // ee461
   // var api_key = '00d06946b742b2613873185d48895a2e' // res org
-  var api_key = '2332f6dd943afd1e54c4548560d94769' //res ut 
+  var api_key = '2332f6dd943afd1e54c4548560d94769' //res ut
 
   for(var i = 0; i < crp_array.length; i++) {
       cid = crp_array[i]

@@ -1,4 +1,4 @@
-const politicians = require('./RestAPI/server')
+const politicians = require('../RestAPI/server')
 const uri = 'mongodb+srv://truther:berniebitches420@cluster0-p5cmn.mongodb.net/test?retryWrites=true&w=majority'
 // const uri = "mongodb+srv://megan:123@clustertest-wsnll.mongodb.net/test?retryWrites=true&w=majority"
 const express = require('express');

@@ -55,7 +55,7 @@ request.onload = function() {
       elem.appendChild(br)
 
       if(assets.length==0) {
-        document.getElementById("results").innerHTML = "No assets available for " + first_last
+        document.getElementById("assets").innerHTML = "No assets available for " + first_last
       }
 
       for(var i = 0; i < assets.length; i++) {
