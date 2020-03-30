@@ -6,6 +6,7 @@ exports.showIndex = (req, res, next) => {
        res.send('ruunning node api');
 }
 
+
 /////////////////////// Manolo ///////////////////////////////////////
 
 exports.showVotes = (req, res, next) => {
