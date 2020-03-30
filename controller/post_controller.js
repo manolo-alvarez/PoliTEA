@@ -14,7 +14,7 @@ exports.showAllBills = (req, res, next) => {
 
   let billsArray = [];
 
-  bills.find({primary_subject: 'Immigration'},  function (err, docs) {
+  bills.find(function (err, docs) {
     if (err || docs.length==0) {
       return res.status(404).send('Bills not found')
     } 
@@ -24,10 +24,13 @@ exports.showAllBills = (req, res, next) => {
           number: bill.number,
           title: bill.title,
           short_title: bill.short_title,
+          introduced_date: bill.introduced_date,
           sponsor_title: bill.sponsor_title,
           sponsor_name: bill.sponsor_name,
           sponsor_state: bill.sponsor_state,
-          sponsor_party: bill.sponsor_party});
+          sponsor_party: bill.sponsor_party,
+          primary_subject: bill.primary_subject
+        });
     })
 
     res.status(200).json(billsArray)
@@ -40,7 +43,7 @@ exports.showBillsByTopic = (req, res, next) => {
   let billsArray = [];
 
 
-  bills.find({primary_subject: 'Immigration'},  function (err, docs) {
+  bills.find({primary_subject: req.params.id},  function (err, docs) {
       if (err || docs.length==0) {
         return res.status(404).send('Bills not found')
       } 
@@ -51,10 +54,13 @@ exports.showBillsByTopic = (req, res, next) => {
           number: bill.number,
           title: bill.title,
           short_title: bill.short_title,
+          introduced_date: bill.introduced_date,
           sponsor_title: bill.sponsor_title,
           sponsor_name: bill.sponsor_name,
           sponsor_state: bill.sponsor_state,
-          sponsor_party: bill.sponsor_party});
+          sponsor_party: bill.sponsor_party,
+          primary_subject: bill.primary_subject
+        });
     })
 
     res.status(200).json(billsArray)

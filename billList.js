@@ -18,8 +18,11 @@ topic = queryString.split('=')[1];
 const list = document.getElementById('list')
 
 /////////////////////////////////////////////////////////////////////////////
-if(topic != null) var url_test = 'https://reflected-flux-270220.appspot.com/bills/' + topic;
-else var url_test = 'https://reflected-flux-270220.appspot.com/bills'
+//if(topic != null) var url_test = 'https://reflected-flux-270220.appspot.com/bills/' + topic;
+//else var url_test = 'https://reflected-flux-270220.appspot.com/bills/all'
+
+if(topic != null) var url_test = 'http://localhost:3000/bills/' + topic;
+else var url_test = 'http://localhost:3000/bills/all'
 
 var xhttp = new XMLHttpRequest();
 xhttp.open('GET', url_test, false);
@@ -75,15 +78,15 @@ function DisplayList (billsParse, rows_per_page, page) {
    financesPage.setAttribute('href', 'financial_main.html') */
 
   /*  if(billsParse[i].short_title != null) */
-   head1.textContent = billsParse[i].short_title += " (" + billsParse[i].number + ")";
+   head1.textContent = billsParse[i].short_title + " (" + billsParse[i].number + ")";
    //head1.textContent += " (" + billsParse[i].number + ")";
-   head2.textContent = billsParse[i].title;
+   head2.textContent = billsParse[i].introduced_date;
 
-   paragraph1.textContent = billsParse[i].sponsor_title + " " + billsParse[i].sponsor_name + " (" + billsParse[i].sponsor_party + ") " + billsParse[i].sponsor_state + " -- (Link to Politicians Model coming soon)"
+   paragraph1.textContent = billsParse[i].sponsor_title + " " + billsParse[i].sponsor_name + " (" + billsParse[i].sponsor_party + ") " + billsParse[i].sponsor_state;
 
    blankSpace.textContent = " ";
 
-   bioPage.textContent = "Biography";
+   bioPage.textContent = "More Info";
 
    list.appendChild(row);
    row.appendChild(col);
@@ -130,11 +133,10 @@ function PaginationButton (page, billsParse) {
    return button;
 }
 
-/* function f1(id, firstName, lastName, party, state, district){
+ function f1(id, firstName, lastName, party, state, district){
  localStorage.setItem('politician_id', id);
  localStorage.setItem('politician_firstName', firstName);
  localStorage.setItem('politician_lastName', lastName);
  localStorage.setItem('politician_party', party);
  localStorage.setItem('politician_state', state);
 };
- */
