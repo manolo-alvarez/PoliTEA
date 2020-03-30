@@ -60,6 +60,7 @@ request.onload = function() {
 
       for(var i = 0; i < assets.length; i++) {
             var asset_title = (i+1) + ". " + assets[i].name + "<br>";
+            if(assets[i].name=='') asset_title = (i+1) + ". Unspecified Asset <br>"
             document.getElementById("assets").innerHTML += asset_title.bold();
             document.getElementById("assets").innerHTML += "Estimated Asset Value: $" + assets[i].asset_value + "<br>" + "<br>";
       }
