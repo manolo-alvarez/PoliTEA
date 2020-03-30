@@ -29,7 +29,9 @@ exports.showAllBills = (req, res, next) => {
           sponsor_name: bill.sponsor_name,
           sponsor_state: bill.sponsor_state,
           sponsor_party: bill.sponsor_party,
-          primary_subject: bill.primary_subject
+          primary_subject: bill.primary_subject,
+          summary: bill.summary,
+          congressdotgov_url: bill.congressdotgov_url
         });
     })
 
@@ -59,7 +61,9 @@ exports.showBillsByTopic = (req, res, next) => {
           sponsor_name: bill.sponsor_name,
           sponsor_state: bill.sponsor_state,
           sponsor_party: bill.sponsor_party,
-          primary_subject: bill.primary_subject
+          primary_subject: bill.primary_subject,
+          summary: bill.summary,
+          congressdotgov_url: bill.congressdotgov_url
         });
     })
 
