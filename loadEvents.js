@@ -29,54 +29,103 @@ function show_events (xhttp){
   
   showUpcomingMsg();
 
-  const oData = JSON.parse(xhttp.responseText);
-
-
-  for (let event of oData) {
-    var title = "";
-    if (event.title != null)
-        title = event.title;
-
-    var time = "";
-    time = event.start_time;
-    if (time != null){
-      if (event.stop_time != null)
-        time +=' - '+event.stop_time;
-    }
-
-    var addr = "";
-    if (event.venue_address != null)
-      addr = event.venue_address;
-
-    var description = "";  
-    if (event.description != null)
-      description = event.description;
-
-    var url = ""; var url_btn = "";
-    if (event.url != null){
-        url = event.url;
-        url_btn = `<button onclick="window.location.href = '${url}';" class="btn btn-info">More Info</button> `
-    }
-
-    const x = `
-        <div>
-            <div class="row no-gutters border rounded overflow-hidden flex-md-row mr-4 mb-4 shadow-sm h-md-250 position-relative">
-                <div class="card-body">
-                    <h5 class="card-title">${title}</h5>
-                    <h6 class="card-subtitle mb-2 text-muted">${time}</h6>
-                    <h6 class="card-subtitle mb-2 text-info">${addr}</h6>
-                    <div>${description}</div>
-                    <hr>
-                    ${url_btn}
-                </div>
-            </div>
-        </div>
-    `
-    document.getElementById('event_data').innerHTML = document.getElementById('event_data').innerHTML + x;
-    }
+  DisplayList(oData, rows, current_page);
   }
 
 }
+
+
+function DisplayList (oData, rows_per_page, page) {
+	document.getElementById('event_data').innerHTML = "";
+	page--;
+
+	let start = rows_per_page * page;
+	let end = start + rows_per_page;
+	console.log("start: " + start + " end: " + end);
+
+	for (let i = start; i < oData.events.event.length && i<end ; i++) {
+	 	let item = oData.events.event[i];
+		 let item_element = document.createElement('div');
+
+		 //////Logic to create HTML element and display
+		 var title = "";
+		if (oData.events.event[i].title != null)
+			title = oData.events.event[i].title;
+	
+		var time = "";
+		time = oData.events.event[i].start_time;
+		if (time != null){
+		  if (oData.events.event[i].stop_time != null)
+			time +=' - '+oData.events.event[i].stop_time;
+		}
+	
+		var addr = "";
+		if (oData.events.event[i].venue_address != null)
+		  addr = oData.events.event[i].venue_address;
+	
+		var description = "";  
+		if (oData.events.event[i].description != null)
+		  description = oData.events.event[i].description;
+	
+		var url = ""; var url_btn = "";
+		if (oData.events.event[i].url != null){
+			url = oData.events.event[i].url;
+			url_btn = `<button onclick="window.location.href = '${url}';" class="btn btn-info">More Info</button> `
+		}
+	
+		const x = `
+			<div>
+				<div class="row no-gutters border rounded overflow-hidden flex-md-row mr-4 mb-4 shadow-sm h-md-250 position-relative">
+					<div class="card-body">
+						<h5 class="card-title">${title}</h5>
+						<h6 class="card-subtitle mb-2 text-muted">${time}</h6>
+						<h6 class="card-subtitle mb-2 text-info">${addr}</h6>
+						<div>${description}</div>
+						<hr>
+						${url_btn}
+					</div>
+				</div>
+			</div>
+		`
+			item_element.innerText = x;
+			document.getElementById('event_data').innerHTML = document.getElementById('event_data').innerHTML + x;
+		
+	} 
+}
+
+
+function SetupPagination (oData, wrapper, rows_per_page) {
+	wrapper.innerHTML = "";
+	let length = oData.events.event.length;
+
+	let page_count = Math.ceil(length / rows_per_page);
+	for (let i = 1; i < page_count + 1; i++) {
+		let btn = PaginationButton(i, oData);
+		wrapper.appendChild(btn);
+	}
+}
+
+function PaginationButton (page, oData) {
+	let button = document.createElement('button');
+	button.innerText = page;
+
+	if (current_page == page) button.classList.add('active');
+
+	button.addEventListener('click', function () {
+		current_page = page;
+		DisplayList(oData, rows, current_page);
+
+		let current_btn = document.querySelector('.pagenumbers button.active');
+		current_btn.classList.remove('active');
+
+		button.classList.add('active');
+	});
+
+	return button;
+}
+
+
+
 
 function showUpcomingMsg(){
   
@@ -98,7 +147,11 @@ function showUpcomingMsg(){
 
 }
 
-
+///for pagination///
+const pagination_element = document.getElementById('pagination');
+let current_page = 1;
+let rows = 10;
+////
 
 
 const range = localStorage.getItem("searchRange");

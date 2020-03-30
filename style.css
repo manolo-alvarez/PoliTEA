@@ -23,7 +23,13 @@
 #git{
     float: left;
     margin-left: 4;
-    margin-right: 4;}
+    margin-right: 4;
+}
+
+.pagenumbers button.active {
+    background-color: #44EEAA;
+    box-shadow: inset 0px 0px 4px rgba(0, 0, 0, 0.2);
+}
 
 
 @media screen and (min-width: 600px) {
