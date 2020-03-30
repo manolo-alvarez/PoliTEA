@@ -32,6 +32,9 @@ senators.forEach(member => {
   const bioPage = document.createElement('a')
   const votingHistPage = document.createElement('a')
 
+  const linkDonors = document.createElement('li')
+  const donorsPage = document.createElement('a')
+
   politician.setAttribute('class', 'p-4')
   name.setAttribute('class', 'font-italic')
   attributes.setAttribute('class', 'list-unstyled mb-0')
@@ -40,11 +43,16 @@ senators.forEach(member => {
   bioPage.setAttribute('href', 'politiciansBio.html')
   votingHistPage.setAttribute('href', 'politicianVotingHistory.html')
 
+  donorsPage.setAttribute('id', `${member.id}`)
+  donorsPage.setAttribute('onclick', `f1("${member.id}", "${member.first_name}", "${member.last_name}", "${member.party}");`)
+  donorsPage.setAttribute('href', 'financial_main.html')
+
   name.textContent = member.first_name;
   if(member.middle_name != null) name.textContent += " " + member.middle_name;
   name.textContent += " " + member.last_name;
   bioPage.textContent = "Bio"
   votingHistPage.textContent = "Voting History"
+  donorsPage.textContent = "Donors"
 
   cards.appendChild(politician)
   politician.appendChild(name)
@@ -53,6 +61,9 @@ senators.forEach(member => {
   linkBio.appendChild(bioPage)
   attributes.appendChild(linkVotingHistory)
   linkVotingHistory.appendChild(votingHistPage)
+
+  attributes.appendChild(linkDonors)
+  linkDonors.appendChild(donorsPage)
 
 });
 
