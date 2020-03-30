@@ -25,17 +25,17 @@ var xhttp = new XMLHttpRequest();
 xhttp.open('GET', url_test, false);
 xhttp.send();
 
-const bills = JSON.parse(xhttp.responseText);
+const billsParse = JSON.parse(xhttp.responseText);
 
 const pagination_element = document.getElementById('pagination');
 
 let current_page = 1;
 let rows = 10;
 
-SetupPagination(bills, pagination_element, rows);
-DisplayList(bills, rows, current_page);
+SetupPagination(billsParse, pagination_element, rows);
+DisplayList(billsParse, rows, current_page);
 
-function DisplayList (bills, rows_per_page, page) {
+function DisplayList (billsParse, rows_per_page, page) {
    document.getElementById('list').innerHTML = "";
    page--;
 
@@ -43,7 +43,7 @@ function DisplayList (bills, rows_per_page, page) {
    let end = start + rows_per_page;
    console.log("start: " + start + " end: " + end);
 
- for (let i = start; i < bills.length && i<end ; i++) {
+ for (let i = start; i < billsParse.length && i<end ; i++) {
 
    const row = document.createElement('div');
    const col = document.createElement('div');
@@ -73,11 +73,11 @@ function DisplayList (bills, rows_per_page, page) {
    financesPage.setAttribute('onclick', `f1("${senators[i].id}", "${senators[i].first_name}", "${senators[i].last_name}", "${senators[i].party}", "${senators[i].state}", "${senators[i].district}");`)
    financesPage.setAttribute('href', 'financial_main.html') */
 
-   if(bills[i].short_title != null)head1.textContent = bills[i].short_title;
-   head1.textContent += " (" + bills[i].number + ")";
-   head2.textContent = bills[i].title;
+   if(billsParse[i].short_title != null)head1.textContent = billsParse[i].short_title;
+   head1.textContent += " (" + billsParse[i].number + ")";
+   head2.textContent = billsParse[i].title;
 
-   paragraph1.textContent = bills[i].sponsor_title + " " + bills[i].sponsor_name + " (" + bills[i].sponsor_party + ") " + bills[i].sponsor_state + " -- (Link to Politicians Model coming soon)"
+   paragraph1.textContent = billsParse[i].sponsor_title + " " + billsParse[i].sponsor_name + " (" + billsParse[i].sponsor_party + ") " + billsParse[i].sponsor_state + " -- (Link to Politicians Model coming soon)"
 
 
    bioPage.textContent = "Biography";
@@ -97,18 +97,18 @@ function DisplayList (bills, rows_per_page, page) {
    }
 }
 
-function SetupPagination (bills, wrapper, rows_per_page) {
+function SetupPagination (billsParse, wrapper, rows_per_page) {
    wrapper.innerHTML = "";
-   let length = bills.length;
+   let length = billsParse.length;
 
    let page_count = Math.ceil(length / rows_per_page);
    for (let i = 1; i < page_count + 1; i++) {
-       let btn = PaginationButton(i, bills);
+       let btn = PaginationButton(i, billsParse);
        wrapper.appendChild(btn);
    }
 }
 
-function PaginationButton (page, bills) {
+function PaginationButton (page, billsParse) {
    let button = document.createElement('button');
    button.innerText = page;
 
@@ -116,7 +116,7 @@ function PaginationButton (page, bills) {
 
    button.addEventListener('click', function () {
        current_page = page;
-       DisplayList(bills, rows, current_page);
+       DisplayList(billsParse, rows, current_page);
 
        let current_btn = document.querySelector('.pagenumbers button.active');
        current_btn.classList.remove('active');

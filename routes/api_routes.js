@@ -32,8 +32,8 @@ router.get('/events/state/:id', postcontroller.showStateEvents);
 
 router.get('/events/stateAbbr/:id', postcontroller.showStateAbbrEvents);
 
-router.get('/bills/all', billscontroller.showAllBills);
+router.get('/bills/all', postcontroller.showAllBills);
 
-router.get('/bills/:id', billscontroller.showBillsByTopic);
+router.get('/bills/:id', postcontroller.showBillsByTopic);
 
 module.exports = router;

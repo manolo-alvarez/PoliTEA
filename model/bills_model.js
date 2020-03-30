@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
-const Bills = new mongoose.Schema({
+const billsSchema = new Schema({
     bill_id: String,
     bill_type: String,
     number:  String,
@@ -33,4 +33,4 @@ const Bills = new mongoose.Schema({
     latest_major_action: String  
 });
 
-var bill = module.exports = mongoose.model('bill', Bills);
+module.exports = mongoose.model('bills', billsSchema);
