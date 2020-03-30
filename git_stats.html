@@ -72,7 +72,7 @@
 
     async function getTraffic() {
         clear();
-        const url = "https://api.github.com/repos/malvarez0722/ee461l-team-project/traffic/views?access_token=70caacb1f3d8a23f24e25387eb301c4b667cad74"
+        const url = "https://api.github.com/repos/malvarez0722/ee461l-team-project/traffic/views?access_token=5355e64db62ef3d344dd520335e065f5ade1e283"
         const response = await fetch(url)
         const result = await response.json()
 
@@ -107,6 +107,7 @@
         // var users_arr = ["neetishah", "bailloj", "aidanmcgraw", "mtmn19", "malvarez0722", "asad"];
         // temporarily hard coded contributors
         for ( var i =0; i< result.length; i++){
+          if (result[i].committer != null){
           var committer = result[i].committer.login;
             if (committer == "neetishah")
               users.neetishah++;
@@ -114,12 +115,29 @@
               users.bailloj++;
             if (committer == "aidanmcgraw")
               users.aidanmcgraw++;
-            if (committer == "mtmn19")
+            if (committer == "mtmn19" || result[i].author.name=="Megan Nguyen" )
               users.mtmn19++;
             if (committer == "malvarez0722")
               users.malvarez0722++;
             if (committer == "aaa4521")
               users.aaa4521++;
+            } else {
+              if (result[i].commit.author != null){
+                var committer = result[i].commit.author.name;
+                  if (committer == "neeti")
+                    users.neetishah++;
+                  if (committer == "Jireh")
+                    users.bailloj++;
+                  if (committer == "aidanmcgraw")
+                    users.aidanmcgraw++;
+                  if (committer == "Megan Nguyen" )
+                    users.mtmn19++;
+                  if (committer == "Manolo Alvarez Cristiano")
+                    users.malvarez0722++;
+                  if (committer == "Asad")
+                    users.aaa4521++;
+                }
+            }
         }
         console.log( users);
 //bar chart

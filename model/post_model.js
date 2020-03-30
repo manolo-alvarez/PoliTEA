@@ -107,4 +107,5 @@ const politicianSchema = new Schema({
   }]
 });
 
+
 module.exports = mongoose.model('politicians', politicianSchema);
