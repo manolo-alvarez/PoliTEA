@@ -1,7 +1,6 @@
 //api_routes.js file
 const express = require('express');
 const postcontroller = require('../controller/post_controller');
-const billscontroller = require('../controller/bills_controller');
 
 
 const router = express.Router();
