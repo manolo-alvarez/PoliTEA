@@ -28,55 +28,108 @@ function show_events (xhttp){
     
   
   showUpcomingMsg();
-
-  const oData = JSON.parse(xhttp.responseText);
-
-
-  for (let event of oData) {
-    var title = "";
-    if (event.title != null)
-        title = event.title;
-
-    var time = "";
-    time = event.start_time;
-    if (time != null){
-      if (event.stop_time != null)
-        time +=' - '+event.stop_time;
-    }
-
-    var addr = "";
-    if (event.venue_address != null)
-      addr = event.venue_address;
-
-    var description = "";  
-    if (event.description != null)
-      description = event.description;
-
-    var url = ""; var url_btn = "";
-    if (event.url != null){
-        url = event.url;
-        url_btn = `<button onclick="window.location.href = '${url}';" class="btn btn-info">More Info</button> `
-    }
-
-    const x = `
-        <div>
-            <div class="row no-gutters border rounded overflow-hidden flex-md-row mr-4 mb-4 shadow-sm h-md-250 position-relative">
-                <div class="card-body">
-                    <h5 class="card-title">${title}</h5>
-                    <h6 class="card-subtitle mb-2 text-muted">${time}</h6>
-                    <h6 class="card-subtitle mb-2 text-info">${addr}</h6>
-                    <div>${description}</div>
-                    <hr>
-                    ${url_btn}
-                </div>
-            </div>
-        </div>
-    `
-    document.getElementById('event_data').innerHTML = document.getElementById('event_data').innerHTML + x;
-    }
+  let oData = xhttp.responseText;
+  DisplayList(oData, rows, current_page);
   }
 
 }
+
+
+function DisplayList (oData, rows_per_page, page) {
+  console.log(oData)
+  events = JSON.parse(oData);
+	document.getElementById('event_data').innerHTML = "";
+	page--;
+
+	let start = rows_per_page * page;
+	let end = start + rows_per_page;
+	console.log("start: " + start + " end: " + end);
+
+	for (let i = start; i < events.length && i<end ; i++) {
+		 let item_element = document.createElement('div');
+		 //////Logic to create HTML element and display
+		 var title = "";
+		if (events[i].title != null)
+			title = events[i].title;
+	
+		var time = "";
+		time = events[i].start_time;
+		if (time != null){
+		  if (events[i].stop_time != null)
+			time +=' - '+events[i].stop_time;
+		}
+	
+		var addr = "";
+		if (events[i].venue_address != null)
+		  addr = events[i].venue_address;
+	
+		var description = "";  
+		if (events[i].description != null)
+		  description = events[i].description;
+	
+		var url = ""; var url_btn = "";
+		if (events[i].url != null){
+			url = events[i].url;
+			url_btn = `<button onclick="window.location.href = '${url}';" class="btn btn-info">More Info</button> `
+		}
+	
+		const x = `
+			<div>
+				<div class="row no-gutters border rounded overflow-hidden flex-md-row mr-4 mb-4 shadow-sm h-md-250 position-relative">
+					<div class="card-body">
+						<h5 class="card-title">${title}</h5>
+						<h6 class="card-subtitle mb-2 text-muted">${time}</h6>
+						<h6 class="card-subtitle mb-2 text-info">${addr}</h6>
+						<div>${description}</div>
+						<hr>
+						${url_btn}
+					</div>
+				</div>
+			</div>
+		`
+			item_element.innerText = x;
+			document.getElementById('event_data').innerHTML = document.getElementById('event_data').innerHTML + x;
+		
+  } 
+  SetupPagination (oData, pagination_element, rows);
+}
+
+
+function SetupPagination (oData, wrapper, rows_per_page) {
+  events = JSON.parse(oData);
+	wrapper.innerHTML = "";
+	let length = events.length;
+
+	let page_count = Math.ceil(length / rows_per_page);
+	for (let i = 1; i < page_count + 1; i++) {
+		let btn = PaginationButton(i, oData);
+		wrapper.appendChild(btn);
+	}
+}
+
+function PaginationButton (page, oData) {
+  events = JSON.parse(oData);
+	let button = document.createElement('button');
+	button.innerText = page;
+
+	if (current_page == page) button.classList.add('active');
+
+	button.addEventListener('click', function () {
+    current_page = page;
+    console.log(events);
+		DisplayList(oData, rows, current_page);
+
+		let current_btn = document.querySelector('.pagenumbers button.active');
+		current_btn.classList.remove('active');
+
+		button.classList.add('active');
+	});
+
+	return button;
+}
+
+
+
 
 function showUpcomingMsg(){
   
@@ -98,8 +151,11 @@ function showUpcomingMsg(){
 
 }
 
-
-
+///for pagination///
+const pagination_element = document.getElementById('pagination');
+let current_page = 1;
+let rows = 5;
+////
 
 const range = localStorage.getItem("searchRange");
 
