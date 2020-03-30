@@ -1,6 +1,8 @@
 //api_routes.js file
 const express = require('express');
 const postcontroller = require('../controller/post_controller');
+const billscontroller = require('../controller/bills_controller');
+
 
 const router = express.Router();
 
@@ -30,8 +32,8 @@ router.get('/events/state/:id', postcontroller.showStateEvents);
 
 router.get('/events/stateAbbr/:id', postcontroller.showStateAbbrEvents);
 
-router.get('/bills/', postcontroller.showAllBills);
+router.get('/bills', billscontroller.showAllBills);
 
-router.get('/bills/:id', postcontroller.showBillsByTopic);
+router.get('/bills/:id', billscontroller.showBillsByTopic);
 
 module.exports = router;

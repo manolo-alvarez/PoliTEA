@@ -18,7 +18,8 @@ topic = queryString.split('=')[1];
 const list = document.getElementById('list')
 
 /////////////////////////////////////////////////////////////////////////////
-var url_test = 'https://reflected-flux-270220.appspot.com/bills/' + topic;
+if(topic != null) var url_test = 'https://reflected-flux-270220.appspot.com/bills/' + topic;
+else var url_test = 'https://reflected-flux-270220.appspot.com/bills'
 
 var xhttp = new XMLHttpRequest();
 xhttp.open('GET', url_test, false);
@@ -63,9 +64,9 @@ function DisplayList (bills, rows_per_page, page) {
    head2.setAttribute('class', 'mb-0');
    paragraph1.setAttribute('class', 'card-text mb-auto');
    bioPage.setAttribute('class', 'btn btn-primary');
-   bioPage.setAttribute('id', `${senators[i].id}`)
-   bioPage.setAttribute('onclick', `f1("${senators[i].id}", "${senators[i].first_name}", "${senators[i].last_name}", "${senators[i].party}", "${senators[i].state}", "${senators[i].district}");`)
-   bioPage.setAttribute('href', 'bill.html')
+   //bioPage.setAttribute('id', `${senators[i].id}`)
+   //bioPage.setAttribute('onclick', `f1("${senators[i].id}", "${senators[i].first_name}", "${senators[i].last_name}", "${senators[i].party}", "${senators[i].state}", "${senators[i].district}");`)
+   bioPage.setAttribute('href', 'billTemplate.html')
 /* 
    financesPage.setAttribute('class', 'btn btn-primary');
    financesPage.setAttribute('id', `${senators[i].id}`)
@@ -80,8 +81,6 @@ function DisplayList (bills, rows_per_page, page) {
 
 
    bioPage.textContent = "Biography";
-   blankSpace.textContent = " ";
-   financesPage.textContent = "Donors and Finances"
 
    list.appendChild(row);
    row.appendChild(col);
@@ -98,18 +97,18 @@ function DisplayList (bills, rows_per_page, page) {
    }
 }
 
-function SetupPagination (senators, wrapper, rows_per_page) {
+function SetupPagination (bills, wrapper, rows_per_page) {
    wrapper.innerHTML = "";
-   let length = senators.length;
+   let length = bills.length;
 
    let page_count = Math.ceil(length / rows_per_page);
    for (let i = 1; i < page_count + 1; i++) {
-       let btn = PaginationButton(i, senators);
+       let btn = PaginationButton(i, bills);
        wrapper.appendChild(btn);
    }
 }
 
-function PaginationButton (page, senators) {
+function PaginationButton (page, bills) {
    let button = document.createElement('button');
    button.innerText = page;
 
@@ -117,7 +116,7 @@ function PaginationButton (page, senators) {
 
    button.addEventListener('click', function () {
        current_page = page;
-       DisplayList(senators, rows, current_page);
+       DisplayList(bills, rows, current_page);
 
        let current_btn = document.querySelector('.pagenumbers button.active');
        current_btn.classList.remove('active');
@@ -128,10 +127,11 @@ function PaginationButton (page, senators) {
    return button;
 }
 
-function f1(id, firstName, lastName, party, state, district){
+/* function f1(id, firstName, lastName, party, state, district){
  localStorage.setItem('politician_id', id);
  localStorage.setItem('politician_firstName', firstName);
  localStorage.setItem('politician_lastName', lastName);
  localStorage.setItem('politician_party', party);
  localStorage.setItem('politician_state', state);
 };
+ */

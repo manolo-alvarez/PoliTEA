@@ -25,26 +25,27 @@ exports.showAllBills = (req, res, next) => {
             sponsor_party: bill.sponsor_party});
       })
   
-      res.status(200).json(members)
-    })
+      res.status(200).json(bills)
+    
   }
 
 
   exports.showBillsByTopic = (req, res, next) => {
 
-    let bills = [];
+    let billsArray = [];
 /*     billsModel.find({short_title: 'Sen.'},  function (err, docs) {
       if (err || docs.length==0) {
         return res.status(404).send('Politician not found')
       } */
 
-      politicians.find({short_title: 'Sen.'},  function (err, docs) {
+    bills.find({primary_subject: 'Immigration'},  function (err, docs) {
         if (err || docs.length==0) {
-          return res.status(404).send('Politician not found')
-        }
+          return res.status(404).send('Bills not found')
+        } 
   
+        
       docs.forEach((bill) => {
-        bills.push({
+        billsArray.push({
             number: bill.number,
             title: bill.title,
             short_title: bill.short_title,
@@ -54,9 +55,9 @@ exports.showAllBills = (req, res, next) => {
             sponsor_party: bill.sponsor_party});
       })
   
-      res.status(200).json(members)
-    }
-}
+      res.status(200).json(bills)
+    })
+  }
   
 
 
