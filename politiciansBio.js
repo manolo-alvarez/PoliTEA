@@ -48,7 +48,7 @@ col.appendChild(party);
 col.appendChild(state);
 if (repDistrict != null) col.appendChild(district);
 
-const url = 'http://localhost:3000/votes/' + id;
+const url = 'https://reflected-flux-270220.appspot.com/votes/' + id;
 
 var request = new XMLHttpRequest()
 request.open('GET', url, false)
