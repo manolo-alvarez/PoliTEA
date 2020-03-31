@@ -43,7 +43,7 @@ console.log("Website: " + bill_website);
 
 function f1(sponsor_id){
       //var url = 'https://localhost:3000/politicians/' + sponsor_id;
-      localStorage.clear();
+      //localStorage.clear();
 
 
       var url = 'https://reflected-flux-270220.appspot.com/politicians/' + sponsor_id;
@@ -55,12 +55,14 @@ function f1(sponsor_id){
       const politician = JSON.parse(xhttp.responseText);
 
 
-      localStorage.setItem('politician_id', politician.id);
-      localStorage.setItem('politician_firstName', politician.firstName);
-      localStorage.setItem('politician_lastName', politician.lastName);
-      localStorage.setItem('politician_party', politician.party);
-      localStorage.setItem('politician_state', poltician.state);
-      localStorage.setItem('politician_district', poltician.district);
+      localStorage.setItem('politician_id', politician[0].id);
+      localStorage.setItem('politician_firstName', politician[0].first_name);
+      localStorage.setItem('politician_lastName', politician[0].last_name);
+      localStorage.setItem('politician_party', politician[0].party);
+      localStorage.setItem('politician_state', politician[0].state);
+      localStorage.setItem('politician_district', politician[0].district);
+      if(localStorage.getItem('politician_district') == 'undefined') 
+        localStorage.removeItem('politician_district');
 
 
       //xhttp.open('GET', url, false);
