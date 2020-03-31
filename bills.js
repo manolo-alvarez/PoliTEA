@@ -1,8 +1,11 @@
 /**
- * @author: Manolo Alvarez
- * @lastRevised: 03/06/2020
- * @summary: Javascript file that pulls politicians ProPublica API
+ * @author: Aidan McGraw
+ * @lastRevised: 03/30/2020
+ * @summary: 
  */
+
+
+ 
 
 const app = document.getElementById('billsRoot')
 const container = document.createElement('div')
@@ -16,6 +19,7 @@ const bill_number = localStorage.getItem('bill_number');
 const bill_title = localStorage.getItem('bill_title');
 const bill_date = localStorage.getItem('bill_date');
 const sponsor_title = localStorage.getItem('bill_sTitle');
+const sponsor_id = localStorage.getItem('bill_sID');
 const sponsor_name = localStorage.getItem('bill_sName');
 const sponsor_state = localStorage.getItem('bill_sState');
 const sponsor_party = localStorage.getItem('bill_sParty');
@@ -28,6 +32,7 @@ console.log("Number: " + bill_number);
 console.log("Title: " + bill_title);
 console.log("Date Introduced: " + bill_date);
 console.log("Sponsor Title: " + sponsor_title);
+console.log("Sponsor ID: " + sponsor_id);
 console.log("Sponsor Name: " + sponsor_name);
 console.log("Sponsor State: " + sponsor_state);
 console.log("Sponsor Party: " + sponsor_party);
@@ -37,12 +42,21 @@ console.log("Website: " + bill_website);
 
 
 
+var url_test = 'https://reflected-flux-270220.appspot.com/politicians/' + sponsor_id;
+
+var xhttp = new XMLHttpRequest();
+xhttp.open('GET', url_test, false);
+xhttp.send();
+
+const politicianParse = JSON.parse(xhttp.responseText);
+
 
       const bill = document.createElement('div')
       const title = document.createElement('h4')
       const attributes = document.createElement('ol')
       const number = document.createElement('li')
       const sponsor = document.createElement('li')
+      const link_sponsor = document.createElement('a')
       const date = document.createElement('li')
       const summary = document.createElement('li')
       const gov_site = document.createElement('li')
@@ -51,13 +65,16 @@ console.log("Website: " + bill_website);
 
       bill.setAttribute('class', 'p-4')
       title.setAttribute('class', 'font-italic')
+      link_sponsor.setAttribute('onclick', `f1("${politicianParse[i].id}", "${politicianParses[i].first_name}", "${politicianParses[i].last_name}", "${politicianParses[i].party}", "${politicianParses[i].state}", "${politicianParses[i].district}");`)
+      link_sponsor.setAttribute('href', 'politiciansBio.html')
       attributes.setAttribute('class', 'list-unstyled mb-0')
       link_site.setAttribute('href', bill_website)
 
       title.textContent = bill_title;
       number.textContent = bill_number;
-      sponsor.textContent = sponsor_title + " " + sponsor_name + " (" + sponsor_party + ") " + sponsor_state;
-      summary.textContent = summary;
+      link_sponsor.textContent = sponsor_title + " " + sponsor_name + " (" + sponsor_party + ") " + sponsor_state;
+      date.textContent = bill_date;
+      summary.textContent = bill_summary;
       link_site.textContent = "Congress.gov Link";
 
 
@@ -65,6 +82,7 @@ console.log("Website: " + bill_website);
       bill.appendChild(title);
       bill.appendChild(number);
       bill.appendChild(sponsor);
+      sponsor.appendChild(link_sponsor);
       bill.appendChild(date);
       if (summary != null) {bill.appendChild(summary);}
       bill.appendChild(gov_site);
