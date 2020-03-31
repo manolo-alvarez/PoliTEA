@@ -42,11 +42,11 @@ console.log("Website: " + bill_website);
 
 
 function f1(sponsor_id){
-      //var url = 'https://localhost:3000/politicians/' + sponsor_id;
+      var url = 'https://localhost:3000/politicians/' + sponsor_id;
       //localStorage.clear();
 
 
-      var url = 'https://reflected-flux-270220.appspot.com/politicians/' + sponsor_id;
+      //var url = 'https://reflected-flux-270220.appspot.com/politicians/' + sponsor_id;
       
       var xhttp = new XMLHttpRequest();
       xhttp.open('GET', url, false);
