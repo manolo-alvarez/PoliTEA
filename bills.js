@@ -13,7 +13,7 @@ app.appendChild(container)
 container.appendChild(cards)
 
 const bill_number = localStorage.getItem('bill_number');
-const bill_title = localStorage.getItem('politician_firstName');
+const bill_title = localStorage.getItem('bill_title');
 const bill_date = localStorage.getItem('bill_date');
 const sponsor_title = localStorage.getItem('bill_sTitle');
 const sponsor_name = localStorage.getItem('bill_sName');
@@ -24,6 +24,16 @@ const bill_summary = localStorage.getItem('bill_summary');
 const bill_website = localStorage.getItem('bill_website');
 
 
+console.log("Number: " + bill_number);
+console.log("Title: " + bill_title);
+console.log("Date Introduced: " + bill_date);
+console.log("Sponsor Title: " + sponsor_title);
+console.log("Sponsor Name: " + sponsor_name);
+console.log("Sponsor State: " + sponsor_state);
+console.log("Sponsor Party: " + sponsor_party);
+console.log("Subject: " + bill_subject);
+console.log("Summary: " + bill_summary);
+console.log("Website: " + bill_website);
 
 
 

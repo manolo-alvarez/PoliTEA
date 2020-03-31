@@ -69,7 +69,7 @@ function DisplayList (billsParse, rows_per_page, page) {
    paragraph1.setAttribute('class', 'card-text mb-auto');
    moreBillInfo.setAttribute('class', 'btn btn-primary');
    moreBillInfo.setAttribute('number', `${billsParse[i].number}`)
-   moreBillInfo.setAttribute('onclick', `f2("${billsParse[i].number}", "${billsParse[i].title}", "${billsParse[i].date}", "${billsParse[i].sponsor_title}", "${billsParse[i].sponsor_name}", "${billsParse[i].sponsor_state}", "${billsParse[i].sponsor_party}, "${billsParse[i].primary_subject}, "${billsParse[i].summary}, "${billsParse[i].congressdotgov_url}");`)
+   moreBillInfo.setAttribute('onclick', `f1("${billsParse[i].number}", "${billsParse[i].title}", "${billsParse[i].introduced_date}", "${billsParse[i].sponsor_title}", "${billsParse[i].sponsor_name}", "${billsParse[i].sponsor_state}", "${billsParse[i].sponsor_party}, "${billsParse[i].primary_subject}, "${billsParse[i].summary}, "${billsParse[i].congressdotgov_url}");`)
    moreBillInfo.setAttribute('href', 'billTemplate.html')
 /* 
    financesPage.setAttribute('class', 'btn btn-primary');
@@ -133,7 +133,7 @@ function PaginationButton (page, billsParse) {
    return button;
 }
 
- function f2(number, title, date, sponsor_title, sponsor_name, sponsor_state, sponsor_party, primary_subject, summary, congressdotgov_url){
+ function f1(number, title, date, sponsor_title, sponsor_name, sponsor_state, sponsor_party, primary_subject, summary, congressdotgov_url){
  localStorage.setItem('bill_number', number);
  localStorage.setItem('bill_title', title);
  localStorage.setItem('bill_date', date);
@@ -144,4 +144,6 @@ function PaginationButton (page, billsParse) {
  localStorage.setItem('bill_subject', primary_subject);
  localStorage.setItem('bill_summary', summary);
  localStorage.setItem('bill_website', congressdotgov_url);
+
+ alert(bill_number);
 };
