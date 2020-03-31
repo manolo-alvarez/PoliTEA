@@ -41,14 +41,34 @@ console.log("Summary: " + bill_summary);
 console.log("Website: " + bill_website);
 
 
+function f1(sponsor_id){
+      //var url = 'https://localhost:3000/politicians/' + sponsor_id;
+      localStorage.clear();
 
-var url_test = 'https://reflected-flux-270220.appspot.com/politicians/' + sponsor_id;
 
-var xhttp = new XMLHttpRequest();
-xhttp.open('GET', url_test, false);
-xhttp.send();
+      var url = 'https://reflected-flux-270220.appspot.com/politicians/' + sponsor_id;
+      
+      var xhttp = new XMLHttpRequest();
+      xhttp.open('GET', url, false);
+      xhttp.send();
+      
+      const politician = JSON.parse(xhttp.responseText);
 
-const politicianParse = JSON.parse(xhttp.responseText);
+
+      localStorage.setItem('politician_id', politician.id);
+      localStorage.setItem('politician_firstName', politician.firstName);
+      localStorage.setItem('politician_lastName', politician.lastName);
+      localStorage.setItem('politician_party', politician.party);
+      localStorage.setItem('politician_state', poltician.state);
+      localStorage.setItem('politician_district', poltician.district);
+
+
+      //xhttp.open('GET', url, false);
+
+
+      window.location.href="politiciansBio.html";
+    };
+
 
 
       const bill = document.createElement('div')
@@ -65,7 +85,7 @@ const politicianParse = JSON.parse(xhttp.responseText);
 
       bill.setAttribute('class', 'p-4')
       title.setAttribute('class', 'font-italic')
-      link_sponsor.setAttribute('onclick', `f1("${politicianParse[i].id}", "${politicianParses[i].first_name}", "${politicianParses[i].last_name}", "${politicianParses[i].party}", "${politicianParses[i].state}", "${politicianParses[i].district}");`)
+      link_sponsor.setAttribute('onclick', `f1(sponsor_id);`)
       link_sponsor.setAttribute('href', 'politiciansBio.html')
       attributes.setAttribute('class', 'list-unstyled mb-0')
       link_site.setAttribute('href', bill_website)
