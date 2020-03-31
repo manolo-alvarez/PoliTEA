@@ -1,0 +1,105 @@
+{
+	"info": {
+		"_postman_id": "935212ad-4bd3-4a78-825d-465b69b11988",
+		"name": "Phase2",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "cityEvent",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "e6671b37-7177-43a6-bec4-ba266f48fde8",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"pm.test(\"City Event\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    for (let i=0; i< jsonData.length; i++){",
+							"        pm.expect(jsonData[i].city_name).to.eql(pm.globals.get(\"cityEvent\"));",
+							"    }",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://reflected-flux-270220.appspot.com/events/city/:id",
+					"protocol": "https",
+					"host": [
+						"reflected-flux-270220",
+						"appspot",
+						"com"
+					],
+					"path": [
+						"events",
+						"city",
+						":id"
+					],
+					"variable": [
+						{
+							"key": "id",
+							"value": "{{cityEvent}}"
+						}
+					]
+				},
+				"description": "Testing if a call with endpoint /events/city/:id returns json object with a list of event objects that each have the \"city_name\" attribute as \":id\". In this test, \":id\" = \"Chicago\" since it is a popular city and thereby is bound to have numerous upcoming events."
+			},
+			"response": []
+		},
+		{
+			"name": "invalidCityEvents",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "d6582e95-6222-44be-a4eb-670a1aff58e3",
+						"exec": [
+							"pm.test(\"Status code is 404\", function () {",
+							"    pm.response.to.have.status(404);",
+							"});",
+							"pm.test(\"City Event\", function () {",
+							"    pm.expect(pm.response.text()).to.include(\"No upcoming events found in\");",
+							"    }",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://reflected-flux-270220.appspot.com/events/city/:id",
+					"protocol": "https",
+					"host": [
+						"reflected-flux-270220",
+						"appspot",
+						"com"
+					],
+					"path": [
+						"events",
+						"city",
+						":id"
+					],
+					"variable": [
+						{
+							"key": "id",
+							"value": "{{invalidCity}}"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"protocolProfileBehavior": {}
+}
