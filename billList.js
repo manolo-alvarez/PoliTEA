@@ -18,11 +18,11 @@ topic = queryString.split('=')[1];
 const list = document.getElementById('list')
 
 /////////////////////////////////////////////////////////////////////////////
-//if(topic != null) var url_test = 'https://reflected-flux-270220.appspot.com/bills/' + topic;
-//else var url_test = 'https://reflected-flux-270220.appspot.com/bills/all'
+if(topic != null) var url_test = 'https://reflected-flux-270220.appspot.com/bills/' + topic;
+else var url_test = 'https://reflected-flux-270220.appspot.com/bills/all'
 
-if(topic != null) var url_test = 'http://localhost:3000/bills/' + topic;
-else var url_test = 'http://localhost:3000/bills/all'
+//if(topic != null) var url_test = 'http://localhost:3000/bills/' + topic;
+//else var url_test = 'http://localhost:3000/bills/all'
 
 var xhttp = new XMLHttpRequest();
 xhttp.open('GET', url_test, false);
@@ -69,7 +69,7 @@ function DisplayList (billsParse, rows_per_page, page) {
    paragraph1.setAttribute('class', 'card-text mb-auto');
    moreBillInfo.setAttribute('class', 'btn btn-primary');
    moreBillInfo.setAttribute('number', `${billsParse[i].number}`)
-   moreBillInfo.setAttribute('onclick', `f1("${billsParse[i].number}", "${billsParse[i].title}", "${billsParse[i].introduced_date}", "${billsParse[i].sponsor_title}", "${billsParse[i].sponsor_name}", "${billsParse[i].sponsor_state}", "${billsParse[i].sponsor_party}, "${billsParse[i].primary_subject}, "${billsParse[i].summary}, "${billsParse[i].congressdotgov_url}");`)
+   moreBillInfo.setAttribute('onclick', `f1("${billsParse[i].number}", "${billsParse[i].title}", "${billsParse[i].introduced_date}", "${billsParse[i].sponsor_title}", "${billsParse[i].sponsor_id}", "${billsParse[i].sponsor_name}", "${billsParse[i].sponsor_state}", "${billsParse[i].sponsor_party}", "${billsParse[i].primary_subject}", "${billsParse[i].summary}", "${billsParse[i].congressdotgov_url}");`)
    moreBillInfo.setAttribute('href', 'billTemplate.html')
 /* 
    financesPage.setAttribute('class', 'btn btn-primary');
@@ -133,11 +133,12 @@ function PaginationButton (page, billsParse) {
    return button;
 }
 
- function f1(number, title, date, sponsor_title, sponsor_name, sponsor_state, sponsor_party, primary_subject, summary, congressdotgov_url){
+ function f1(number, title, date, sponsor_title, sponsor_id, sponsor_name, sponsor_state, sponsor_party, primary_subject, summary, congressdotgov_url){
  localStorage.setItem('bill_number', number);
  localStorage.setItem('bill_title', title);
  localStorage.setItem('bill_date', date);
  localStorage.setItem('bill_sTitle', sponsor_title);
+ localStorage.setItem('bill_sID', sponsor_id);
  localStorage.setItem('bill_sName', sponsor_name);
  localStorage.setItem('bill_sState', sponsor_state);
  localStorage.setItem('bill_sParty', sponsor_party);
@@ -145,5 +146,4 @@ function PaginationButton (page, billsParse) {
  localStorage.setItem('bill_summary', summary);
  localStorage.setItem('bill_website', congressdotgov_url);
 
- alert(bill_number);
 };
