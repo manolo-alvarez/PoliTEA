@@ -127,8 +127,15 @@
                                 card.appendChild(h2)
                                 card.appendChild(h4)
                                 card.appendChild(h5)
-                                card.appendChild(br)
                                 card.appendChild(a)
+                                console.log((response.result.offices[offices[i]]).name)
+                                if((response.result.offices[offices[i]]).name=="U.S. Representative"){
+                                  var politician_link=document.createElement('a')
+                                  politician_link.href = "./politicians/Congressman"
+                                  politician_link.textContent="View all Congressman"
+                                  card.appendChild(politician_link)
+                                }
+                                card.appendChild(br)
                             }
                         }
 

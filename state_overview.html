@@ -201,11 +201,14 @@
                                 card.appendChild(h4)
                                 card.appendChild(h5)
                                 card.appendChild(a)
-                                if(ofices[i].name=="U.S. Senator"){
-                                  var politican_link=document.create('a')
-                                  politician_link.href = 
+                                if(offices[i].name=="U.S. Senator"){
+                                  var politician_link=document.createElement('a')
+                                  politician_link.href = "./politicians/Senators"
+                                  politician_link.textContent="View all Senators"
+                                  card.appendChild(politician_link)
                                 }
                                 card.appendChild(br)
+                                
                             }
                         }
 
