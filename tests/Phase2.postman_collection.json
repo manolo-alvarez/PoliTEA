@@ -55,7 +55,7 @@
 			"response": []
 		},
 		{
-			"name": "invalidCityEvents",
+			"name": "invalidCityEvent",
 			"event": [
 				{
 					"listen": "test",
@@ -94,6 +94,386 @@
 						{
 							"key": "id",
 							"value": "{{invalidCity}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "invalidStateEvent",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "d6582e95-6222-44be-a4eb-670a1aff58e3",
+						"exec": [
+							"pm.test(\"Status code is 404\", function () {",
+							"    pm.response.to.have.status(404);",
+							"});",
+							"pm.test(\"City Event\", function () {",
+							"    console.log(pm.response.text());",
+							"    pm.expect(pm.response.text()).to.include(\"Redirecting to showAbbr\");",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://reflected-flux-270220.appspot.com/events/state/:id",
+					"protocol": "https",
+					"host": [
+						"reflected-flux-270220",
+						"appspot",
+						"com"
+					],
+					"path": [
+						"events",
+						"state",
+						":id"
+					],
+					"variable": [
+						{
+							"key": "id",
+							"value": "{{invalid}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "stateEvent",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "d6582e95-6222-44be-a4eb-670a1aff58e3",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"pm.test(\"City Event\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    for (let i=0; i< jsonData.length; i++){",
+							"        pm.expect(jsonData[i].city_name).to.eql(pm.globals.get(\"validState\"));",
+							"    }",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://reflected-flux-270220.appspot.com/events/state/:id",
+					"protocol": "https",
+					"host": [
+						"reflected-flux-270220",
+						"appspot",
+						"com"
+					],
+					"path": [
+						"events",
+						"state",
+						":id"
+					],
+					"variable": [
+						{
+							"key": "id",
+							"value": "{{invalid}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "stateEventWrongCaps",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "d6582e95-6222-44be-a4eb-670a1aff58e3",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"pm.test(\"City Event\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    for (let i=0; i< jsonData.length; i++){",
+							"        pm.expect(jsonData[i].city_name).to.eql(pm.globals.get(\"validState\"));",
+							"    }",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://reflected-flux-270220.appspot.com/events/state/:id",
+					"protocol": "https",
+					"host": [
+						"reflected-flux-270220",
+						"appspot",
+						"com"
+					],
+					"path": [
+						"events",
+						"state",
+						":id"
+					],
+					"variable": [
+						{
+							"key": "id",
+							"value": "{{invalid}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "stateAbbrEvent",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "d6582e95-6222-44be-a4eb-670a1aff58e3",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"pm.test(\"City Event\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    for (let i=0; i< jsonData.length; i++){",
+							"        pm.expect(jsonData[i].city_name).to.eql(pm.globals.get(\"validState\"));",
+							"    }",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://reflected-flux-270220.appspot.com/events/state/:id",
+					"protocol": "https",
+					"host": [
+						"reflected-flux-270220",
+						"appspot",
+						"com"
+					],
+					"path": [
+						"events",
+						"state",
+						":id"
+					],
+					"variable": [
+						{
+							"key": "id",
+							"value": "{{invalid}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "stateAbbrEventWrongCaps",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "d6582e95-6222-44be-a4eb-670a1aff58e3",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"pm.test(\"City Event\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    for (let i=0; i< jsonData.length; i++){",
+							"        pm.expect(jsonData[i].city_name).to.eql(pm.globals.get(\"validState\"));",
+							"    }",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://reflected-flux-270220.appspot.com/events/state/:id",
+					"protocol": "https",
+					"host": [
+						"reflected-flux-270220",
+						"appspot",
+						"com"
+					],
+					"path": [
+						"events",
+						"state",
+						":id"
+					],
+					"variable": [
+						{
+							"key": "id",
+							"value": "{{invalid}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "invalidStateAbbrEvent",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "d6582e95-6222-44be-a4eb-670a1aff58e3",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"pm.test(\"City Event\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    for (let i=0; i< jsonData.length; i++){",
+							"        pm.expect(jsonData[i].city_name).to.eql(pm.globals.get(\"validState\"));",
+							"    }",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://reflected-flux-270220.appspot.com/events/state/:id",
+					"protocol": "https",
+					"host": [
+						"reflected-flux-270220",
+						"appspot",
+						"com"
+					],
+					"path": [
+						"events",
+						"state",
+						":id"
+					],
+					"variable": [
+						{
+							"key": "id",
+							"value": "{{invalid}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "zipEvent",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "d6582e95-6222-44be-a4eb-670a1aff58e3",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"pm.test(\"Zip Event\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    for (let i=0; i< jsonData.length; i++){",
+							"        pm.expect(jsonData[i].postal_code).to.eql(pm.globals.get(\"validZip\"));",
+							"    }",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://reflected-flux-270220.appspot.com/events/zip/:id",
+					"protocol": "https",
+					"host": [
+						"reflected-flux-270220",
+						"appspot",
+						"com"
+					],
+					"path": [
+						"events",
+						"zip",
+						":id"
+					],
+					"variable": [
+						{
+							"key": "id",
+							"value": "{{validZip}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "invalidZipEvent",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "d6582e95-6222-44be-a4eb-670a1aff58e3",
+						"exec": [
+							"pm.test(\"Status code is 404\", function () {",
+							"    pm.response.to.have.status(404);",
+							"});",
+							"pm.test(\"Invalid Zip Event\", function () {",
+							"    console.log(pm.response.text());",
+							"    pm.expect(pm.response.text()).to.include(\"No upcoming events found\");",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://reflected-flux-270220.appspot.com/events/zip/:id",
+					"protocol": "https",
+					"host": [
+						"reflected-flux-270220",
+						"appspot",
+						"com"
+					],
+					"path": [
+						"events",
+						"zip",
+						":id"
+					],
+					"variable": [
+						{
+							"key": "id",
+							"value": "{{invalid}}"
 						}
 					]
 				}
