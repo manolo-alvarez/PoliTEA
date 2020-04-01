@@ -1,0 +1,40 @@
+{
+	"variables": [],
+	"info": {
+		"name": "Phase2.postman_collection_Senators",
+		"_postman_id": "f8d833bc-cd9f-e145-b727-b6b90d7494a6",
+		"description": "",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "https://reflected-flux-270220.appspot.com/politicians/senators",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"Status code is 200\"] = responseCode.code === 200;",
+							"",
+							"var jsonData = JSON.parse(responseBody);",
+							"tests[\"Checking for Senators\"] = jsonData[0].title.substring(\"Senator\");",
+							"",
+							"var jsonData = JSON.parse(responseBody);",
+							"tests[\"Checking for 101 Senators\"] = jsonData.length === 101;",
+							""
+						]
+					}
+				}
+			],
+			"request": {
+				"url": "https://reflected-flux-270220.appspot.com/politicians/senators",
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"description": "Phase 2 Postman Senators Request and Tests."
+			},
+			"response": []
+		}
+	]
+}
