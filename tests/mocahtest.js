@@ -3,14 +3,14 @@ let assert = require('assert');
 
 describe('Input Test', function() {
     describe('EventsTest', function() {
-      it('should convert -40 celsius to -40 fahrenheit', function() {
-        assert.equal(-40, convert.cToF(-40));
+      it('should return false if there is any empty input field', function() {
+        assert.false(inputTestEvents.EventsTest("","",""));
       });
-      it('should convert 0 celsius to 32 fahrenheit', function() {
-        assert.equal(32, convert.cToF(0));
+      it('should return false if there is any empty input field', function() {
+        assert.false(inputTestEvents.EventsTest("abcd","",""));
       });
-      it('should return undefined if no temperature is input', function() {
-        assert.equal(undefined, convert.cToF(''));
+      it('should return true as long as any inputs are entered for all fields', function() {
+        assert.true(inputTestEvents.EventsTest("78705","Austin","Texas"));
       });
     });
   });
