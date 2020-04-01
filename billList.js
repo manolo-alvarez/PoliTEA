@@ -13,16 +13,17 @@ localStorage.clear();
 const queryString = window.location.search;
 console.log(queryString);
 topic = queryString.split('=')[1];
+topicSpaces = topic.replace(/%20/g, ' ');
 
 ///////////////// HTML elements////////////////////////////////////////////////////
 const list = document.getElementById('list')
 
 /////////////////////////////////////////////////////////////////////////////
-//if(topic != null) var url_test = 'https://reflected-flux-270220.appspot.com/bills/' + topic;
-//else var url_test = 'https://reflected-flux-270220.appspot.com/bills/all'
+if(topic != null) var url_test = 'https://reflected-flux-270220.appspot.com/bills/' + topic;
+else var url_test = 'https://reflected-flux-270220.appspot.com/bills/all'
 
-if(topic != null) var url_test = 'http://localhost:3000/bills/' + topic;
-else var url_test = 'http://localhost:3000/bills/all'
+//if(topic != null) var url_test = 'http://localhost:3000/bills/' + topic;
+//else var url_test = 'http://localhost:3000/bills/all'
 
 var xhttp = new XMLHttpRequest();
 xhttp.open('GET', url_test, false);
@@ -45,6 +46,10 @@ function DisplayList (billsParse, rows_per_page, page) {
    let start = rows_per_page * page;
    let end = start + rows_per_page;
    console.log("start: " + start + " end: " + end);
+
+   var header = document.getElementById("header");
+   var text = document.createTextNode("Bills on " + topicSpaces);
+   header.appendChild(text);
 
  for (let i = start; i < billsParse.length && i<end ; i++) {
 
