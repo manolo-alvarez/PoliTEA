@@ -59,7 +59,7 @@ function DisplayList (senators, rows_per_page, page) {
     bioPage.setAttribute('href', 'politiciansBio.html')
 
     financesPage.setAttribute('class', 'btn btn-primary');
-    financesPage.setAttribute('id', `${senators[i].id}`)
+    financesPage.setAttribute('id', `${senators[i].id}` + '_finance')
     financesPage.setAttribute('onclick', `f1("${senators[i].id}", "${senators[i].first_name}", "${senators[i].last_name}", "${senators[i].party}", "${senators[i].state}", "${senators[i].district}");`)
     financesPage.setAttribute('href', 'financial_main.html')
 

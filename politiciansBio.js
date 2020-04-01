@@ -30,6 +30,7 @@ const district = document.createElement('p')
 
 jumbotron.setAttribute('class', 'jumbotron p-4 p-md-5 text-white rounded bg-dark' );
 col.setAttribute('class', 'col-md-6 px-0');
+name.setAttribute('id', id);
 name.setAttribute('class', 'display-4 font-italic');
 party.setAttribute('class', 'lead my-3');
 state.setAttribute('class', 'lead my-3');
@@ -48,7 +49,7 @@ col.appendChild(party);
 col.appendChild(state);
 if (repDistrict != null) col.appendChild(district);
 
-const url = 'https://reflected-flux-270220.appspot.com/votes/' + id; 
+const url = 'https://reflected-flux-270220.appspot.com/votes/' + id;
 //const url = 'https://localhost:3000/votes/' + id;
 var request = new XMLHttpRequest()
 request.open('GET', url, false)
