@@ -9,7 +9,7 @@
       <!-- Bootstrap CSS -->
       <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
 
-    <title>Home</title>
+    <title>Politea</title>
 
     <link href="https://fonts.googleapis.com/css?family=Dosis:400,700" rel="stylesheet" />
     <link href="style.css" rel="stylesheet" />
@@ -43,17 +43,45 @@
     </div>
   </nav>
 <div class="position-relative overflow-hidden p-3 p-md-5 m-md-3 text-center bg-light">
-  <div class="col-md-5 p-lg-5 mx-auto my-5">
-    <h1 class="display-4 font-weight-normal"><a href="#" class="text-danger">poli<strong>tea</strong></a></h1><br>
-    <p class="lead font-weight-normal">Dishin' on your politician</p><br>
-    <img class="center-fit"  src="us_map.png" style="width:110%;">
+  <div class="col-md-5 mx-auto my-5">
+    <!-- <h1 class="display-4 font-weight-normal"><a href="./about.html" class="text-danger">poli<strong>tea</strong></a></h1> -->
+    <h1 class="card-text"><a href="./about.html" class="text-danger">poli<strong>tea</strong></a></h1>
+
+    <p class="lead font-weight-normal"><em>dishin' on your politician</em></p>
   </div>
 
-  <div class="product-device shadow-sm d-none d-md-block"></div>
-  <div class="product-device product-device-2 shadow-sm d-none d-md-block"></div>
-</div>
+  <!-- hover color: #DC3545, background color:#F9F9F9, all states:#CFCFCF -->
+  <!-- No call to action title: https://createaclickablemap.com/map.php?&id=90528&maplocation=false&online=true -->
+  <!-- times new roman font: https://createaclickablemap.com/map.php?&id=90529&maplocation=false&online=true -->
+  <!-- https://createaclickablemap.com/map.php?&id=90525&maplocation=false&online=true -->
+  <iframe src="https://createaclickablemap.com/map.php?&id=90530&maplocation=false&online=true" width="900" height="525" style="border: none;"></iframe>
+  <script>
+  if (window.addEventListener){ 
+    window.addEventListener("message", function(event) { 
+      if(event.data.length >= 22) { 
+        if( event.data.substr(0, 22) == "__MM-LOCATION.REDIRECT"){
+          let state = event.data.substr(22);
+          localStorage.setItem('state', state);
+          location = "./state_overview.html";
+        } 
+      } 
+    }, false); 
 
-  <br><br>
+  } else if (window.attachEvent){
+    window.attachEvent("message", function(event) { 
+      if( event.data.length >= 22) { 
+        if( event.data.substr(0, 22) == "__MM-LOCATION.REDIRECT"){
+          let state = event.data.substr(22);
+          localStorage.setItem('state', state);
+          location = "./state_overview.html";
+        } 
+      } 
+    }, false); 
+  } 
+  </script> 
+    <div class="product-device shadow-sm d-none d-md-block"></div>
+    <div class="product-device product-device-2 shadow-sm d-none d-md-block"></div>
+  </div>
 
 <body>
   <!-- <div style="background-image: url('us_map.png'); background-size"> -->

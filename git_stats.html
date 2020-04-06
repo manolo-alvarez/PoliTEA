@@ -65,15 +65,15 @@
     const divResult = document.getElementById("divResult")
     // btnRepos.addEventListener("click", getRepos)
     //btnCommits.addEventListener("click", e=> getCommits())
-    getCommits();
     getIssues();
     getTests();
+    getCommits();
     getTraffic();
     
 
     async function getTraffic() {
         clear();
-        const url = "https://api.github.com/repos/malvarez0722/ee461l-team-project/traffic/views?access_token=5355e64db62ef3d344dd520335e065f5ade1e283"
+        const url = "https://api.github.com/repos/malvarez0722/ee461l-team-project/traffic/views?access_token=[SECRET_TOKEN]"
         const response = await fetch(url)
         const result = await response.json()
 
@@ -110,18 +110,18 @@
         var tests = new Object();
 
         //manually write how many tests each created
-        tests["neetishah"] = "3";
-        tests["bailloj"] = "3";
-        tests["malvarez0722"] = "3";
-        tests["mtmn19"] = "3";
-        tests["aidanmcgraw"] = "3";
-        tests["aaa4521"] = "3";
+        tests["neetishah"] = "8";
+        tests["aidanmcgraw"] = "0";
+        tests["bailloj"] = "0";
+        tests["mtmn19"] = "0";
+        tests["malvarez0722"] = "11";
+        tests["aaa4521"] = "1";
 
         bar(tests, "Unit Tests per User");
       }
 
     async function getIssues(){
-        url="https://api.github.com/repos/malvarez0722/ee461l-team-project/issues?";
+        url="https://api.github.com/repos/malvarez0722/ee461l-team-project/issues?state=closed";
         clear();
 
         const headers = {
@@ -133,27 +133,27 @@
         })
 
         const result = await response.json()
-        console.log(result)
-
+        
         var issues = new Object();
         //initialize all to 0
-        for ( var i =0; i< result.length; i++){
-          let user = result[i].user.login;
-          issues[user] = 0;
-        }
+        issues["neetishah"] = "0";
+        issues["aidanmcgraw"] = "0";
+        issues["bailloj"] = "0";
+        issues["mtmn19"] = "0";
+        issues["malvarez0722"] = "0";
+        issues["aaa4521"] = "0";
+
         //Adding issues under first thread 
         issues["aidanmcgraw"] = 5;
         issues["bailloj"] = 1;
-        issues["mtmn19 "] = 3;
+        issues["mtmn19"] = 3;
 
         for ( var i =0; i< result.length; i++){
           let user = result[i].user.login;
           issues[user] = issues[user] +1;
-
+          console.log(user)
+          console.log(issues)
         }
-
-        console.log(Object.keys(issues));
-        console.log(Object.values(issues));
 
         bar(issues, "Git Issues Provided by User");
     }  
