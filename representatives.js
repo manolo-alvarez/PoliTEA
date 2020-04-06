@@ -12,7 +12,7 @@
  /////////////////////////////////////////////////////////////////////////////
 
 var xhttp = new XMLHttpRequest();
-xhttp.open('GET', 'https://reflected-flux-270220.appspot.com/politicians/congressman', false);
+xhttp.open('GET', 'http://localhost:3000/politicians/congressman', false);
 xhttp.send();
 
 const representatives = JSON.parse(xhttp.responseText);
@@ -57,12 +57,19 @@ function DisplayList (representatives, rows_per_page, page) {
     paragraph2.setAttribute('class', 'card-text mb-auto');
     bioPage.setAttribute('class', 'btn btn-primary');
     bioPage.setAttribute('id', `${representatives[i].id}`)
-    bioPage.setAttribute('onclick', `f1("${representatives[i].id}", "${representatives[i].first_name}", "${representatives[i].last_name}", "${representatives[i].party}", "${representatives[i].state}", "${representatives[i].district}");`)
+    bioPage.setAttribute('onclick', `store("${representatives[i].id}", "${representatives[i].first_name}",
+    "${representatives[i].last_name}", "${representatives[i].party}", "${representatives[i].state}",
+    "${representatives[i].district}", "${representatives[i].url}", "${representatives[i].twitter_account}",
+    "${representatives[i].facebook_account}", "${representatives[i].youtube_account}", "${representatives[i].seniority}",
+    "${representatives[i].next_election}", "${representatives[i].total_votes}", "${representatives[i].missed_votes}",
+    "${representatives[i].total_present}", "${representatives[i].last_updated}", "${representatives[i].office}",
+    "${representatives[i].phone}", "${representatives[i].fax}", "${representatives[i].missed_votes_pct}",
+    "${representatives[i].votes_with_party_pct}", "${representatives[i].votes_against_party_pct}");`)
     bioPage.setAttribute('href', 'politiciansBio.html')
 
     financesPage.setAttribute('class', 'btn btn-primary');
     financesPage.setAttribute('id', `${representatives[i].id}` + '_finance')
-    financesPage.setAttribute('onclick', `f1("${representatives[i].id}", "${representatives[i].first_name}", "${representatives[i].last_name}", "${representatives[i].party}", "${representatives[i].state}", "${representatives[i].district}");`)
+    financesPage.setAttribute('onclick', `store("${representatives[i].id}", "${representatives[i].first_name}", "${representatives[i].last_name}", "${representatives[i].party}", "${representatives[i].state}", "${representatives[i].district}");`)
     financesPage.setAttribute('href', 'financial_main.html')
 
     head1.textContent = representatives[i].first_name;
@@ -123,11 +130,31 @@ function PaginationButton (page, representatives) {
 	return button;
 }
 
-function f1(id, firstName, lastName, party, state, district){
+function store(id, firstName, lastName, party, state, district, website,
+  twitterHandle, facebookHandle, youtubeHandle, seniority, nextElection,
+  totalVotes, missedVotes,totalPresent, lastUpdated, office, phone, fax,
+  missedVotesPct, votesWithPartyPct, votesAgainstPartyPct){
+
   localStorage.setItem('politician_id', id);
   localStorage.setItem('politician_firstName', firstName);
   localStorage.setItem('politician_lastName', lastName);
   localStorage.setItem('politician_party', party);
   localStorage.setItem('politician_state', state);
   localStorage.setItem('politician_district', district);
+  localStorage.setItem('politician_website', website);
+  localStorage.setItem('politician_twitterHandle', twitterHandle);
+  localStorage.setItem('politician_facebookHandle', facebookHandle);
+  localStorage.setItem('politician_youtubeHandle', youtubeHandle);
+  localStorage.setItem('politician_seniority', seniority);
+  localStorage.setItem('politician_nextElection', nextElection);
+  localStorage.setItem('politician_totalVotes', totalVotes);
+  localStorage.setItem('politician_missedVotes', missedVotes);
+  localStorage.setItem('politician_totalPresent', totalPresent);
+  localStorage.setItem('politician_lastUpdated', lastUpdated);
+  localStorage.setItem('politician_office', office);
+  localStorage.setItem('politician_phone', phone);
+  localStorage.setItem('politician_fax', fax);
+  localStorage.setItem('politician_missedVotesPct', missedVotesPct);
+  localStorage.setItem('politician_votesWithPartyPct', votesWithPartyPct);
+  localStorage.setItem('politician_votesAgainstPartyPct', votesAgainstPartyPct);
 };

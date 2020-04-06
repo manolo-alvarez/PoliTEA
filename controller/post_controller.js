@@ -17,7 +17,7 @@ exports.showAllBills = (req, res, next) => {
   bills.find(function (err, docs) {
     if (err || docs.length==0) {
       return res.status(404).send('Bills not found')
-    } 
+    }
 
     docs.forEach((bill) => {
       billsArray.push({
@@ -37,7 +37,7 @@ exports.showAllBills = (req, res, next) => {
     })
 
     res.status(200).json(billsArray)
-  }) 
+  })
 }
 
 
@@ -49,9 +49,9 @@ exports.showBillsByTopic = (req, res, next) => {
   bills.find({primary_subject: req.params.id},  function (err, docs) {
       if (err || docs.length==0) {
         return res.status(404).send('Bills not found')
-      } 
+      }
 
-      
+
     docs.forEach((bill) => {
       billsArray.push({
           number: bill.number,
@@ -115,7 +115,23 @@ exports.showAllSenators = (req, res, next) => {
         party: senator.party,
         date_of_birth: senator.date_of_birth,
         state: senator.state,
-        district: senator.district
+        district: senator.district,
+        url: senator.url,
+        twitter_account: senator.twitter_account,
+        facebook_account: senator.facebook_account,
+        youtube_account: senator.youtube_account,
+        seniority: senator.seniority,
+        next_election: senator.next_election,
+        total_votes: senator.total_votes,
+        missed_votes: senator.missed_votes,
+        total_present: senator.total_present,
+        last_updated: senator.last_updated,
+        office: senator.office,
+        phone: senator.phone,
+        fax: senator.fax,
+        missed_votes_pct: senator.missed_votes_pct,
+        votes_with_party_pct: senator.votes_with_party_pct,
+        votes_against_party_pct: senator.votes_against_party_pct
       });
     })
 
@@ -142,7 +158,23 @@ exports.showAllCongressman = (req, res, next) => {
         party: congressman.party,
         date_of_birth: congressman.date_of_birth,
         state: congressman.state,
-        district: congressman.district
+        district: congressman.district,
+        url: congressman.url,
+        twitter_account: congressman.twitter_account,
+        facebook_account: congressman.facebook_account,
+        youtube_account: congressman.youtube_account,
+        seniority: congressman.seniority,
+        next_election: congressman.next_election,
+        total_votes: congressman.total_votes,
+        missed_votes: congressman.missed_votes,
+        total_present: congressman.total_present,
+        last_updated: congressman.last_updated,
+        office: congressman.office,
+        phone: congressman.phone,
+        fax: congressman.fax,
+        missed_votes_pct: congressman.missed_votes_pct,
+        votes_with_party_pct: congressman.votes_with_party_pct,
+        votes_against_party_pct: congressman.votes_against_party_pct
       });
     })
 
