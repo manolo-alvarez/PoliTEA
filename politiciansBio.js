@@ -30,7 +30,6 @@ const missedVotesPct = localStorage.getItem('politician_missedVotesPct');
 const votesWithPartyPct = localStorage.getItem('politician_votesWithPartyPct');
 const votesAgainstPartyPct = localStorage.getItem('politician_votesAgainstPartyPct');
 
-
 // Create Jumbotron (title) //
 {
 const jumbotron = document.createElement('div')

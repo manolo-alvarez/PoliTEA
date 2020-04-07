@@ -6,7 +6,7 @@
 
  localStorage.clear();
 
- ///////////////// HTML elements////////////////////////////////////////////////////
+ ///////////////// HTML elements//////////////////////////////////////////////
  const list = document.getElementById('list')
 
  /////////////////////////////////////////////////////////////////////////////
@@ -15,7 +15,8 @@ var xhttp = new XMLHttpRequest();
 xhttp.open('GET', 'http://localhost:3000/politicians/congressman', false);
 xhttp.send();
 
-const representatives = JSON.parse(xhttp.responseText);
+const allReps = JSON.parse(xhttp.responseText);
+var representatives = allReps;
 
 const pagination_element = document.getElementById('pagination');
 
@@ -24,6 +25,26 @@ let rows = 10;
 
 SetupPagination(representatives, pagination_element, rows);
 DisplayList(representatives, rows, current_page);
+
+// Search Bar //
+{
+const searchBar = document.forms['searchBar'].querySelector('input');
+searchBar.addEventListener('keyup', function(e){
+  if(!(e.key === 'Enter')){
+    const phrase = e.target.value.toLowerCase();
+    representatives = allReps.filter(function(rep){
+      const name = rep.first_name.toLowerCase() + rep.last_name.toLowerCase();
+      return name.includes(phrase);
+    });
+  } else{
+    e.target.value = "";
+    SetupPagination(representatives, pagination_element, rows);
+    DisplayList(representatives, rows, current_page);
+  }
+});
+}
+
+//////////////
 
 function DisplayList (representatives, rows_per_page, page) {
 	document.getElementById('list').innerHTML = "";
@@ -51,6 +72,7 @@ function DisplayList (representatives, rows_per_page, page) {
     col.setAttribute('class', 'col mb-2');
     card.setAttribute('class' , 'row no-gutters border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative');
     position.setAttribute('class', 'col p-4 d-flex flex-column position-static');
+    position.setAttribute('id', 'position');
     head1.setAttribute('class', 'mb-0');
     head2.setAttribute('class', 'mb-0');
     paragraph1.setAttribute('class', 'card-text mb-auto');
