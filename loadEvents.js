@@ -36,14 +36,16 @@ function show_events (xhttp){
 
 
 function DisplayList (oData, rows_per_page, page) {
-  console.log(oData)
+//   console.log(oData)
   events = JSON.parse(oData);
+  allEvents = JSON.parse(oData);
+
 	document.getElementById('event_data').innerHTML = "";
 	page--;
 
 	let start = rows_per_page * page;
 	let end = start + rows_per_page;
-	console.log("start: " + start + " end: " + end);
+	// console.log("start: " + start + " end: " + end);
 
 	for (let i = start; i < events.length && i<end ; i++) {
 		 let item_element = document.createElement('div');
@@ -128,9 +130,6 @@ function PaginationButton (page, oData) {
 	return button;
 }
 
-
-
-
 function showUpcomingMsg(){
   
   let searchReq="";
@@ -151,11 +150,43 @@ function showUpcomingMsg(){
 
 }
 
-///for pagination///
+/// Pagination///
 const pagination_element = document.getElementById('pagination');
 let current_page = 1;
 let rows = 5;
 ////
+
+// Search Bar //
+document.getElementById("searchBtn").addEventListener("click", function(){
+	let searchInput = document.getElementById("searchBar").value;
+	if (searchInput != ""){
+		matchedEvents = allEvents.filter(function(event){
+			if (event.description == null)
+				event.description = "";
+			if (event.venue_address == null)
+				event.venue_address = "";
+			if (event.start_time == null)
+				event.start_time = "";
+			
+			const info = event.title.toLowerCase() + event.description.toLowerCase() + event.venue_address.toLowerCase() + event.start_time.toLowerCase();
+			input = searchInput.toLowerCase();
+			return info.includes(input);
+		  });
+		  
+		if (matchedEvents.length == 0){
+			const msg = `<br><h5>No events found with <strong>${searchInput}</strong></h5>`;
+			document.getElementById("display_msg").innerHTML = msg;
+		}
+
+		matchedEvents = JSON.stringify(matchedEvents);
+		DisplayList(matchedEvents, rows, current_page);
+	}
+});
+
+//////////////
+
+
+
 
 const range = localStorage.getItem("searchRange");
 
@@ -175,5 +206,6 @@ else if (range=="city"){
 else if (range=="state"){
   url_path = url_path + "events/state/" + localStorage.getItem("state"); 
 }
+
 
 loadEvents(url_path);
