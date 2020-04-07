@@ -1,30 +1,52 @@
 /**
  * @author: Manolo Alvarez
  * @lastRevised: 03/06/2020
- * @summary: Javascript file that pulls politicians ProPublica API
+ * @summary: Javascript file that runs the senators page
  */
 
- localStorage.clear();
+localStorage.clear();
 
- ///////////////// HTML elements////////////////////////////////////////////////////
- const list = document.getElementById('list')
+ //////////////// HTML elements and variables////////////////////////////////
+const list = document.getElementById('list')
+const pagination_element = document.getElementById('pagination');
 
- /////////////////////////////////////////////////////////////////////////////
+let current_page = 1;
+let rows = 25;
+//////////////////// Get senators from DB ///////////////////////////////////
 
 var xhttp = new XMLHttpRequest();
 xhttp.open('GET', 'https://reflected-flux-270220.appspot.com/politicians/senators', false);
 xhttp.send();
 
-const senators = JSON.parse(xhttp.responseText);
+const allSenators = JSON.parse(xhttp.responseText);
+var senators = allSenators;
 
-const pagination_element = document.getElementById('pagination');
-
+/////////////////////////// Set-up Page /////////////////////////////////////
+{
 let current_page = 1;
-let rows = 10;
+let rows = 25;
 
 SetupPagination(senators, pagination_element, rows);
 DisplayList(senators, rows, current_page);
-
+}
+////////////////////////////// Search Bar ////////////////////////////////////
+{
+const searchBar = document.forms['searchBar'].querySelector('input');
+searchBar.addEventListener('keyup', function(e){
+  if(!(e.key === 'Enter')){
+    const phrase = e.target.value.toLowerCase();
+    senators = allSenators.filter(function(sen){
+      const name = sen.first_name.toLowerCase() + sen.last_name.toLowerCase();
+      return name.includes(phrase);
+    });
+  } else{
+    e.target.value = "";
+    SetupPagination(senators, pagination_element, rows);
+    DisplayList(senators, rows, current_page);
+  }
+});
+}
+////////////////////////////// Functions /////////////////////////////////////
 function DisplayList (senators, rows_per_page, page) {
 	document.getElementById('list').innerHTML = "";
 	page--;
@@ -55,12 +77,18 @@ function DisplayList (senators, rows_per_page, page) {
     paragraph1.setAttribute('class', 'card-text mb-auto');
     bioPage.setAttribute('class', 'btn btn-primary');
     bioPage.setAttribute('id', `${senators[i].id}`)
-    bioPage.setAttribute('onclick', `f1("${senators[i].id}", "${senators[i].first_name}", "${senators[i].last_name}", "${senators[i].party}", "${senators[i].state}", "${senators[i].district}");`)
+    bioPage.setAttribute('onclick', `store("${senators[i].id}", "${senators[i].first_name}",
+    "${senators[i].last_name}", "${senators[i].party}", "${senators[i].state}", "${senators[i].url}", "${senators[i].twitter_account}",
+    "${senators[i].facebook_account}", "${senators[i].youtube_account}", "${senators[i].seniority}",
+    "${senators[i].next_election}", "${senators[i].total_votes}", "${senators[i].missed_votes}",
+    "${senators[i].total_present}", "${senators[i].last_updated}", "${senators[i].office}",
+    "${senators[i].phone}", "${senators[i].fax}", "${senators[i].missed_votes_pct}",
+    "${senators[i].votes_with_party_pct}", "${senators[i].votes_against_party_pct}");`)
     bioPage.setAttribute('href', 'politiciansBio.html')
 
     financesPage.setAttribute('class', 'btn btn-primary');
     financesPage.setAttribute('id', `${senators[i].id}` + '_finance')
-    financesPage.setAttribute('onclick', `f1("${senators[i].id}", "${senators[i].first_name}", "${senators[i].last_name}", "${senators[i].party}", "${senators[i].state}", "${senators[i].district}");`)
+    financesPage.setAttribute('onclick', `store("${senators[i].id}", "${senators[i].first_name}", "${senators[i].last_name}", "${senators[i].party}", "${senators[i].state}", "${senators[i].district}");`)
     financesPage.setAttribute('href', 'financial_main.html')
 
     head1.textContent = senators[i].first_name;
@@ -119,10 +147,30 @@ function PaginationButton (page, senators) {
 	return button;
 }
 
-function f1(id, firstName, lastName, party, state, district){
+function store(id, firstName, lastName, party, state, website,
+  twitterHandle, facebookHandle, youtubeHandle, seniority, nextElection,
+  totalVotes, missedVotes,totalPresent, lastUpdated, office, phone, fax,
+  missedVotesPct, votesWithPartyPct, votesAgainstPartyPct){
+
   localStorage.setItem('politician_id', id);
   localStorage.setItem('politician_firstName', firstName);
   localStorage.setItem('politician_lastName', lastName);
   localStorage.setItem('politician_party', party);
   localStorage.setItem('politician_state', state);
+  localStorage.setItem('politician_website', website);
+  localStorage.setItem('politician_twitterHandle', twitterHandle);
+  localStorage.setItem('politician_facebookHandle', facebookHandle);
+  localStorage.setItem('politician_youtubeHandle', youtubeHandle);
+  localStorage.setItem('politician_seniority', seniority);
+  localStorage.setItem('politician_nextElection', nextElection);
+  localStorage.setItem('politician_totalVotes', totalVotes);
+  localStorage.setItem('politician_missedVotes', missedVotes);
+  localStorage.setItem('politician_totalPresent', totalPresent);
+  localStorage.setItem('politician_lastUpdated', lastUpdated);
+  localStorage.setItem('politician_office', office);
+  localStorage.setItem('politician_phone', phone);
+  localStorage.setItem('politician_fax', fax);
+  localStorage.setItem('politician_missedVotesPct', missedVotesPct);
+  localStorage.setItem('politician_votesWithPartyPct', votesWithPartyPct);
+  localStorage.setItem('politician_votesAgainstPartyPct', votesAgainstPartyPct);
 };

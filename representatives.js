@@ -1,32 +1,34 @@
 /**
  * @author: Manolo Alvarez
  * @lastRevised: 03/06/2020
- * @summary: Javascript file that pulls politicians ProPublica API
+ * @summary: Javascript file that runs the representatives page
  */
 
- localStorage.clear();
+// Clear Storage
+localStorage.clear();
 
- ///////////////// HTML elements//////////////////////////////////////////////
- const list = document.getElementById('list')
+//////////////// HTML elements and variables////////////////////////////////
 
- /////////////////////////////////////////////////////////////////////////////
+const list = document.getElementById('list')
+const pagination_element = document.getElementById('pagination');
+let current_page = 1;
+let rows = 25;
+
+ //////////////////// Get Representatives from DB ///////////////////////////
 
 var xhttp = new XMLHttpRequest();
-xhttp.open('GET', 'http://localhost:3000/politicians/congressman', false);
+xhttp.open('GET', 'https://reflected-flux-270220.appspot.com/politicians/congressman', false);
 xhttp.send();
 
 const allReps = JSON.parse(xhttp.responseText);
 var representatives = allReps;
 
-const pagination_element = document.getElementById('pagination');
-
-let current_page = 1;
-let rows = 10;
-
+/////////////////////////// Set-up Page /////////////////////////////////////
+{
 SetupPagination(representatives, pagination_element, rows);
 DisplayList(representatives, rows, current_page);
-
-// Search Bar //
+}
+////////////////////////////// Search Bar ////////////////////////////////////
 {
 const searchBar = document.forms['searchBar'].querySelector('input');
 searchBar.addEventListener('keyup', function(e){
@@ -43,9 +45,7 @@ searchBar.addEventListener('keyup', function(e){
   }
 });
 }
-
-//////////////
-
+////////////////////////////// Functions /////////////////////////////////////
 function DisplayList (representatives, rows_per_page, page) {
 	document.getElementById('list').innerHTML = "";
 	page--;
@@ -69,7 +69,7 @@ function DisplayList (representatives, rows_per_page, page) {
     const financesPage = document.createElement('a');
 
     row.setAttribute('class', 'row mb-2');
-    col.setAttribute('class', 'col mb-2');
+    col.setAttribute('class', 'col mb-0');
     card.setAttribute('class' , 'row no-gutters border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative');
     position.setAttribute('class', 'col p-4 d-flex flex-column position-static');
     position.setAttribute('id', 'position');
