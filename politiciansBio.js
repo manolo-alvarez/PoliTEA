@@ -1,9 +1,10 @@
 /**
  * @author: Manolo Alvarez
  * @lastRevised: 03/05/2020
- * @summary: Javascript file that pulls politician information/bio from ProPublic API
+ * @summary: Javascript file that runs the politician bio page
  */
 
+// container element
 const container = document.getElementById('cards')
 
 // get local storage items //
