@@ -4,6 +4,7 @@
 }
 
 .container {
+    display: flex;
     flex-wrap: wrap;
 }
 
@@ -16,7 +17,7 @@
     float: left;
     margin-left: 0;
     margin-right: 4;
-    
+
 }
 
 #git{

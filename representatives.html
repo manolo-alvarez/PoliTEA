@@ -70,22 +70,27 @@
           <br><br>
 
 
-        <main>
+        <div class="container" style="margin-top:50px">
+          <main></main>
+
           <br>
-          <h4 class="mb-0">Search: </h4>
           <form id="searchBar" onSubmit="return false;">
-            <input type="text">
+            <input type="text" placeholder="Search..">
           </form>
-          <div class="container" id="cards">
+          <p>
+              <a href="representatives.html">Reset</a>
+          </p>
+          <div class="card-deck" id="cards">
             <div class="list" id="list"></div>
-        		<div class="pagenumbers" id="pagination"></div>
           </div>
-        </main>
+        </div>
+
+        <div class="pagenumbers" id="pagination"></div>
 
         <footer class="blog-footer">
-        <p>
-            <a href="#">Back to top</a>
-        </p>
+          <p>
+              <a href="#">Back to Top</a>
+          </p>
         </footer>
 
         <script src="representatives.js"></script>

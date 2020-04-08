@@ -7,11 +7,11 @@
 localStorage.clear();
 
  //////////////// HTML elements and variables////////////////////////////////
-const list = document.getElementById('list')
-const pagination_element = document.getElementById('pagination');
-
-let current_page = 1;
-let rows = 25;
+ const list = document.getElementById('list')
+ const pagination_element = document.getElementById('pagination');
+ let current_page = 1;
+ let rows = 5;
+ let cols = 4;
 //////////////////// Get senators from DB ///////////////////////////////////
 
 var xhttp = new XMLHttpRequest();
@@ -23,11 +23,8 @@ var senators = allSenators;
 
 /////////////////////////// Set-up Page /////////////////////////////////////
 {
-let current_page = 1;
-let rows = 25;
-
-SetupPagination(senators, pagination_element, rows);
-DisplayList(senators, rows, current_page);
+SetupPagination(senators, pagination_element, rows, cols);
+DisplayList(senators, rows, cols, current_page);
 }
 ////////////////////////////// Search Bar ////////////////////////////////////
 {
@@ -41,87 +38,92 @@ searchBar.addEventListener('keyup', function(e){
     });
   } else{
     e.target.value = "";
-    SetupPagination(senators, pagination_element, rows);
-    DisplayList(senators, rows, current_page);
+    SetupPagination(senators, pagination_element, rows, cols);
+    DisplayList(senators, rows, cols, current_page);
   }
 });
 }
 ////////////////////////////// Functions /////////////////////////////////////
-function DisplayList (senators, rows_per_page, page) {
+function DisplayList (senators, rows_per_page, cols_per_page, page) {
 	document.getElementById('list').innerHTML = "";
 	page--;
 
-	let start = rows_per_page * page;
-	let end = start + rows_per_page;
+	let start = rows_per_page * cols_per_page * page;
+	let end = start + rows_per_page * cols_per_page;
 	console.log("start: " + start + " end: " + end);
 
-  for (let i = start; i < senators.length && i<end ; i++) {
+  for (let i = start; i < senators.length && i<end; i+=4) {
+      const row = document.createElement('div');
+      row.setAttribute('class', 'row');
+      row.setAttribute('style', 'margin-top:50px')
 
-    const row = document.createElement('div');
-    const col = document.createElement('div');
-    const card = document.createElement('div');
-    const position = document.createElement('div');
-    const head1 = document.createElement('h3');
-    const head2 = document.createElement('h6');
-    const paragraph1 = document.createElement('p');
-    const bioPage = document.createElement('a');
-    const blankSpace = document.createElement('p');
-    const financesPage = document.createElement('a');
+    for(let j = i; j < senators.length && j<end && j<(i+4); j++){
+      const card = document.createElement('div');
+      const cardBody = document.createElement('div');
+      const cardFooter = document.createElement('div');
+      const head1 = document.createElement('h3');
+      const head2 = document.createElement('h6');
+      const paragraph1 = document.createElement('p');
+      const bioPage = document.createElement('a');
+      const blankSpace = document.createElement('p');
+      const financesPage = document.createElement('a');
 
-    row.setAttribute('class', 'row mb-2');
-    col.setAttribute('class', 'col mb-2');
-    card.setAttribute('class' , 'row no-gutters border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative');
-    position.setAttribute('class', 'col p-4 d-flex flex-column position-static');
-    head1.setAttribute('class', 'mb-0');
-    head2.setAttribute('class', 'mb-0');
-    paragraph1.setAttribute('class', 'card-text mb-auto');
-    bioPage.setAttribute('class', 'btn btn-primary');
-    bioPage.setAttribute('id', `${senators[i].id}`)
-    bioPage.setAttribute('onclick', `store("${senators[i].id}", "${senators[i].first_name}",
-    "${senators[i].last_name}", "${senators[i].party}", "${senators[i].state}", "${senators[i].url}", "${senators[i].twitter_account}",
-    "${senators[i].facebook_account}", "${senators[i].youtube_account}", "${senators[i].seniority}",
-    "${senators[i].next_election}", "${senators[i].total_votes}", "${senators[i].missed_votes}",
-    "${senators[i].total_present}", "${senators[i].last_updated}", "${senators[i].office}",
-    "${senators[i].phone}", "${senators[i].fax}", "${senators[i].missed_votes_pct}",
-    "${senators[i].votes_with_party_pct}", "${senators[i].votes_against_party_pct}");`)
-    bioPage.setAttribute('href', 'politiciansBio.html')
+      card.setAttribute('class' , 'card');
+      cardBody.setAttribute('id', 'cardBody');
+      cardBody.setAttribute('class', 'card-body');
+      cardFooter.setAttribute('id', 'cardFooter');
+      cardFooter.setAttribute('class', 'card-footer');
+      head1.setAttribute('class', 'mb-0');
+      head2.setAttribute('class', 'mb-0');
+      paragraph1.setAttribute('class', 'card-text mb-auto');
+      bioPage.setAttribute('class', 'btn btn-primary');
+      bioPage.setAttribute('id', `${senators[j].id}`)
+      bioPage.setAttribute('onclick', `store("${senators[j].id}", "${senators[j].first_name}",
+      "${senators[j].last_name}", "${senators[j].party}", "${senators[j].state}",
+      "${senators[j].district}", "${senators[j].url}", "${senators[j].twitter_account}",
+      "${senators[j].facebook_account}", "${senators[j].youtube_account}", "${senators[j].seniority}",
+      "${senators[j].next_election}", "${senators[j].total_votes}", "${senators[j].missed_votes}",
+      "${senators[j].total_present}", "${senators[j].last_updated}", "${senators[j].office}",
+      "${senators[j].phone}", "${senators[j].fax}", "${senators[j].missed_votes_pct}",
+      "${senators[j].votes_with_party_pct}", "${senators[j].votes_against_party_pct}");`)
+      bioPage.setAttribute('href', 'politiciansBio.html')
 
-    financesPage.setAttribute('class', 'btn btn-primary');
-    financesPage.setAttribute('id', `${senators[i].id}` + '_finance')
-    financesPage.setAttribute('onclick', `store("${senators[i].id}", "${senators[i].first_name}", "${senators[i].last_name}", "${senators[i].party}", "${senators[i].state}", "${senators[i].district}");`)
-    financesPage.setAttribute('href', 'financial_main.html')
+      financesPage.setAttribute('class', 'btn btn-primary');
+      financesPage.setAttribute('id', `${senators[j].id}` + '_finance')
+      financesPage.setAttribute('onclick', `store("${senators[j].id}", "${senators[j].first_name}", "${senators[j].last_name}", "${senators[j].party}", "${senators[j].state}", "${senators[j].district}");`)
+      financesPage.setAttribute('href', 'financial_main.html')
 
-    head1.textContent = senators[i].first_name;
-    if(senators[i].middle_name != null) head1.textContent += " " + senators[i].middle_name;
-    head1.textContent += " " + senators[i].last_name;
-    if(senators[i].party == 'R') head2.textContent = 'Republican';
-    else head2.textContent = 'Democrat';
-    paragraph1.textContent = "State: " + senators[i].state;
-    bioPage.textContent = "Biography";
-    blankSpace.textContent = " ";
-    financesPage.textContent = "Donors and Finances"
+      head1.textContent = senators[j].first_name;
+      if(senators[j].middle_name != null) head1.textContent += " " + senators[j].middle_name;
+      head1.textContent += " " + senators[j].last_name;
+      if(senators[j].party == 'R') head2.textContent = 'Republican';
+      else head2.textContent = 'Democrat';
+      paragraph1.textContent = "State: " + senators[j].state
+      bioPage.textContent = "Biography";
+      blankSpace.textContent = " ";
+      financesPage.textContent = "Donors and Finances"
 
+      row.appendChild(card);
+      card.appendChild(cardBody);
+      card.appendChild(cardFooter);
+      cardBody.appendChild(head1);
+      cardBody.appendChild(blankSpace);
+      cardBody.appendChild(head2);
+      cardBody.appendChild(blankSpace);
+      cardBody.appendChild(paragraph1);
+      cardFooter.appendChild(bioPage);
+      cardFooter.appendChild(document.createElement("p"));
+      cardFooter.appendChild(financesPage);
+    }
     list.appendChild(row);
-    row.appendChild(col);
-    col.appendChild(card);
-    card.appendChild(position);
-    position.appendChild(head1);
-    position.appendChild(blankSpace);
-    position.appendChild(head2);
-    position.appendChild(blankSpace);
-    position.appendChild(paragraph1);
-    position.appendChild(bioPage);
-    position.appendChild(document.createElement("br"));
-    position.appendChild(financesPage);
-
-	}
+  }
 }
 
-function SetupPagination (senators, wrapper, rows_per_page) {
+function SetupPagination (senators, wrapper, rows_per_page, cols_per_page) {
 	wrapper.innerHTML = "";
 	let length = senators.length;
 
-	let page_count = Math.ceil(length / rows_per_page);
+	let page_count = Math.ceil(length / (rows_per_page*cols_per_page));
 	for (let i = 1; i < page_count + 1; i++) {
 		let btn = PaginationButton(i, senators);
 		wrapper.appendChild(btn);
@@ -136,7 +138,7 @@ function PaginationButton (page, senators) {
 
 	button.addEventListener('click', function () {
 		current_page = page;
-		DisplayList(senators, rows, current_page);
+		DisplayList(senators, rows, cols, current_page);
 
 		let current_btn = document.querySelector('.pagenumbers button.active');
 		current_btn.classList.remove('active');
@@ -147,7 +149,7 @@ function PaginationButton (page, senators) {
 	return button;
 }
 
-function store(id, firstName, lastName, party, state, website,
+function store(id, firstName, lastName, party, state, district, website,
   twitterHandle, facebookHandle, youtubeHandle, seniority, nextElection,
   totalVotes, missedVotes,totalPresent, lastUpdated, office, phone, fax,
   missedVotesPct, votesWithPartyPct, votesAgainstPartyPct){
@@ -157,6 +159,7 @@ function store(id, firstName, lastName, party, state, website,
   localStorage.setItem('politician_lastName', lastName);
   localStorage.setItem('politician_party', party);
   localStorage.setItem('politician_state', state);
+  localStorage.setItem('politician_district', district);
   localStorage.setItem('politician_website', website);
   localStorage.setItem('politician_twitterHandle', twitterHandle);
   localStorage.setItem('politician_facebookHandle', facebookHandle);

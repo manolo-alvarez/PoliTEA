@@ -5,7 +5,8 @@
  */
 
 // container element
-const container = document.getElementById('cards')
+const headDiv = document.getElementById('header');
+const cardsDiv = document.getElementById('cards');
 
 // get local storage items //
 const id = localStorage.getItem('politician_id');
@@ -54,12 +55,12 @@ else party.textContent = 'Democrat';
 state.textContent = "State: " + repState;
 district.textContent = "District: " + repDistrict;
 
-container.appendChild(jumbotron);
+headDiv.appendChild(jumbotron);
 jumbotron.appendChild(col);
 col.appendChild(name);
 col.appendChild(party);
 col.appendChild(state);
-if (repDistrict != null) col.appendChild(district);
+if (repDistrict != 'null' && repDistrict != 'undefined') col.appendChild(district);
 }
 
 // About //
@@ -121,7 +122,7 @@ aboutVotesWithPartyPct.textContent = "votes with party %" + votesWithPartyPct;
 aboutVotesAgainstPartyPct.textContent = "votes against party %" + votesAgainstPartyPct;
 aboutLastUpdated.textContent = "last updated: " + lastUpdated;
 
-container.appendChild(about);
+headDiv.appendChild(about);
 about.appendChild(aboutTitle);
 if(website != 'null') about.appendChild(aboutWebsite);
 if(seniority != 'null') about.appendChild(aboutSeniority);
@@ -158,7 +159,7 @@ if(!(politician[0].votes.length == 0)){
 
 const votesTitle = document.createElement('h3');
 votesTitle.textContent ='Recent Voting History';
-container.appendChild(votesTitle);
+cardsDiv.appendChild(votesTitle);
 
 politician[0].votes.forEach(vote => {
 
@@ -182,7 +183,7 @@ politician[0].votes.forEach(vote => {
   head2.textContent = "Result: " + vote.result;
   paragraph.textContent = vote.bill.title;
 
-  container.appendChild(row);
+  cardsDiv.appendChild(row);
   row.appendChild(col);
   col.appendChild(card);
   card.appendChild(position);
@@ -208,7 +209,7 @@ politician[0].votes.forEach(vote => {
   head1.textContent = "No Voting History";
   blankSpace.textContent = " ";
 
-  container.appendChild(row);
+  cardsDiv.appendChild(row);
   row.appendChild(col);
   col.appendChild(card);
   card.appendChild(position);
