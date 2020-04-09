@@ -57,8 +57,8 @@ function DisplayList (billsParse, rows_per_page, page) {
    const col = document.createElement('div');
    const card = document.createElement('div');
    const position = document.createElement('div');
-   const head1 = document.createElement('h3');
-   const head2 = document.createElement('h6');
+   const head1 = document.createElement('h6');
+   const head2 = document.createElement('h4');
    const paragraph1 = document.createElement('p');
    const blankSpace = document.createElement('p');
    const moreBillInfo = document.createElement('a');
