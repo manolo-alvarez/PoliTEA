@@ -12,6 +12,8 @@ localStorage.clear();
  let current_page = 1;
  let rows = 5;
  let cols = 4;
+ let cardWidth = 285;
+
 //////////////////// Get senators from DB ///////////////////////////////////
 
 var xhttp = new XMLHttpRequest();
@@ -31,10 +33,18 @@ DisplayList(senators, rows, cols, current_page);
 const searchBar = document.forms['searchBar'].querySelector('input');
 searchBar.addEventListener('keyup', function(e){
   if(!(e.key === 'Enter')){
+    const select = document.getElementById('select');
+    var option = select.getElementsByTagName('option')[select.selectedIndex].value;
     const phrase = e.target.value.toLowerCase();
     senators = allSenators.filter(function(sen){
-      const name = sen.first_name.toLowerCase() + sen.last_name.toLowerCase();
-      return name.includes(phrase);
+      var content = null;
+
+      if (option === 'name') content = sen.first_name.toLowerCase() + sen.last_name.toLowerCase();
+      if (option === 'state') content = sen.state.toLowerCase();
+      if (option === 'district') content = sen.district.toLowerCase();
+      if (option === 'class') content = sen.title.slice(9,18).toLowerCase();
+
+      return content.includes(phrase);
     });
   } else{
     e.target.value = "";
@@ -54,28 +64,40 @@ function DisplayList (senators, rows_per_page, cols_per_page, page) {
 
   for (let i = start; i < senators.length && i<end; i+=4) {
       const row = document.createElement('div');
+      var rowWidth = 4*cardWidth;
+      if(senators.length-i < 4) rowWidth = cardWidth*(senators.length-i);
       row.setAttribute('class', 'row');
       row.setAttribute('style', 'margin-top:50px')
 
     for(let j = i; j < senators.length && j<end && j<(i+4); j++){
       const card = document.createElement('div');
       const cardBody = document.createElement('div');
+      const bodyTitle = document.createElement('div');
+      const bodyParagraph = document.createElement('div');
       const cardFooter = document.createElement('div');
       const head1 = document.createElement('h3');
-      const head2 = document.createElement('h6');
-      const paragraph1 = document.createElement('p');
+      const head2 = document.createElement('h3');
+      const attribute1 = document.createElement('h6');
+      const attribute2 = document.createElement('p');
+      const attribute3 = document.createElement('p');
       const bioPage = document.createElement('a');
-      const blankSpace = document.createElement('p');
       const financesPage = document.createElement('a');
 
       card.setAttribute('class' , 'card');
+      card.setAttribute('style' , 'width: 255px');
       cardBody.setAttribute('id', 'cardBody');
       cardBody.setAttribute('class', 'card-body');
+      bodyTitle.setAttribute('id', 'bodyTitle');
+      bodyTitle.setAttribute('style', 'height: 74.66px; vertical-align: middle; text-align: center;');
+      bodyParagraph.setAttribute('id', 'bodyParagraph');
+      bodyParagraph.setAttribute('style', 'height: 74.66px; vertical-align: middle; text-align: center;');
       cardFooter.setAttribute('id', 'cardFooter');
       cardFooter.setAttribute('class', 'card-footer');
       head1.setAttribute('class', 'mb-0');
       head2.setAttribute('class', 'mb-0');
-      paragraph1.setAttribute('class', 'card-text mb-auto');
+      attribute1.setAttribute('class', 'mb-0');
+      attribute2.setAttribute('class', 'card-text mb-auto');
+      attribute3.setAttribute('class', 'card-text mb-auto');
       bioPage.setAttribute('class', 'btn btn-primary');
       bioPage.setAttribute('id', `${senators[j].id}`)
       bioPage.setAttribute('onclick', `store("${senators[j].id}", "${senators[j].first_name}",
@@ -94,23 +116,23 @@ function DisplayList (senators, rows_per_page, cols_per_page, page) {
       financesPage.setAttribute('href', 'financial_main.html')
 
       head1.textContent = senators[j].first_name;
-      if(senators[j].middle_name != null) head1.textContent += " " + senators[j].middle_name;
-      head1.textContent += " " + senators[j].last_name;
-      if(senators[j].party == 'R') head2.textContent = 'Republican';
-      else head2.textContent = 'Democrat';
-      paragraph1.textContent = "State: " + senators[j].state
+      head2.textContent = senators[j].last_name;
+      attribute1.textContent = senators[j].party;
+      attribute2.textContent = senators[j].state;
+      attribute3.textContent = senators[j].title.slice(9, 18);
       bioPage.textContent = "Biography";
-      blankSpace.textContent = " ";
-      financesPage.textContent = "Donors and Finances"
+      financesPage.textContent = "Donors and Finances";
 
       row.appendChild(card);
       card.appendChild(cardBody);
       card.appendChild(cardFooter);
-      cardBody.appendChild(head1);
-      cardBody.appendChild(blankSpace);
-      cardBody.appendChild(head2);
-      cardBody.appendChild(blankSpace);
-      cardBody.appendChild(paragraph1);
+      cardBody.appendChild(bodyTitle);
+      cardBody.appendChild(bodyParagraph);
+      bodyTitle.appendChild(head1);
+      bodyTitle.appendChild(head2);
+      bodyParagraph.appendChild(attribute1);
+      bodyParagraph.appendChild(attribute2);
+      bodyParagraph.appendChild(attribute3);
       cardFooter.appendChild(bioPage);
       cardFooter.appendChild(document.createElement("p"));
       cardFooter.appendChild(financesPage);
