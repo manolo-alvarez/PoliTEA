@@ -41,7 +41,7 @@ searchBar.addEventListener('keyup', function(e){
 
       if (option === 'name') content = sen.first_name.toLowerCase() + sen.last_name.toLowerCase();
       if (option === 'state') content = sen.state.toLowerCase();
-      if (option === 'district') content = sen.district.toLowerCase();
+      if (option === 'party') content = sen.party.toLowerCase();
       if (option === 'class') content = sen.title.slice(9,18).toLowerCase();
 
       return content.includes(phrase);
