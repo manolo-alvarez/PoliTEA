@@ -19,28 +19,44 @@ localStorage.clear();
  "Native Americans", "Public Lands and Natural Resources", "Science, Technology, Communications", "Social Sciences and History",
  "Social Welfare", "Sports and Recreation", "Taxation", "Transportation and Public Works", "Water Resources Development"]
 
+ //////////////////// Get bills from DB ///////////////////////////////////
+
+var xhttp = new XMLHttpRequest();
+xhttp.open('GET', 'https://reflected-flux-270220.appspot.com/bills/all', false);
+xhttp.send();
+
+const allBills = JSON.parse(xhttp.responseText);
+var bills = allBills;
+
 /////////////////////////// Set-up Page /////////////////////////////////////
 {
 SetupPagination(topics, pagination_element, rows, cols);
 DisplayList(topics, rows, cols, current_page);
 }
 ////////////////////////////// Search Bar ////////////////////////////////////
-/*  {
-const searchBar = document.forms['searchBar'].querySelector('input');
-searchBar.addEventListener('keyup', function(e){
-  if(!(e.key === 'Enter')){
-    const phrase = e.target.value.toLowerCase();
-    topics = topics.filter(function(sen){
-      const name = sen.first_name.toLowerCase() + sen.last_name.toLowerCase();
-      return name.includes(phrase);
-    });
-  } else{
-    e.target.value = "";
-    SetupPagination(topics, pagination_element, rows, cols);
-    DisplayList(topics, rows, cols, current_page);
+{
+  const searchBar = document.forms['searchBar'].querySelector('input');
+  searchBar.addEventListener('keyup', function(e){
+    if(!(e.key === 'Enter')){
+      const select = document.getElementById('select');
+      var option = select.getElementsByTagName('option')[select.selectedIndex].value;
+      const phrase = e.target.value.toLowerCase();
+      bills = allBills.filter(function(bill){
+        var content = null;
+
+        //if (option === 'keyword') content = .toLowerCase();
+        if (option === 'name') content = bill.sponsor_name.toLowerCase();
+        if (option === 'number') content = bill.number.toLowerCase();
+  
+        return content.includes(phrase);
+      });
+    } else{
+      e.target.value = "";
+      SetupPagination(topics, pagination_element, rows, cols);
+      DisplayList(topics, rows, cols, current_page);
+    }
+  });
   }
-});
-}  */
 ////////////////////////////// Functions /////////////////////////////////////
 function DisplayList (topics, rows_per_page, cols_per_page, page) {
 	document.getElementById('list').innerHTML = "";

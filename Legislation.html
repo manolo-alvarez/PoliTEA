@@ -79,110 +79,33 @@
   <br><br>
 
 
-
-
-
-  <!-- <div class=container style="margin-top:50px">
-
-
-  <body>
-
-    <div>
-    <h1>View Legislation by Topic</h1>
+  <div class="container" style="margin-top:50px">
+    <h1 id="header" class = "pt-5">Search All Bills</h1>
     </div>
 
-    <main>
-      <div class="container" id="cards">
-        <div class="list" id="list"></div>
-        <div class="pagenumbers" id="pagination"></div>
-      </div>
-    </main>
-
-
-
-
-  <div class="card-deck text-center">
-   <div class="row" style="margin-top:50px">
-
-    <div class="card" style="width: 18rem;">
-      <div class="card-body">
-        <h5 class="card-title">Armed Forces and National Security</h5>
-      </div>
-      <div class="card-footer">
-        <a href="billList.html?topic=Armed%20Forces%20and%20National%20Security" class="btn btn-primary">See Recent Bills</a>
-      </div>
-    </div>
-
-    <div class="card" style="width: 18rem;">
-      <div class="card-body">
-        <h5 class="card-title">Civil Rights and Liberties, Minority Issues</h5>
-      </div>
-      <div class="card-footer">
-        <a href="billList.html?topic=Civil%20Rights%20and%20Liberties,%20Minority%20Issues" class="btn btn-primary">See Recent Bills</a>
-      </div>
-    </div>
-
-    <div class="card" style="width: 18rem;">
-      <div class="card-body">
-        <h5 class="card-title">Commerce</h5>
-      </div>
-      <div class="card-footer">
-        <a href="billList.html?topic=Commerce" class="btn btn-primary">See Recent Bills</a>
-      </div>
-    </div>
-
-    <div class="card" style="width: 18rem;">
-      <div class="card-body">
-        <h5 class="card-title">Crime and Law Enforcement</h5>
-      </div>
-      <div class="card-footer">
-        <a href="billList.html?topic=Crime%20and%20Law%20Enforcement" class="btn btn-primary">See Recent Bills</a>
-      </div>
-    </div>
-  </div>
-
-  <div class="row" style="margin-top:50px">
-   <div class="card" style="width: 18rem;">
-     <div class="card-body">
-       <h5 class="card-title">Education</h5>
-     </div>
-     <div class="card-footer">
-       <a href="billList.html?topic=Education" class="btn btn-primary">See Recent Bills</a>
-     </div>
-   </div>
-
-   <div class="card" style="width: 18rem;">
-     <div class="card-body">
-       <h5 class="card-title">Energy</h5>
-     </div>
-     <div class="card-footer">
-       <a href="billList.html?topic=Energy" class="btn btn-primary">See Recent Bills</a>
-     </div>
-   </div>
-
-   <div class="card" style="width: 18rem;">
-     <div class="card-body">
-       <h5 class="card-title">Environmental Protection</h5>
-     </div>
-     <div class="card-footer">
-       <a href="billList.html?topic=Environmental%20Protection" class="btn btn-primary">See Recent Bills</a>
-     </div>
-   </div>
-
-   <div class="card" style="width: 18rem;">
-     <div class="card-body">
-       <h5 class="card-title">Health</h5>
-     </div>
-     <div class="card-footer">
-       <a href="billList.html?topic=Health" class="btn btn-primary">See Recent Bills</a>
-     </div>
-   </div>
-
- </div>
-</div> -->
 
 <div class="container" style="margin-top:50px">
+
+  <h1 id="header" class = "pt-5">Search Bills By Topic</h1>
+
   <main></main>
+
+
+  <br>
+  <div class="dropdown">
+    <select class="btn btn-primary btn-sm dropdown-toggle"  data-nav-selected="0" id="select" title="Search By">
+      <option class="dropdown-item" value="keyword" style="background-color: white">Keyword</option>
+      <option class="dropdown-item" value="name" style="background-color: white">Sponsor Name</option>
+      <option class="dropdown-item" value="number" style="background-color: white">Number</option>
+    </select>
+  </div>
+
+  <form id="searchBar" onSubmit="return false;">
+    <input type="text" placeholder="Search. . .">
+  </form>
+  <p>
+    <a class="btn btn-secondary btn-sm" style="margin-left: 10px;"  href="senators.html">Reset</a>
+  </p>
 
   <div class="card-deck" id="cards">
     <div class="list" id="list"></div>
