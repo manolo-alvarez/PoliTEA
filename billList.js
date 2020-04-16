@@ -13,7 +13,7 @@ localStorage.clear();
 const queryString = window.location.search;
 console.log(queryString);
 topic = queryString.split('=')[1];
-topicSpaces = topic.replace(/%20/g, ' ');
+if(topic != null) topicSpaces = topic.replace(/%20/g, ' ');
 
 ///////////////// HTML elements////////////////////////////////////////////////////
 const list = document.getElementById('list')
@@ -48,7 +48,8 @@ function DisplayList (billsParse, rows_per_page, page) {
    console.log("start: " + start + " end: " + end);
 
    var header = document.getElementById("header");
-   var text = document.createTextNode("Bills on " + topicSpaces);
+   if(topic != null) var text = document.createTextNode("Bills on " + topicSpaces);
+   else var text = document.createTextNode("Recent Bills")
    header.appendChild(text);
 
  for (let i = start; i < billsParse.length && i<end ; i++) {
@@ -113,7 +114,8 @@ function SetupPagination (billsParse, wrapper, rows_per_page) {
    let length = billsParse.length;
 
    let page_count = Math.ceil(length / rows_per_page);
-   for (let i = 1; i < page_count + 1; i++) {
+   //for (let i = 1; i < page_count + 1; i++) {
+   for (let i = 1; i < 11; i++) {
        let btn = PaginationButton(i, billsParse);
        wrapper.appendChild(btn);
    }
