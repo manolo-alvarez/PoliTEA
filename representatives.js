@@ -24,6 +24,22 @@ xhttp.send();
 const allReps = JSON.parse(xhttp.responseText);
 var representatives = allReps;
 
+////////////////////////////// Sort By //////////////////////////////////////
+{
+var sort = document.getElementById("sort");
+
+sort.addEventListener("change", function() {
+    var sortOption = sort.getElementsByTagName('option')[sort.selectedIndex].value;
+
+    if (sortOption === 'last name') representatives.sort((a,b) => (a.last_name > b.last_name) ? 1 : ((b.last_name > a.last_name) ? -1 : 0));
+    if (sortOption === 'first name') representatives.sort((a,b) => (a.first_name > b.first_name) ? 1 : ((b.first_name > a.first_name) ? -1 : 0));
+    if (sortOption === 'state') representatives.sort((a,b) => (a.state > b.state) ? 1 : ((b.state > a.state) ? -1 : 0));
+    if (sortOption === 'district') representatives.sort((a,b) => (a.district > b.district) ? 1 : ((b.district > a.district) ? -1 : 0));
+
+    SetupPagination(representatives, pagination_element, rows, cols);
+    DisplayList(representatives, rows, cols, current_page);
+});
+}
 /////////////////////////// Set-up Page /////////////////////////////////////
 {
 SetupPagination(representatives, pagination_element, rows, cols);
@@ -61,7 +77,6 @@ function DisplayList (representatives, rows_per_page, cols_per_page, page) {
 
 	let start = rows_per_page * cols_per_page * page;
 	let end = start + rows_per_page * cols_per_page;
-	console.log("start: " + start + " end: " + end);
 
   for (let i = start; i < representatives.length && i<end; i+=4) {
       const row = document.createElement('div');

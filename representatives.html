@@ -86,9 +86,24 @@
           <form id="searchBar" onSubmit="return false;">
             <input type="text" placeholder="  Search. . . ">
           </form>
+
           <p>
             <a class="btn btn-secondary btn-sm" style="margin-left: 10px;"  href="representatives.html">Reset</a>
           </p>
+
+          <div style="margin-left: 550px;">
+            <h6 class="card-title mb-auto" style="margin-right: 10px; margin-top: 4px;">Sort by</h6>
+          </div>
+
+          <div class="dropdown">
+            <select class="btn btn-primary btn-sm dropdown-toggle"  data-nav-selected="0" id="sort" title="Sort By">
+              <option class="dropdown-item" value="last name" style="background-color: white">Last Name</option>
+              <option class="dropdown-item" value="first name" style="background-color: white">First Name</option>
+              <option class="dropdown-item" value="state" style="background-color: white">State</option>
+              <option class="dropdown-item" value="district" style="background-color: white">District</option>
+            </select>
+          </div>
+
           <div class="card-deck" id="cards" style="width: 100%;">
             <div class="list" id="list" style="margin-left: auto; margin-right: auto;"></div>
           </div>

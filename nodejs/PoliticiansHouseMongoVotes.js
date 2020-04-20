@@ -10,7 +10,7 @@ const https = require('https');
 
 const MEMBERS_URL = 'https://api.propublica.org/congress/v1/members/';
 
-politician.find({short_title: "Rep."}, function(err, doc){
+politician.find({short_title: "Sen."}, function(err, doc){
 
   if (err) console.log(err)
 
