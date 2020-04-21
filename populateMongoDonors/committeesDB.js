@@ -58,109 +58,109 @@ var committee_dict = {
 }
 
 var ind_dict = {
-  "A11": "Misc Agriculture",
-  "A01": "Crop Production",
-  "A02": "Tobacco",
-  "A04": "Dairy",
-  "A05": "Poultry & Eggs",
-  "A06": "Livestock",
-  "A07": "Agricultural Svcs",
-  "A10": "Forest Products",
-  "C01": "General Contractors",
-  "C02": "Home Builders",
-  "C03": "Subcontractors",
-  "C04": "Construction Svcs",
-  "C05": "Building Materials",
-  "B00": "Misc Communications/Electronics",
-  "B01": "Publishing",
-  "B02": "TV/Movies/Music",
-  "B09": "Telecom Svcs",
-  "B08": "Telephone Utilities",
-  "B12": "Electronics Mfg/Eqp",
-  "B13": "Internet",
-  "D03": "Misc Defense",
-  "D01": "Defense Aerospace",
-  "D02": "Defense Electronics",
-  "E07": "Misc Energy",
-  "E01": "Oil & Gas",
-  "E04": "Mining",
-  "E08": "Electric Utilities",
-  "E09": "Environmental Svcs/Equipment",
-  "E10": "Waste Management",
-  "E11": "Fisheries & Wildlife",
-  "F13": "Misc Finance",
-  "F03": "Commercial Banks",
-  "F04": "Savings & Loans",
-  "F05": "Credit Unions",
-  "F06": "Finance/Credit",
-  "F07": "Securities/Invest",
-  "F09": "Insurance",
-  "F10": "Real Estate",
-  "F11": "Accountants",
-  "N12": "Misc Business",
-  "N00": "Business Assns",
-  "A09": "Food Process/Sales",
-  "N01": "Food & Beverage",
-  "N02": "Beer, Wine & Liquor",
-  "N09": "Marijuana",
-  "N03": "Retail Sales",
-  "N04": "Misc Services",
-  "N05": "Business Services",
-  "N06": "Recreation",
-  "N07": "Casinos/Gambling",
-  "H05": "Misc Health",
-  "H01": "Health Professionals",
-  "H02": "Hospitals/Nurs Homes",
-  "H03": "Health Services",
-  "H04": "Pharm/Health Prod",
-  "W04": "Education",
-  "W07": "Other",
-  "Q10": "Misc Issues",
-  "Q01": "Repub/Conservative",
-  "Q02": "Democratic/Liberal",
-  "Q03": "Leadership PACs",
-  "Q04": "Foreign Policy",
-  "Q05": "Pro-Israel",
-  "Q12": "Gun Control",
-  "Q13": "Gun Rights",
-  "Q09": "Human Rights",
-  "Q14": "Anti-Abortion",
-  "Q15": "Pro-Abortion Rights",
-  "Q08": "Women's Issues",
-  "Q11": "Environment",
-  "K01": "Lawyers/Law Firms",
-  "K02": "Lobbyists",
-  "P05": "Misc Unions",
-  "P04": "Public Sector Unions",
-  "P01": "Bldg Trade Unions",
-  "P02": "Industrial Unions",
-  "P03": "Transport Unions",
-  "N15": "Misc Mfg/Distrib",
-  "N13": "Chemicals",
-  "N14": "Steel Production",
-  "N16": "Textiles",
-  "M06": "Misc Transport",
-  "M01": "Air Transport",
-  "M02": "Automotive",
-  "M03": "Trucking",
-  "M04": "Railroads",
-  "M05": "Sea Transport",
-  "N08": "Lodging/Tourism",
-  "W06": "Retired",
-  "W03": "Civil Servants",
-  "W02": "Non-Profits",
-  "W05": "Clergy/Religious",
-  "Y00": "Unknown",
-  "Y01": "Homemakers/Non-income earners",
-  "Y02": "No Employer Listed or Found",
-  "Y03": "Generic Occupation/Category Unknown",
-  "Y04": "Employer Listed/Category Unknown",
-  "Q16": "Candidate Cmtes",
-  "Z04": "Joint Candidate Cmte",
-  "Z02": "Party Committees",
-  "Z07": "Candidate Self-finance",
-  "Z08": "Party Committee Transfer",
-  "Z09": "Non-contribution"
+  "Misc Agriculture" : "A11",
+  "Crop Production": "A01",
+  "Tobacco": "A02",
+  "Dairy": "A04",
+  "Poultry & Eggs": "A05",
+  "Livestock": "A06",
+  "Agricultural Svcs": "A07",
+  "Forest Products": "A10",
+  "General Contractors": "C01",
+  "Home Builders": "C02",
+  "Subcontractors": "C03",
+  "Construction Svcs": "C04",
+  "Building Materials": "C05",
+  "Misc Communications/Electronics": "B00",
+  "Publishing": "B01",
+  "TV/Movies/Music": "B02",
+  "Telecom Svcs": "B09",
+  "Telephone Utilities": "B08",
+  "Electronics Mfg/Eqp": "B12",
+  "Internet": "B13",
+  "Misc Defense": "D03",
+  "Defense Aerospace":"D01",
+  "Defense Electronics": "D02",
+  "Misc Energy": "E07",
+  "Oil & Gas": "E01",
+  "Mining": "E04",
+  "Electric Utilities": "E08",
+  "Environmental Svcs/Equipment":"E09",
+  "Waste Management": "E10",
+  "Fisheries & Wildlife": "E11",
+  "Misc Finance":"F13",
+  "Commercial Banks":"F03",
+  "Savings & Loans":"F04",
+  "Credit Unions":"F05",
+  "Finance/Credit":"F06",
+  "Securities/Invest":"F07",
+  "Insurance":"F09",
+  "Real Estate":"F10",
+  "Accountants":"F11",
+  "Misc Business":"N12",
+  "Business Assns":"N00",
+  "Food Process/Sales":"A09",
+  "Food & Beverage":"N01",
+  "Beer, Wine & Liquor":"N02",
+  "Marijuana":"N09",
+  "Retail Sales":"N03",
+  "Misc Services":"N04",
+  "Business Services":"N05",
+  "Recreation":"N06",
+  "Casinos/Gambling":"N07",
+  "Misc Health":"H05",
+  "Health Professionals":"H01",
+  "Hospitals/Nurs Homes":"H02",
+  "Health Services":"H03",
+  "Pharm/Health Prod":"H04",
+  "Education":"W04",
+  "Other":"W07",
+  "Misc Issues":"Q10",
+  "Repub/Conservative":"Q01",
+  "Democratic/Liberal":"Q02",
+  "Leadership PACs":"Q03",
+  "Foreign Policy":"Q04",
+  "Pro-Israel":"Q05",
+  "Gun Control":"Q12",
+  "Gun Rights":"Q13",
+  "Human Rights":"Q09",
+  "Anti-Abortion":"Q14",
+  "Pro-Abortion Rights":"Q15",
+  "Women's Issues":"Q08",
+  "Environment":"Q11",
+  "Lawyers/Law Firms":"K01",
+  "Lobbyists":"K02",
+  "Misc Unions":"P05",
+  "Public Sector Unions":"P04",
+  "Bldg Trade Unions":"P01",
+  "Industrial Unions":"P02",
+  "Transport Unions":"P03",
+  "Misc Mfg/Distrib":"N15",
+  "Chemicals":"N13",
+  "Steel Production":"N14",
+  "Textiles":"N16",
+  "Misc Transport":"M06",
+  "Air Transport":"M01",
+  "Automotive":"M02",
+  "Trucking":"M03",
+  "Railroads":"M04",
+  "Sea Transport":"M05",
+  "Lodging/Tourism":"N08",
+  "Retired":"W06",
+  "Civil Servants":"W03",
+  "Non-Profits":"W02",
+  "Clergy/Religious":"W05",
+  "Unknown":"Y00",
+  "Homemakers/Non-income earners":"Y01",
+  "No Employer Listed or Found":"Y02",
+  "Generic Occupation/Category Unknown":"Y03",
+  "Employer Listed/Category Unknown":"Y04",
+  "Candidate Cmtes":"Q16",
+  "Joint Candidate Cmte":"Z04",
+  "Party Committees":"Z02",
+  "Candidate Self-finance":"Z07",
+  "Party Committee Transfer":"Z08",
+  "Non-contribution":"Z09"
 }
 var existing = []
 
@@ -196,48 +196,101 @@ function connectDb() {
       // next function
       // populateDb()
       // printCommInd()
-      removeExisting()
+      // removeExisting()
+      // updateIndustryID()
+      // updateCommitteeFullName()
+      updateMemberNames()
   })
+}
+
+function updateMemberNames() {
+  committees.find( {}, 'member' function(err, docs) {
+    if (err) return err
+
+    docs.forEach(doc => {
+        members = doc.member
+        members.forEach(member => {
+
+          committees.updateMany({'_attributes.industry':key},
+          {"$set": {"_attributes.industry_code":ind_dict[key]}},
+          function() {
+            committees.find({'_attributes.industry':key}, '_attributes.industry_code', function(err, docs) {
+              if (err) return err
+              console.log(docs)
+            })
+          })
+
+        })
+    })
+
+  })
+
+}
+
+
+function updateIndustryID(){
+  var need_code = []
+  committees.find( {'_attributes.industry_code': {$exists : false }}, function(err, docs) {
+    if (err) return err
+    console.log('docs without industry code length is ' + docs.length)
+    docs.forEach(docs => {
+      console.log(docs)
+      if (docs.crp_id!=null)
+        need_code.push(docs._attributes.industry)
+    })
+  })
+  for(var key in ind_dict) {
+    // console.log('key, value is ' + key + ", " + ind_dict[key])
+    committees.updateMany({'_attributes.industry':key},
+    {"$set": {"_attributes.industry_code":ind_dict[key]}},
+    function() {
+      committees.find({'_attributes.industry':key}, '_attributes.industry_code', function(err, docs) {
+        if (err) return err
+        console.log(docs)
+      })
+    })
+  }
+}
+
+function updateCommitteeFullName() {
+  for(var key in committee_dict) {
+    // console.log('key, value is ' + key + ", " + ind_dict[key])
+    committees.updateMany({'_attributes.committee_name':key},
+    {"$set": {"_attributes.committee_full_name":committee_dict[key]}},
+    function() {
+      committees.find({'_attributes.committee_name':key}, '_attributes', function(err, docs) {
+        if (err) return err
+        console.log(docs)
+      })
+    })
+  }
 }
 
 function removeExisting() {
   var indus, cmte
   existing = []
-  // for(var i = 0; i < comm_codes.length; i++) {
-  //   for(var j = 0; j < industry_codes.length; j++) {
-      //only checking last elements in array?  for loops running asynch
-      cmte = 'HADM'
-      indus = 'Poultry & Eggs'
-      //not finding documents
-      committees.find({},function(err,docs) {
-          if(err) return err
-          // console.log('document exists')
-          // console.log(docs)
-          docs.forEach(docs => {
-            existing.push(docs._attributes.committee_name + " " + docs._attributes.industry)
-          })
-
-          printCommInd()
-          // populateDb()
+  committees.find({},function(err,docs) {
+      if(err) return err
+      docs.forEach(docs => {
+        existing.push(docs._attributes.committee_name + " " + docs._attributes.industry)
       })
+      // printCommInd()
+      populateDb()
+  })
 }
 
 function printCommInd() {
   console.log('number of existing documents is ' + existing.length)
    console.log("existing is " + existing)
 
-  // console.log('comm_codes length is ' + comm_codes.length)
-  // console.log('comm_codes is ' + comm_codes)
-  // console.log('industry_codes length is ' + industry_codes.length)
-  // console.log('ind codes is ' + industry_codes)
 }
 
 function populateDb() {
   // var api_key = '52f80155d9bb4bd043b2ef5c7e05e9cc'  // utexas
   // var api_key = '17670ea6524ff0d3a02e77c6d6835d08' //maemeigh
   // var api_key = '8501d386724d739584d71c1328ce4feb' //mtn gmail
-  var api_key = 'ed0ccb4fd1f64fdbce4e8915564c40e2' // ee461
-  // var api_key = '00d06946b742b2613873185d48895a2e' // res org
+  // var api_key = 'ed0ccb4fd1f64fdbce4e8915564c40e2' // ee461
+  var api_key = '00d06946b742b2613873185d48895a2e' // res org
   // var api_key = '2332f6dd943afd1e54c4548560d94769' //res ut
 
   var indus;

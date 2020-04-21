@@ -22,9 +22,6 @@ app.get('/', (req, res, next) => {
     res.send('running node-api');
 });
 
-/////// Manolo ///////////////////////////////////////////////////////
-const port = process.env.PORT || 3000;
-//////////////////////////////////////////////////////////////////////
 const port = process.env.PORT || 3000;
 
 mongoose

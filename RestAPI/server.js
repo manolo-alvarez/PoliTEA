@@ -148,6 +148,7 @@ const committeeSchema = new mongoose.Schema({
       committee_full_name: String,
       committee_name: String,
       industry: String,
+      industry_code: String,
       congno: Number,
       source: String,
     },

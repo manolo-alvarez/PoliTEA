@@ -1,8 +1,5 @@
 const mongoose = require('mongoose');
-<<<<<<< HEAD
-=======
 
->>>>>>> master
 const Schema = mongoose.Schema;
 
 const politicianSchema = new Schema({
@@ -52,8 +49,6 @@ const politicianSchema = new Schema({
   missed_votes_pct: Number,
   votes_with_party_pct: Number,
   votes_against_party_pct: Number,
-<<<<<<< HEAD
-=======
   votes: [{
     member_id: String,
     chamber: String,
@@ -83,7 +78,6 @@ const politicianSchema = new Schema({
     },
     position: String
   }],
->>>>>>> master
   donors:
     [{
       year: String,
@@ -113,8 +107,5 @@ const politicianSchema = new Schema({
   }]
 });
 
-<<<<<<< HEAD
-=======
 
->>>>>>> master
 module.exports = mongoose.model('politicians', politicianSchema);
