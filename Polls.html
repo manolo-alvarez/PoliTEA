@@ -8,7 +8,7 @@
         <!-- Bootstrap CSS -->
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
 
-    <link href="style.css" rel="stylesheet" />
+    <link href="address.css" rel="stylesheet" />
 
     <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
       <a class="navbar-brand" href="Splash.html">poli<strong>tea</strong></a>
@@ -38,11 +38,13 @@
       </nav>
     <br><br>
 
-    <title>Poll Locations</title>
-    <br><br>
+    <title>Polls</title>
 
-    <div class=container>
-    <h1>Poll Locations Near You</h1>
+    <div class="container">
+      <div class="jumbotron p-3 p-md-5 text-white rounded bg-dark">
+        <h1>Polling Locations Near You</h1>
+      </div>   
+
     <script>
       if ((localStorage.getItem("zip") == "") || localStorage.getItem("city") == "" || localStorage.getItem("state") == ""){
         window.alert("You must enter a complete address!");
@@ -94,10 +96,7 @@
         if (response.error.message == "Election unknown"){
           el.appendChild(document.createTextNode( 'There are no upcoming elections. '));
           var br = document.createElement("br");
-          var br1 = document.createElement("br");
-
           el.appendChild( br );
-          el.appendChild( br1 );
           el.appendChild(document.createTextNode( 'Please check back two to four weeks before your next election to find available polling locations near you.'));
           return;
 
