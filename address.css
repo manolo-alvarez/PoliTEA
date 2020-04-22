@@ -109,6 +109,23 @@
     box-shadow: inset 0px 0px 4px rgba(0, 0, 0, 0.2);
   }
 
+  /* Card */
+  .card {
+    margin: 1rem;
+    border: 1px solid gray;  
+  }
+  @media screen and (min-width: 600px) {
+    .card {
+        flex: 1 1 calc(50% - 2rem);
+    }
+  }
+
+  @media screen and (min-width: 900px) {
+    .card {
+        flex: 1 1 calc(33% - 2rem);
+    }
+  }
+
   
   /*
    * Blog posts

@@ -14,7 +14,7 @@ function show_events (xhttp){
           <div>
               <br><br>
               <h5 class="card-title text-danger ">${xhttp.responseText}</h5>
-              <p class="card-title">Expand your search range above or return to "Get Involved" page and enter a new address.</p>
+              <p class="card-title">Expand your search range above or <a href ="./address.html">enter a new address</a>.</p>
         </div>
        `;
     document.getElementById('display_msg').innerHTML = x;
