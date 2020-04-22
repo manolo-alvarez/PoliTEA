@@ -10,8 +10,11 @@
       <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
 
 
-    <link href="https://fonts.googleapis.com/css?family=Dosis:400,700" rel="stylesheet" />
-    <link href="style.css" rel="stylesheet" />
+    <!-- <link href="https://fonts.googleapis.com/css?family=Dosis:400,700" rel="stylesheet" /> -->
+    <!-- <link href="style.css" rel="stylesheet" /> -->
+    <link href="https://fonts.googleapis.com/css?family=Playfair+Display:700,900" rel="stylesheet">
+    <link href="address.css" rel="stylesheet">
+
 </head>
 
 <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
@@ -45,15 +48,17 @@
 
 <title>Events</title>
 
-<br>
-<br>
-<div class=container>
-  <h1>Events Near You</h1>
+
+<div class="container">
+  <div class="jumbotron p-3 p-md-5 text-white rounded bg-dark">
+    <h1>Events Near You</h1> 
+    <p>Discover current political events in your community and engage in the causes important to you. </p>
+     
+    <!-- <p>Discover upcoming political events and activist efforts in your community and support the causes you care about.</p> -->
+  </div>   
 </div>
-<hr>
+
 <script>
-
-
   function chooseRange(range){
     localStorage.setItem("searchRange", range)
     window.location.reload();
@@ -77,12 +82,11 @@
       </div>
       <button type="submit" id="searchBtn" onclick="return false;" class="btn btn-info">Search</button>
     </form>
+    <a class="btn btn-secondary ml-4" href="Events.html">Reset</a>
+  </div>
 </div>
 
-</div>
-
-
-
+<br>
 
 <div class=container>
     <p id="display_msg"></p>

@@ -77,7 +77,7 @@ function DisplayList (oData, rows_per_page, page) {
 	
 		const x = `
 			<div>
-				<div class="row no-gutters border rounded overflow-hidden flex-md-row mr-4 mb-4 shadow-sm h-md-250 position-relative">
+				<div class="row no-gutters border rounded overflow-hidden flex-md-row mr-4 mb-4 shadow-sm position-relative">
 					<div class="card-body">
 						<h5 class="card-title">${title}</h5>
 						<h6 class="card-subtitle mb-2 text-muted">${time}</h6>
