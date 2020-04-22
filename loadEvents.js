@@ -23,20 +23,20 @@ function show_events (xhttp){
       //redirecting bc could not find any state matchings, check state matchings with state abbreviation
       let url_path = "https://reflected-flux-270220.appspot.com/events/stateAbbr/" + localStorage.getItem("state"); 
       loadEvents(url_path);
-    }
+	}
+
   else {
-    
-  
-  showUpcomingMsg();
-  let oData = xhttp.responseText;
-  DisplayList(oData, rows, current_page);
+	  
+	showUpcomingMsg();
+	let oData = xhttp.responseText;
+	let sorted = sortByTime(oData); 
+	DisplayList(JSON.stringify(sorted), rows, current_page);
   }
 
 }
 
 
 function DisplayList (oData, rows_per_page, page) {
-//   console.log(oData)
   events = JSON.parse(oData);
   allEvents = JSON.parse(oData);
 
@@ -45,7 +45,6 @@ function DisplayList (oData, rows_per_page, page) {
 
 	let start = rows_per_page * page;
 	let end = start + rows_per_page;
-	// console.log("start: " + start + " end: " + end);
 
 	for (let i = start; i < events.length && i<end ; i++) {
 		 let item_element = document.createElement('div');
@@ -69,22 +68,20 @@ function DisplayList (oData, rows_per_page, page) {
 		if (events[i].description != null)
 		  description = events[i].description;
 	
-		var url = ""; var url_btn = "";
+		var url = ""; 
 		if (events[i].url != null){
 			url = events[i].url;
-			url_btn = `<button onclick="window.location.href = '${url}';" class="btn btn-info">More Info</button> `
+			title = `<a href="${url}">${title}</a>`
 		}
 	
 		const x = `
 			<div>
-				<div class="row no-gutters border rounded overflow-hidden flex-md-row mr-4 mb-4 shadow-sm position-relative">
+				<div class="row no-gutters border rounded overflow-hidden flex-md-row mr-4 mb-4 shadow-sm position-relative"  style="max-width: 22rem; max-height: 22rem; min-width: 22rem; min-height: 22rem;">
 					<div class="card-body">
 						<h5 class="card-title">${title}</h5>
-						<h6 class="card-subtitle mb-2 text-muted">${time}</h6>
-						<h6 class="card-subtitle mb-2 text-info">${addr}</h6>
+						<h6 class="card-subtitle mb-2 ">${time}</h6>
+						<h6 class="card-subtitle mb-2 text-muted">${addr}</h6>
 						<div>${description}</div>
-						<hr>
-						${url_btn}
 					</div>
 				</div>
 			</div>
@@ -122,8 +119,7 @@ function PaginationButton (page, oData) {
 		DisplayList(oData, rows, current_page);
 
 		let current_btn = document.querySelector('.pagenumbers button.active');
-		current_btn.classList.remove('active');
-
+		// current_btn.classList.remove('active');
 		button.classList.add('active');
 	});
 
@@ -150,11 +146,6 @@ function showUpcomingMsg(){
 
 }
 
-/// Pagination///
-const pagination_element = document.getElementById('pagination');
-let current_page = 1;
-let rows = 5;
-////
 
 // Search Bar //
 document.getElementById("searchBtn").addEventListener("click", function(){
@@ -179,13 +170,52 @@ document.getElementById("searchBtn").addEventListener("click", function(){
 		}
 
 		matchedEvents = JSON.stringify(matchedEvents);
-		DisplayList(matchedEvents, rows, current_page);
+		current_page = 1;
+		DisplayList(matchedEvents, rows, 1);
 	}
 });
 
-//////////////
+/// Sort By ///
+{
+	var sort = document.getElementById("sort");
+	
+	sort.addEventListener("change", function() {
+		var sortOption = sort.getElementsByTagName('option')[sort.selectedIndex].value;
+	
+		if (sortOption === 'title') events.sort((a,b) => (a.title > b.title) ? 1 : ((b.title > a.title) ? -1 : 0));
+		if (sortOption === 'date') events.sort((a,b) => {
+			let a_time = parseDate(a.start_time);
+			let b_time = parseDate(b.start_time);
+			return a_time<b_time ? -1 : a_time>b_time ? 1 : 0;
+		});
+	
+		SetupPagination(JSON.stringify(events), pagination_element, rows);
+		DisplayList(JSON.stringify(events), rows, current_page);
+	});
+}
 
+function parseDate(start_time){
+	let total = start_time.replace(/ /g, "");
+	total = total.replace(/-/g, "");
+	total = total.replace(/:/g, "");
+	return total;
+}
 
+function sortByTime(oData){
+	data = JSON.parse(oData);
+
+	data.sort((a,b) => {
+		let a_time = parseDate(a.start_time);
+		let b_time = parseDate(b.start_time);
+		return a_time<b_time ? -1 : a_time>b_time ? 1 : 0;
+	});
+	return data;
+}
+
+/// Pagination///
+const pagination_element = document.getElementById('pagination');
+let current_page = 1;
+let rows = 9;
 
 
 const range = localStorage.getItem("searchRange");

@@ -52,9 +52,7 @@
 <div class="container">
   <div class="jumbotron p-3 p-md-5 text-white rounded bg-dark">
     <h1>Events Near You</h1> 
-    <p>Discover current political events in your community and engage in the causes important to you. </p>
-     
-    <!-- <p>Discover upcoming political events and activist efforts in your community and support the causes you care about.</p> -->
+    <p>Discover current political events in your community and get involved with the causes important to you.</p>
   </div>   
 </div>
 
@@ -66,21 +64,32 @@
 </script>
 
 <div class=container>
-  <h5>Filter events by: </h5>
+  <div class="d-flex justify-content-between">
+    <h5>Filter events by </h5>
+    <h5>Search & Sort </h5>
+
+  </div>
 </div>
 
 <div class=container>
   <div class="d-flex justify-content-between">
     <div id="filterBtns">
       <button onclick="chooseRange('zip');" class="btn btn-danger">Zip Code</button> 
-      <button onclick="chooseRange('city')" class="btn btn-danger ml-2 ">City</button>
-      <button onclick="chooseRange('state')" class="btn btn-danger ml-2 ">State</button> 
+      <button onclick="chooseRange('city')" class="btn btn-danger ml-1 ">City</button>
+      <button onclick="chooseRange('state')" class="btn btn-danger ml-1 ">State</button> 
     </div>
+
     <form class="form-inline">
-      <div class="form-group mx-sm-3 mb-2">
-        <input type="text" class="form-control" id="searchBar" placeholder="Title or Keyword">
+      <div class="form-group">
+        <input type="text" class="form-control" id="searchBar" placeholder="Enter Title or Keyword">
       </div>
-      <button type="submit" id="searchBtn" onclick="return false;" class="btn btn-info">Search</button>
+      <div class="dropdown">
+        <select class="btn btn-info ml-2 dropdown-toggle"  data-nav-selected="0" id="sort" title="Sort By">
+          <option class="dropdown-item" value="date" style="background-color: white">Date</option>
+          <option class="dropdown-item" value="title" style="background-color: white">Title</option>
+        </select>
+      </div>
+      <button type="submit" id="searchBtn" style="display:none;" onclick="return false;" class="btn btn-info">Search</button>
       <a class="btn btn-secondary ml-2" href="Events.html">Reset</a>
 
     </form>
