@@ -14,12 +14,13 @@ exports.showAllBills = (req, res, next) => {
 
   let billsArray = [];
 
-  bills.find(function (err, docs) {
+  bills.find({}, {limit : 2 }, function (err, docs) {
     if (err || docs.length==0) {
       return res.status(404).send('Bills not found')
     }
 
     docs.forEach((bill) => {
+
       billsArray.push({
           number: bill.number,
           title: bill.title,

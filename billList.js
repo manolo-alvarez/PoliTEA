@@ -30,15 +30,43 @@ xhttp.open('GET', url_test, false);
 xhttp.send();
 
 const billsParse = JSON.parse(xhttp.responseText);
+var bills = allBills;
 
 const pagination_element = document.getElementById('pagination');
 
 let current_page = 1;
 let rows = 10;
 
+/////////////////////////// Set-up Page /////////////////////////////////////
 SetupPagination(billsParse, pagination_element, rows);
 DisplayList(billsParse, rows, current_page);
 
+////////////////////////////// Search Bar ////////////////////////////////////
+{
+   const searchBar = document.forms['searchBar'].querySelector('input');
+   searchBar.addEventListener('keyup', function(e){
+     if(!(e.key === 'Enter')){
+       const select = document.getElementById('select');
+       var option = select.getElementsByTagName('option')[select.selectedIndex].value;
+       const phrase = e.target.value.toLowerCase();
+       bills = allBills.filter(function(bill){
+         var content = null;
+ 
+         //if (option === 'keyword') content = .toLowerCase();
+         if (option === 'name') content = bill.sponsor_name.toLowerCase();
+         if (option === 'number') content = bill.number.toLowerCase();
+   
+         return content.includes(phrase);
+       });
+     } else{
+       e.target.value = "";
+       SetupPagination(topics, pagination_element, rows, cols);
+       DisplayList(topics, rows, cols, current_page);
+     }
+   });
+   }
+
+   ////////////////////////////// Functions /////////////////////////////////////
 function DisplayList (billsParse, rows_per_page, page) {
    document.getElementById('list').innerHTML = "";
    page--;

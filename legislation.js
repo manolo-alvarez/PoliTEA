@@ -33,7 +33,7 @@ var bills = allBills;
 SetupPagination(topics, pagination_element, rows, cols);
 DisplayList(topics, rows, cols, current_page);
 }
-////////////////////////////// Search Bar ////////////////////////////////////
+ ////////////////////////////// Search Bar ////////////////////////////////////
 {
   const searchBar = document.forms['searchBar'].querySelector('input');
   searchBar.addEventListener('keyup', function(e){
@@ -56,7 +56,7 @@ DisplayList(topics, rows, cols, current_page);
       DisplayList(topics, rows, cols, current_page);
     }
   });
-  }
+  } 
 ////////////////////////////// Functions /////////////////////////////////////
 function DisplayList (topics, rows_per_page, cols_per_page, page) {
 	document.getElementById('list').innerHTML = "";
