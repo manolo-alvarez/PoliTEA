@@ -162,6 +162,59 @@ var ind_dict = {
   "Party Committee Transfer":"Z08",
   "Non-contribution":"Z09"
 }
+
+var state_dict = {
+  'Arizona': 'AZ',
+  'Alabama': 'AL',
+  'Alaska': 'AK',
+  'Arkansas': 'AR',
+  'California': 'CA',
+  'Colorado': 'CO',
+  'Connecticut': 'CT',
+  'Delaware': 'DE',
+  'Florida': 'FL',
+  'Georgia': 'GA',
+  'Hawaii': 'HI',
+  'Idaho': 'ID',
+  'Illinois': 'IL',
+  'Indiana': 'IN',
+  'Iowa': 'IA',
+  'Kansas': 'KS',
+  'Kentucky': 'KY',
+  'Louisiana': 'LA',
+  'Maine': 'ME',
+  'Maryland': 'MD',
+  'Massachusetts': 'MA',
+  'Michigan': 'MI',
+  'Minnesota': 'MN',
+  'Mississippi': 'MS',
+  'Missouri': 'MO',
+  'Montana': 'MT',
+  'Nebraska': 'NE',
+  'Nevada': 'NV',
+  'New Hampshire': 'NH',
+  'New Jersey': 'NJ',
+  'New Mexico': 'NM',
+  'New York': 'NY',
+  'North Carolina': 'NC',
+  'North Dakota': 'ND',
+  'Ohio': 'OH',
+  'Oklahoma': 'OK',
+  'Oregon': 'OR',
+  'Pennsylvania': 'PA',
+  'Rhode Island': 'RI',
+  'South Carolina': 'SC',
+  'South Dakota': 'SD',
+  'Tennessee': 'TN',
+  'Texas': 'TX',
+  'Utah': 'UT',
+  'Vermont': 'VT',
+  'Virginia': 'VA',
+  'Washington': 'WA',
+  'West Virginia': 'WV',
+  'Wisconsin': 'WI',
+  'Wyoming': 'WY'
+}
 var existing = []
 
 const committees = require('../RestAPI/server')
@@ -199,32 +252,26 @@ function connectDb() {
       // removeExisting()
       // updateIndustryID()
       // updateCommitteeFullName()
-      updateMemberNames()
+      // updateState()
+      updateParty()
   })
 }
+function updateParty() {
+  committee.updateMan8({'member._attributes.party': "R"})
 
-function updateMemberNames() {
-  committees.find( {}, 'member' function(err, docs) {
-    if (err) return err
-
-    docs.forEach(doc => {
-        members = doc.member
-        members.forEach(member => {
-
-          committees.updateMany({'_attributes.industry':key},
-          {"$set": {"_attributes.industry_code":ind_dict[key]}},
-          function() {
-            committees.find({'_attributes.industry':key}, '_attributes.industry_code', function(err, docs) {
-              if (err) return err
-              console.log(docs)
-            })
-          })
-
-        })
+}
+function updateState() {
+  for(var key in state_dict) {
+    // console.log('key, value is ' + key + ", " + ind_dict[key])
+    committees.updateMany({'_attributes.committee_name':key},
+    {"$set": {"_attributes.committee_full_name":state_dict[key]}},
+    function() {
+      committees.find({'_attributes.committee_name':key}, '_attributes', function(err, docs) {
+        if (err) return err
+        console.log(docs)
+      })
     })
-
-  })
-
+  }
 }
 
 

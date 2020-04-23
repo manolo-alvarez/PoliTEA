@@ -1,6 +1,55 @@
-// Clear Storage
-localStorage.clear();
-
+var state_dict = {
+  'Arizona': 'AZ',
+  'Alabama': 'AL',
+  'Alaska': 'AK',
+  'Arkansas': 'AR',
+  'California': 'CA',
+  'Colorado': 'CO',
+  'Connecticut': 'CT',
+  'Delaware': 'DE',
+  'Florida': 'FL',
+  'Georgia': 'GA',
+  'Hawaii': 'HI',
+  'Idaho': 'ID',
+  'Illinois': 'IL',
+  'Indiana': 'IN',
+  'Iowa': 'IA',
+  'Kansas': 'KS',
+  'Kentucky': 'KY',
+  'Louisiana': 'LA',
+  'Maine': 'ME',
+  'Maryland': 'MD',
+  'Massachusetts': 'MA',
+  'Michigan': 'MI',
+  'Minnesota': 'MN',
+  'Mississippi': 'MS',
+  'Missouri': 'MO',
+  'Montana': 'MT',
+  'Nebraska': 'NE',
+  'Nevada': 'NV',
+  'New Hampshire': 'NH',
+  'New Jersey': 'NJ',
+  'New Mexico': 'NM',
+  'New York': 'NY',
+  'North Carolina': 'NC',
+  'North Dakota': 'ND',
+  'Ohio': 'OH',
+  'Oklahoma': 'OK',
+  'Oregon': 'OR',
+  'Pennsylvania': 'PA',
+  'Rhode Island': 'RI',
+  'South Carolina': 'SC',
+  'South Dakota': 'SD',
+  'Tennessee': 'TN',
+  'Texas': 'TX',
+  'Utah': 'UT',
+  'Vermont': 'VT',
+  'Virginia': 'VA',
+  'Washington': 'WA',
+  'West Virginia': 'WV',
+  'Wisconsin': 'WI',
+  'Wyoming': 'WY'
+}
 //////////////// HTML elements and variables////////////////////////////////
 const list = document.getElementById('list')
 const pagination_element = document.getElementById('pagination');
@@ -10,8 +59,8 @@ let cols = 4;
 let cardWidth = 285;
 
  //////////////////// Get members from DB ///////////////////////////
- // const industry_code = localStorage.getItem('industry_code');
- const industry_code = 'A05'
+ const industry_code = localStorage.getItem('industry_code');
+ // const industry_code = 'A05'
  const industry = localStorage.getItem('industry');
 
  console.log("industry_code: " + industry_code);
@@ -40,7 +89,8 @@ sort.addEventListener("change", function() {
 
     if (sortOption === 'name') members.sort((a,b) => (a.member_name > b.member_name) ? 1 : ((b.member_name > a.member_name) ? -1 : 0));
     if (sortOption === 'state') members.sort((a,b) => (a.state > b.state) ? 1 : ((b.state > a.state) ? -1 : 0));
-    if (sortOption === 'party') members.sort((a,b) => (a.party > b.party) ? 1 : ((b.party > a.party) ? -1 : 0));
+    if (sortOption === 'most') members.sort((a,b) => (a.total < b.total) ? 1 : ((b.total < a.total) ? -1 : 0));
+    if (sortOption === 'least') members.sort((a,b) => (a.total > b.total) ? 1 : ((b.total > a.total) ? -1 : 0));
 
     SetupPagination(members, pagination_element, rows, cols);
     DisplayList(members, rows, cols, current_page);
@@ -64,8 +114,10 @@ searchBar.addEventListener('keyup', function(e){
 
       if (option === 'name') content = m.member_name.toLowerCase();
       if (option === 'state') content = m.state.toLowerCase();
-      if (option === 'party') content = m.party.toLowerCase();
-
+      if (option === 'party') {
+          if ("republican".includes(phrase)) return m.party == 'R'
+          else if ("democrat".includes(phrase)) return m.party == 'D'
+      }
       return content.includes(phrase);
     });
   } else{
@@ -98,11 +150,9 @@ function DisplayList (members, rows_per_page, cols_per_page, page) {
       const bodyParagraph = document.createElement('div');
       const cardFooter = document.createElement('div');
       const head1 = document.createElement('a');
-      // const head2 = document.createElement('h3');
+      const head2 = document.createElement('h3');
       const attribute1 = document.createElement('h6');
       const attribute2 = document.createElement('a');
-      // const attribute3 = document.createElement('p');
-      // const bioPage = document.createElement('a');
       const footerBody = document.createElement('p');
 
       card.setAttribute('class' , 'card');
@@ -110,21 +160,16 @@ function DisplayList (members, rows_per_page, cols_per_page, page) {
       cardBody.setAttribute('id', 'cardBody');
       cardBody.setAttribute('class', 'card-body');
       bodyTitle.setAttribute('id', 'bodyTitle');
-      bodyTitle.setAttribute('style', 'height: 50px; vertical-align: middle; text-align: center;');
+      bodyTitle.setAttribute('style', 'height: 74.66px; vertical-align: middle; text-align: center;');
       bodyParagraph.setAttribute('id', 'bodyParagraph');
-      bodyParagraph.setAttribute('style', 'height: 40px; vertical-align: middle; text-align: center;');
+      bodyParagraph.setAttribute('style', 'height: 74.66px; vertical-align: middle; text-align: center;');
       cardFooter.setAttribute('id', 'cardFooter');
       cardFooter.setAttribute('class', 'card-footer');
-      // head1.setAttribute('class', 'mb-0');
       head1.setAttribute('class', 'featurette-heading');
+      head1.setAttribute('style', 'font-family: Playfair Display; font-size: 175%; height: 50px; vertical-align: middle; text-align: center;');
 
-      // head2.setAttribute('class', 'mb-0');
       attribute1.setAttribute('class', 'mb-0');
       attribute2.setAttribute('class', 'card-text mb-auto');
-      // attribute3.setAttribute('class', 'card-text mb-auto');
-      // bioPage.setAttribute('class', 'btn btn-primary');
-      // bioPage.setAttribute('id', `${members[j].industry_code}`)
-      // head1.setAttribute('onclick', `store({cid:"${members[j].cid}}"`)
 
       var request = new XMLHttpRequest()
       let url = `http://localhost:3000/cid/${members[j].cid}`
@@ -145,24 +190,16 @@ function DisplayList (members, rows_per_page, cols_per_page, page) {
       "${bio_member.votes_with_party_pct}", "${bio_member.votes_against_party_pct}");`)
       head1.setAttribute('href', 'politiciansBio.html')
 
-      // attribute2.setAttribute('onclick', `store({state:"${members[j].state}}"`)
-      attribute2.setAttribute('onclick',  localStorage.setItem('state', members[j].state))
+      // attribute2.setAttribute('onclick',  localStorage.setItem('state', state_dict[bio_member.state]))
+      attribute2.setAttribute('onclick',  `storeState("${state_dict[bio_member.state]}")`)
       attribute2.setAttribute('href', 'state_overview.html')
 
-      // committeesPage.setAttribute('class', 'btn btn-primary');
-      // committeesPage.setAttribute('id', `${members[j].industry_code}`)
-      // committeesPage.setAttribute('onclick', `store("${members[j].industry}", "${members[j].industry_code}";`)
+      var namesplit = members[j].member_name.split(', ');
+      head1.innerHTML = namesplit[1] + "<br>" + namesplit[0];
 
-      // committeesPage.setAttribute('onclick', `store("${members[j].id}", "${members[j].first_name}", "${members[j].last_name}", "${members[j].party}", "${members[j].state}", "${members[j].district}");`)
-      // committeesPage.setAttribute('href', 'fundraisers.html')
+      attribute1.textContent = members[j].party == 'D' ? 'Democrat': 'Republican';
+      attribute2.textContent = bio_member.state;
 
-      head1.textContent = members[j].member_name;
-      // head2.textContent = members[j].last_name;
-      attribute1.textContent = members[j].party;
-      attribute2.textContent = members[j].state;
-      // attribute3.textContent = "District " + members[j].district;
-      // bioPage.textContent = "Contributing Politicians";
-      // committeesPage.textContent = "Contributing Committees";
       footerBody.innerHTML += "Total raised: $" + members[j].total +"<br>"
       footerBody.innerHTML += "By PACS: $" + members[j].pacs + "<br>"
       footerBody.innerHTML += "Individual funds: $" + members[j].indivs
@@ -173,12 +210,10 @@ function DisplayList (members, rows_per_page, cols_per_page, page) {
       cardBody.appendChild(bodyTitle);
       cardBody.appendChild(bodyParagraph);
       bodyTitle.appendChild(head1);
-      // bodyTitle.appendChild(head2);
+
+      bodyParagraph.appendChild(document.createElement("br"));
       bodyParagraph.appendChild(attribute1);
       bodyParagraph.appendChild(attribute2);
-      // bodyParagraph.appendChild(attribute3);
-      // cardFooter.appendChild(bioPage);
-      // cardFooter.appendChild(document.createElement("p"));
       cardFooter.appendChild(footerBody);
     }
     list.appendChild(row);
@@ -215,11 +250,11 @@ function PaginationButton (page, members) {
 	return button;
 }
 
-// function store(cid, state){
-//
-//   localStorage.setItem('cid', cid);
-//   localStorage.setItem('state', state);
-// };
+function storeState(state){
+
+  // localStorage.setItem('cid', cid);
+  localStorage.setItem('state', state);
+};
 
 function store(id, firstName, lastName, party, state, district, website,
   twitterHandle, facebookHandle, youtubeHandle, seniority, nextElection,

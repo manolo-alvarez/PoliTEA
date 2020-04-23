@@ -18,6 +18,7 @@ const committeeSchema = new Schema({
         cid: String,
         party: String,
         state: String,
+        state_abbr: String,
         total: Number,
         indivs: Number,
         pacs: Number

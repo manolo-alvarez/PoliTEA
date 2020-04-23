@@ -160,6 +160,7 @@ const committeeSchema = new mongoose.Schema({
         cid: String,
         party: String,
         state: String,
+        state_abbr: String,
         total: Number,
         indivs: Number,
         pacs: Number
