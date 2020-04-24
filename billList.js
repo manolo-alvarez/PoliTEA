@@ -20,7 +20,7 @@ const list = document.getElementById('list')
 
 /////////////////////////////////////////////////////////////////////////////
 if(topic != null) var url_test = 'https://reflected-flux-270220.appspot.com/bills/' + topic;
-else var url_test = 'https://reflected-flux-270220.appspot.com/bills/all'
+//else var url_test = 'https://reflected-flux-270220.appspot.com/bills/all'
 
 //if(topic != null) var url_test = 'http://localhost:3000/bills/' + topic;
 //else var url_test = 'http://localhost:3000/bills/all'

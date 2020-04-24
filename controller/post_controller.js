@@ -10,7 +10,7 @@ exports.showIndex = (req, res, next) => {
 
 /////////////////////// Aidan ///////////////////////////////////////
 
-exports.showAllBills = (req, res, next) => {
+/* exports.showAllBills = (req, res, next) => {
 
   let billsArray = [];
 
@@ -38,7 +38,7 @@ exports.showAllBills = (req, res, next) => {
 
     res.status(200).json(billsArray)
   })
-}
+} */
 
 
 exports.showBillsByTopic = (req, res, next) => {
