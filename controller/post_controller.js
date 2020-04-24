@@ -14,7 +14,8 @@ exports.showAllBills = (req, res, next) => {
 
   let billsArray = [];
 
-  bills.find({}, {limit : 2 }, function (err, docs) {
+  //bills.find({published: true}, {sort: {'date': -1}, limit: 5}, function(err, docs) {
+  bills.find(function(err, docs) {
     if (err || docs.length==0) {
       return res.status(404).send('Bills not found')
     }

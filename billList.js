@@ -19,18 +19,18 @@ if(topic != null) topicSpaces = topic.replace(/%20/g, ' ');
 const list = document.getElementById('list')
 
 /////////////////////////////////////////////////////////////////////////////
-if(topic != null) var url_test = 'https://reflected-flux-270220.appspot.com/bills/' + topic;
-else var url_test = 'https://reflected-flux-270220.appspot.com/bills/all'
+//if(topic != null) var url_test = 'https://reflected-flux-270220.appspot.com/bills/' + topic;
+//else var url_test = 'https://reflected-flux-270220.appspot.com/bills/all'
 
-//if(topic != null) var url_test = 'http://localhost:3000/bills/' + topic;
-//else var url_test = 'http://localhost:3000/bills/all'
+if(topic != null) var url_test = 'http://localhost:3000/bills/' + topic;
+else var url_test = 'http://localhost:3000/bills/all'
 
 var xhttp = new XMLHttpRequest();
 xhttp.open('GET', url_test, false);
 xhttp.send();
 
 const billsParse = JSON.parse(xhttp.responseText);
-var bills = allBills;
+var bills = billsParse;
 
 const pagination_element = document.getElementById('pagination');
 
@@ -38,8 +38,10 @@ let current_page = 1;
 let rows = 10;
 
 /////////////////////////// Set-up Page /////////////////////////////////////
-SetupPagination(billsParse, pagination_element, rows);
-DisplayList(billsParse, rows, current_page);
+if(topic != null) {
+   SetupPagination(billsParse, pagination_element, rows);
+   DisplayList(billsParse, rows, current_page);
+}
 
 ////////////////////////////// Search Bar ////////////////////////////////////
 {

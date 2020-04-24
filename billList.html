@@ -71,6 +71,24 @@
           <h1 id="header" class = "pt-5"></h1>
           </div>
 
+          <div class="container" style="margin-top:50px;">
+            <main></main>
+  
+            <br>
+            <div class="dropdown">
+              <select class="btn btn-primary btn-sm dropdown-toggle"  data-nav-selected="0" id="select" title="Search By">
+                <option class="dropdown-item" value="name" style="background-color: white">Name</option>
+                <option class="dropdown-item" value="state" style="background-color: white">State</option>
+                <option class="dropdown-item" value="party" style="background-color: white">Party</option>
+                <option class="dropdown-item" value="class" style="background-color: white">Class</option>
+              </select>
+            </div>
+  
+            <form id="searchBar" onSubmit="return false;">
+              <input type="text" placeholder="Search. . .">
+            </form>
+
+
         <main>
           <div class="container" id="cards">
             <div class="list" id="list"></div>
