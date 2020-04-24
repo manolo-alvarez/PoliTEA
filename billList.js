@@ -51,7 +51,7 @@ if(topic != null) {
        const select = document.getElementById('select');
        var option = select.getElementsByTagName('option')[select.selectedIndex].value;
        const phrase = e.target.value.toLowerCase();
-       bills = allBills.filter(function(bill){
+       bills = billsParse.filter(function(bill){
          var content = null;
  
          //if (option === 'keyword') content = .toLowerCase();
@@ -62,8 +62,8 @@ if(topic != null) {
        });
      } else{
        e.target.value = "";
-       SetupPagination(topics, pagination_element, rows, cols);
-       DisplayList(topics, rows, cols, current_page);
+         SetupPagination(billsParse, pagination_element, rows);
+         DisplayList(billsParse, rows, current_page);
      }
    });
    }
