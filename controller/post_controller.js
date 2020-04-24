@@ -15,12 +15,14 @@ exports.showIndex = (req, res, next) => {
 
   let billsArray = [];
 
-  bills.find(function (err, docs) {
+  //bills.find({published: true}, {sort: {'date': -1}, limit: 5}, function(err, docs) {
+  bills.find(function(err, docs) {
     if (err || docs.length==0) {
       return res.status(404).send('Bills not found')
     }
 
     docs.forEach((bill) => {
+
       billsArray.push({
           number: bill.number,
           title: bill.title,
