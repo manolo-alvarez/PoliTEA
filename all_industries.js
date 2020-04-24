@@ -12,7 +12,7 @@ let cardWidth = 285;
  //////////////////// Get industries from DB ///////////////////////////
 
 var xhttp = new XMLHttpRequest();
-xhttp.open('GET', 'https://reflected-flux-270220.appspot.com/industries');
+xhttp.open('GET', 'https://reflected-flux-270220.appspot.com/industries', false);
 // xhttp.open('GET', 'http://localhost:3000/industries', false);
 
 xhttp.send();

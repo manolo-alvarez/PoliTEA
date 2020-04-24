@@ -71,7 +71,7 @@ let cardWidth = 285;
  const url = `https://reflected-flux-270220.appspot.com/industries/members/${industry_code}`
 
 var xhttp = new XMLHttpRequest();
-xhttp.open('GET', url);
+xhttp.open('GET', url, false);
 
 xhttp.send();
 
