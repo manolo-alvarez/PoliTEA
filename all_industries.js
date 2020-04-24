@@ -12,8 +12,8 @@ let cardWidth = 285;
  //////////////////// Get industries from DB ///////////////////////////
 
 var xhttp = new XMLHttpRequest();
-// xhttp.open('GET', 'https://reflected-flux-270220.appspot.com/industries', false);
-xhttp.open('GET', 'http://localhost:3000/industries', false);
+xhttp.open('GET', 'https://reflected-flux-270220.appspot.com/industries');
+// xhttp.open('GET', 'http://localhost:3000/industries', false);
 
 xhttp.send();
 
@@ -68,13 +68,9 @@ function DisplayList (industries, rows_per_page, cols_per_page, page) {
       const card = document.createElement('div');
       const cardBody = document.createElement('div');
       const bodyTitle = document.createElement('div');
-      // const bodyParagraph = document.createElement('div');
       const cardFooter = document.createElement('div');
       const head1 = document.createElement('h4');
-      // const head2 = document.createElement('h3');
-      // const attribute1 = document.createElement('h6');
-      // const attribute2 = document.createElement('p');
-      // const attribute3 = document.createElement('p');
+
       const fundraisersPage = document.createElement('a');
       const committeesPage = document.createElement('a');
 
@@ -84,30 +80,16 @@ function DisplayList (industries, rows_per_page, cols_per_page, page) {
       cardBody.setAttribute('class', 'card-body');
       bodyTitle.setAttribute('id', 'bodyTitle');
       bodyTitle.setAttribute('style', 'height: 50px; vertical-align: middle; text-align: center;');
-      // bodyParagraph.setAttribute('id', 'bodyParagraph');
-      // bodyParagraph.setAttribute('style', 'height: 40px; vertical-align: middle; text-align: center;');
+
       cardFooter.setAttribute('id', 'cardFooter');
       cardFooter.setAttribute('class', 'card-footer');
       head1.setAttribute('class', 'mb-0');
-      // head2.setAttribute('class', 'mb-0');
-      // attribute1.setAttribute('class', 'mb-0');
-      // attribute2.setAttribute('class', 'card-text mb-auto');
-      // attribute3.setAttribute('class', 'card-text mb-auto');
+
       fundraisersPage.setAttribute('class', 'btn btn-primary');
 
       console.log(industries[j].industry_code)
       fundraisersPage.setAttribute('id', `${industries[j].industry_code}`)
       fundraisersPage.setAttribute('onclick', `store("${industries[j].industry}","${industries[j].industry_code}");`)
-
-
-      // fundraisersPage.setAttribute('onclick', `store("${industries[j].id}", "${industries[j].first_name}",
-      // "${industries[j].last_name}", "${industries[j].party}", "${industries[j].state}",
-      // "${industries[j].district}", "${industries[j].url}", "${industries[j].twitter_account}",
-      // "${industries[j].facebook_account}", "${industries[j].youtube_account}", "${industries[j].seniority}",
-      // "${industries[j].next_election}", "${industries[j].total_votes}", "${industries[j].missed_votes}",
-      // "${industries[j].total_present}", "${industries[j].last_updated}", "${industries[j].office}",
-      // "${industries[j].phone}", "${industries[j].fax}", "${industries[j].missed_votes_pct}",
-      // "${industries[j].votes_with_party_pct}", "${industries[j].votes_against_party_pct}");`)
 
       fundraisersPage.setAttribute('href', 'fundraisers.html')
 
@@ -115,30 +97,16 @@ function DisplayList (industries, rows_per_page, cols_per_page, page) {
       committeesPage.setAttribute('id', `${industries[j].industry_code}`)
       committeesPage.setAttribute('onclick', `store("${industries[j].industry}", "${industries[j].industry_code}";`)
 
-      // committeesPage.setAttribute('onclick', `store("${industries[j].id}", "${industries[j].first_name}", "${industries[j].last_name}", "${industries[j].party}", "${industries[j].state}", "${industries[j].district}");`)
-      // committeesPage.setAttribute('href', 'fundraisers.html')
-
       head1.textContent = industries[j].industry;
-      // head2.textContent = industries[j].last_name;
-      // attribute1.textContent = industries[j].party;
-      // attribute2.textContent = industries[j].state;
-      // attribute3.textContent = "District " + industries[j].district;
       fundraisersPage.textContent = "Contributing Politicians";
-      // committeesPage.textContent = "Contributing Committees";
 
       row.appendChild(card);
       card.appendChild(cardBody);
       card.appendChild(cardFooter);
       cardBody.appendChild(bodyTitle);
-      // cardBody.appendChild(bodyParagraph);
       bodyTitle.appendChild(head1);
-      // bodyTitle.appendChild(head2);
-      // bodyParagraph.appendChild(attribute1);
-      // bodyParagraph.appendChild(attribute2);
-      // bodyParagraph.appendChild(attribute3);
       cardFooter.appendChild(fundraisersPage);
-      // cardFooter.appendChild(document.createElement("p"));
-      // cardFooter.appendChild(committeesPage);
+
     }
     list.appendChild(row);
   }

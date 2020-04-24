@@ -277,6 +277,15 @@ exports.showContributorsByInd = (req, res, next) => {
   })
 }
 
+exports.getIndCodeByIndName = (req, res, next) => {
+  committees.find({'_attributes.industry': req.params.name}, '_attributes', function (err, docs) {
+    if (err || docs.length==0) {
+      return res.status(404).send('Industry code for industry not found')
+    }
+    res.status(200).json(docs[0]._attributes.industry_code)
+  })
+}
+
 exports.showContributorsByIndComm = (req, res, next) => {
   committees.find({'_attributes.industry_code': req.params.id, '_attributes.committee_name':req.params.comm_id}, 'member', function (err, docs) {
     if (err || docs.length==0) {

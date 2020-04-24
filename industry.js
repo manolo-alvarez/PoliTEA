@@ -9,8 +9,8 @@ var request = new XMLHttpRequest()
 var id = localStorage.getItem('politician_id');
 console.log('id is ' + id)
 
-// const url = `http://localhost:3000/politician/${id}`
-const url = `https://reflected-flux-270220.appspot.com/politicians/${id}`
+const url = `http://localhost:3000/politicians/${id}`
+// const url = `https://reflected-flux-270220.appspot.com/politicians/${id}`
 
 // Open a new connection, using the GET request on the URL endpoint
 request.open('GET', url, true)
@@ -43,8 +43,28 @@ request.onreadystatechange = function() {
       }
 
       for(var i = 0; i < industries.length; i++) {
+            // var xhttp = new XMLHttpRequest()
+            // let url = `http://localhost:3000/industries/name/${industries[i].industry_name}`
+            // xhttp.open('GET', url, false);
+            // xhttp.send();
+            // var industry_code = JSON.parse(xhttp.responseText);
+            // console.log('industry code is ' + industry_code)
+
             var industry_title = (i+1) + ". " + industries[i].industry_name + "<br>";
-            document.getElementById("results").innerHTML += industry_title.bold();
+
+            // if(industry_code!=null){
+            //   const industry_name = document.createElement('a');
+            //   // industry_name.setAttribute('style', 'font-family: Arial Narrow, sans-serif;');
+            //   industry_name.innerHTML = industry_title.bold();
+            //   industry_name.setAttribute('onclick', `store("${industries[i].industry_name}","${industry_code}");`)
+            //   industry_name.setAttribute('href', 'fundraisers.html')
+            //   elem.append(industry_name);
+            //
+            //   // document.getElementById("results").innerHTML += (i+1) + ". " + industry_name + "<br>";
+            // } else {
+              document.getElementById("results").innerHTML += industry_title.bold();
+            // }
+
             document.getElementById("results").innerHTML += "Total from large individual contributions: $" + industries[i].indivs + "<br>";
             document.getElementById("results").innerHTML += "Total from PACs: $" + industries[i].pacs + "<br>";
             document.getElementById("results").innerHTML += "Total from all itemized sources: $" + industries[i].total + "<br>" + "<br>";
@@ -58,3 +78,8 @@ request.onreadystatechange = function() {
       document.getElementById("results").innerHTML = "No industries available";
   }
 }
+
+function store(industry, industry_code){
+  localStorage.setItem('industry', industry);
+  localStorage.setItem('industry_code', industry_code);
+};

@@ -43,4 +43,6 @@ router.get('/industries/members/:id/:comm_id', postcontroller.showContributorsBy
 
 router.get('/cid/:cid', postcontroller.getPoliticianByCid);
 
+router.get('/industries/name/:name', postcontroller.getIndCodeByIndName);
+
 module.exports = router;
