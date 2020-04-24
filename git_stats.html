@@ -33,6 +33,9 @@
                       <a class="nav-link" href="./Legislation.html">Legislation<span class="sr-only">(current)</span></a>
                     </li>
                     <li class="nav-item active">
+                      <a class="nav-link" href="./all_industries.html">Industries<span class="sr-only">(current)</span></a>
+                    </li>
+                    <li class="nav-item active">
                       <a class="nav-link" href="./address.html">Get Involved<span class="sr-only">(current)</span></a>
                     </li>
                   </ul>
@@ -69,7 +72,7 @@
     getTests();
     getCommits();
     getTraffic();
-    
+
 
     async function getTraffic() {
         clear();
@@ -133,7 +136,7 @@
         })
 
         const result = await response.json()
-        
+
         var issues = new Object();
         //initialize all to 0
         issues["neetishah"] = "0";
@@ -143,7 +146,7 @@
         issues["malvarez0722"] = "0";
         issues["aaa4521"] = "0";
 
-        //Adding issues under first thread 
+        //Adding issues under first thread
         issues["aidanmcgraw"] = 5;
         issues["bailloj"] = 1;
         issues["mtmn19"] = 3;
@@ -156,12 +159,12 @@
         }
 
         bar(issues, "Git Issues Provided by User");
-    }  
+    }
 
 
     function bar(users, name){
           //bar chart
-          var t = document.createTextNode(name); 
+          var t = document.createTextNode(name);
           var title = document.createElement("H4");
           title.appendChild(t);
           var ctxB = document.createElement("CANVAS");
@@ -203,8 +206,8 @@
           }
           }
           });
-          charts.appendChild(title); 
-          charts.appendChild(ctxB); 
+          charts.appendChild(title);
+          charts.appendChild(ctxB);
     }
 
     function getViews(result){

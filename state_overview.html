@@ -47,6 +47,9 @@
                   <a class="nav-link" href="./Legislation.html">Legislation<span class="sr-only">(current)</span></a>
                 </li>
                 <li class="nav-item active">
+                  <a class="nav-link" href="./all_industries.html">Industries<span class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item active">
                   <a class="nav-link" href="./address.html">Get Involved<span class="sr-only">(current)</span></a>
                 </li>
               </ul>
@@ -57,13 +60,13 @@
 
     </head>
     <body>
-    
+
         <div id="root" class="container">
         </div>
 
         <script >
           function abbrState(input, to){
-    
+
     var states = [
         ['Arizona', 'AZ'],
         ['Alabama', 'AL'],
@@ -123,14 +126,14 @@
             if(states[i][0] == input){
                 return(states[i][1]);
             }
-        }    
+        }
     } else if (to == 'name'){
         input = input.toUpperCase();
         for(i = 0; i < states.length; i++){
             if(states[i][1] == input){
                 return(states[i][0]);
             }
-        }    
+        }
     }
 }
 
@@ -141,7 +144,7 @@
             */
             function loadClient() {
             console.log(localStorage.getItem('state').toLowerCase())
-            let state_abbreviation 
+            let state_abbreviation
             if(localStorage.getItem('state').length >2){
               state_abbreviation = (abbrState(localStorage.getItem('state').charAt(0).toUpperCase() + localStorage.getItem('state').slice(1).toLowerCase(),'abbr'));
               if (state_abbreviation){
@@ -206,7 +209,7 @@
                         }
 
                     },
-                        function(err) { 
+                        function(err) {
                           console.error("Execution error", err);
                           alert("Enter a valid address!");
                           location.href="./address.html";
@@ -215,7 +218,7 @@
             gapi.load("client");
             window.onload = loadClient;
         </script>
-        
+
         <!-- <button onclick="loadClient()">load</button> -->
         <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
         <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>

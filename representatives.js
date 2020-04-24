@@ -97,7 +97,6 @@ function DisplayList (representatives, rows_per_page, cols_per_page, page) {
       const attribute2 = document.createElement('p');
       const attribute3 = document.createElement('p');
       const bioPage = document.createElement('a');
-      const financesPage = document.createElement('a');
 
       card.setAttribute('class' , 'card');
       card.setAttribute('style' , 'width: 255px');
@@ -126,18 +125,12 @@ function DisplayList (representatives, rows_per_page, cols_per_page, page) {
       "${representatives[j].votes_with_party_pct}", "${representatives[j].votes_against_party_pct}");`)
       bioPage.setAttribute('href', 'politiciansBio.html')
 
-      financesPage.setAttribute('class', 'btn btn-primary');
-      financesPage.setAttribute('id', `${representatives[j].id}` + '_finance')
-      financesPage.setAttribute('onclick', `store("${representatives[j].id}", "${representatives[j].first_name}", "${representatives[j].last_name}", "${representatives[j].party}", "${representatives[j].state}", "${representatives[j].district}");`)
-      financesPage.setAttribute('href', 'financial_main.html')
-
       head1.textContent = representatives[j].first_name;
       head2.textContent = representatives[j].last_name;
       attribute1.textContent = representatives[j].party;
       attribute2.textContent = representatives[j].state;
       attribute3.textContent = "District " + representatives[j].district;
       bioPage.textContent = "Biography";
-      financesPage.textContent = "Donors and Finances";
 
       row.appendChild(card);
       card.appendChild(cardBody);
@@ -151,7 +144,6 @@ function DisplayList (representatives, rows_per_page, cols_per_page, page) {
       bodyParagraph.appendChild(attribute3);
       cardFooter.appendChild(bioPage);
       cardFooter.appendChild(document.createElement("p"));
-      cardFooter.appendChild(financesPage);
     }
     list.appendChild(row);
   }

@@ -36,6 +36,9 @@
           <a class="nav-link" href="./Legislation.html">Legislation<span class="sr-only">(current)</span></a>
         </li>
         <li class="nav-item active">
+          <a class="nav-link" href="./all_industries.html">Industries<span class="sr-only">(current)</span></a>
+        </li>
+        <li class="nav-item active">
           <a class="nav-link" href="./address.html">Get Involved<span class="sr-only">(current)</span></a>
         </li>
       </ul>
@@ -56,29 +59,29 @@
   <!-- https://createaclickablemap.com/map.php?&id=90525&maplocation=false&online=true -->
   <iframe src="https://createaclickablemap.com/map.php?&id=90591&maplocation=false&online=true" width="900" height="525" style="border: none;"></iframe>
   <script>
-  if (window.addEventListener){ 
-    window.addEventListener("message", function(event) { 
-      if(event.data.length >= 22) { 
+  if (window.addEventListener){
+    window.addEventListener("message", function(event) {
+      if(event.data.length >= 22) {
         if( event.data.substr(0, 22) == "__MM-LOCATION.REDIRECT"){
           let state = event.data.substr(22);
           localStorage.setItem('state', state);
           location = "./state_overview.html";
-        } 
-      } 
-    }, false); 
+        }
+      }
+    }, false);
 
   } else if (window.attachEvent){
-    window.attachEvent("message", function(event) { 
-      if( event.data.length >= 22) { 
+    window.attachEvent("message", function(event) {
+      if( event.data.length >= 22) {
         if( event.data.substr(0, 22) == "__MM-LOCATION.REDIRECT"){
           let state = event.data.substr(22);
           localStorage.setItem('state', state);
           location = "./state_overview.html";
-        } 
-      } 
-    }, false); 
-  } 
-  </script> 
+        }
+      }
+    }, false);
+  }
+  </script>
     <div class="product-device shadow-sm d-none d-md-block"></div>
     <div class="product-device product-device-2 shadow-sm d-none d-md-block"></div>
   </div>
