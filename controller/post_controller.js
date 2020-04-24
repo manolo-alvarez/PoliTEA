@@ -182,7 +182,7 @@ exports.showAllCongressman = (req, res, next) => {
   })
 }
 
-////////////////////////////////////////////////////////////////////
+//////////////////// Megan //////////////////////////////////////
 
 exports.showPolitician = (req, res, next) => {
   politicians.find({"id": req.params.id},  function (err, docs) {
@@ -202,7 +202,7 @@ exports.showDonors = (req, res, next) => {
   })
 }
 
-exports.showIndustries = (req, res, next) => {
+exports.showPoliticianIndustries = (req, res, next) => {
   politicians.find({"id": req.params.id}, 'industries', function (err, docs) {
     if (err || docs.length==0) {
       return res.status(404).send('Industries for this politician not found')
@@ -226,6 +226,114 @@ exports.showAssets = (req, res, next) => {
       return res.status(404).send('Assets for this politician not found')
     }
     res.status(200).json(docs)
+  })
+}
+
+exports.showIndustries = (req, res, next) => {
+  var industries = []
+  var json_result = []
+  committees.find({}, '_attributes', function (err, docs) {
+    if (err || docs.length==0) {
+      return res.status(404).send('Information for committee not found')
+    }
+    docs.forEach(docs => {
+      if(!industries.includes(docs._attributes.industry + ": " + docs._attributes.industry_code)) {
+        industries.push(docs._attributes.industry + ": " + docs._attributes.industry_code)
+        json_result.push({
+          industry: docs._attributes.industry,
+          industry_code: docs._attributes.industry_code
+        })
+      }
+    })
+    res.status(200).json(json_result)
+  })
+}
+
+exports.showContributorsByInd = (req, res, next) => {
+  var members_cid = []
+  var json_result = []
+  committees.find({'_attributes.industry_code': req.params.id}, 'member', function (err, docs) {
+    if (err || docs.length==0) {
+      return res.status(404).send('Contributors for industry not found')
+    }
+
+    docs.forEach(doc => {
+        members = doc.member
+        members.forEach(member => {
+          if(!members_cid.includes(member._attributes.cid)) {
+            members_cid.push(member._attributes.cid);
+            json_result.push({
+              member_name: member._attributes.member_name,
+              cid: member._attributes.cid,
+              party: member._attributes.party,
+              state: member._attributes.state,
+              total: member._attributes.total,
+              indivs: member._attributes.indivs,
+              pacs: member._attributes.pacs
+            })
+          }
+        })
+    })
+    res.status(200).json(json_result)
+
+  })
+}
+
+exports.getIndCodeByIndName = (req, res, next) => {
+  committees.find({'_attributes.industry': req.params.name}, '_attributes', function (err, docs) {
+    if (err || docs.length==0) {
+      return res.status(404).send('Industry code for industry not found')
+    }
+    res.status(200).json(docs[0]._attributes.industry_code)
+  })
+}
+
+exports.showContributorsByIndComm = (req, res, next) => {
+  committees.find({'_attributes.industry_code': req.params.id, '_attributes.committee_name':req.params.comm_id}, 'member', function (err, docs) {
+    if (err || docs.length==0) {
+      return res.status(404).send('Contributors for industry in selected committee not found')
+    }
+    res.status(200).json(docs)
+  })
+}
+
+exports.getPoliticianByCid = (req, res, next) => {
+  let member = []
+  politicians.find({"crp_id": req.params.cid},  function (err, docs) {
+    if (err || docs.length==0) {
+      return res.status(404).send('Politician not found')
+    }
+    docs.forEach((congressman) => {
+      member.push({
+        id: congressman.id,
+        title: congressman.title,
+        first_name: congressman.first_name,
+        middle_name: congressman.middle_name,
+        last_name: congressman.last_name,
+        gender: congressman.gender,
+        party: congressman.party,
+        date_of_birth: congressman.date_of_birth,
+        state: congressman.state,
+        district: congressman.district,
+        url: congressman.url,
+        twitter_account: congressman.twitter_account,
+        facebook_account: congressman.facebook_account,
+        youtube_account: congressman.youtube_account,
+        seniority: congressman.seniority,
+        next_election: congressman.next_election,
+        total_votes: congressman.total_votes,
+        missed_votes: congressman.missed_votes,
+        total_present: congressman.total_present,
+        last_updated: congressman.last_updated,
+        office: congressman.office,
+        phone: congressman.phone,
+        fax: congressman.fax,
+        missed_votes_pct: congressman.missed_votes_pct,
+        votes_with_party_pct: congressman.votes_with_party_pct,
+        votes_against_party_pct: congressman.votes_against_party_pct
+      });
+    })
+    res.status(200).json(member)
   })
 }
 
