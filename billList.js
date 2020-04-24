@@ -13,7 +13,7 @@ localStorage.clear();
 const queryString = window.location.search;
 console.log(queryString);
 topic = queryString.split('=')[1];
-topicSpaces = topic.replace(/%20/g, ' ');
+if(topic != null) topicSpaces = topic.replace(/%20/g, ' ');
 
 ///////////////// HTML elements////////////////////////////////////////////////////
 const list = document.getElementById('list')
@@ -30,16 +30,51 @@ xhttp.open('GET', url_test, false);
 xhttp.send();
 
 const billsParse = JSON.parse(xhttp.responseText);
+var bills = billsParse;
 
 const pagination_element = document.getElementById('pagination');
 
 let current_page = 1;
 let rows = 10;
 
-SetupPagination(billsParse, pagination_element, rows);
-DisplayList(billsParse, rows, current_page);
+/////////////////////////// Set-up Page /////////////////////////////////////
+if(topic != null) {
+   SetupPagination(bills, pagination_element, rows);
+   DisplayList(bills, rows, current_page);
+}
+else {
+   var text = document.createTextNode("Search All Bills");
+   header.appendChild(text);
+} 
 
-function DisplayList (billsParse, rows_per_page, page) {
+
+////////////////////////////// Search Bar ////////////////////////////////////
+{
+   const searchBar = document.forms['searchBar'].querySelector('input');
+   searchBar.addEventListener('keyup', function(e){
+     if(!(e.key === 'Enter')){
+       const select = document.getElementById('select');
+       var option = select.getElementsByTagName('option')[select.selectedIndex].value;
+       const phrase = e.target.value.toLowerCase();
+       bills = billsParse.filter(function(bill){
+         var content = null;
+ 
+         if (option === 'keyword') content = bill.title.toLowerCase();
+         if (option === 'name') content = bill.sponsor_name.toLowerCase();
+         if (option === 'number') content = bill.number.toLowerCase();
+   
+         return content.includes(phrase);
+       });
+     } else{
+       e.target.value = "";
+         SetupPagination(bills, pagination_element, rows);
+         DisplayList(bills, rows, current_page);
+     }
+   });
+   }
+
+   ////////////////////////////// Functions /////////////////////////////////////
+function DisplayList (bills, rows_per_page, page) {
    document.getElementById('list').innerHTML = "";
    page--;
 
@@ -48,10 +83,16 @@ function DisplayList (billsParse, rows_per_page, page) {
    console.log("start: " + start + " end: " + end);
 
    var header = document.getElementById("header");
-   var text = document.createTextNode("Bills on " + topicSpaces);
-   header.appendChild(text);
-
- for (let i = start; i < billsParse.length && i<end ; i++) {
+   if(topic != null && document.getElementById("header").firstChild == null) {
+      var text = document.createTextNode("Bills on " + topicSpaces);
+      header.appendChild(text);
+   }
+   else if (document.getElementById("header").firstChild == null) {
+      var text = document.createTextNode("Recent Bills")
+      header.appendChild(text);
+   }
+   
+ for (let i = start; i < bills.length && i<end ; i++) {
 
    const row = document.createElement('div');
    const col = document.createElement('div');
@@ -73,8 +114,8 @@ function DisplayList (billsParse, rows_per_page, page) {
    head2.setAttribute('class', 'mb-0');
    paragraph1.setAttribute('class', 'card-text mb-auto');
    moreBillInfo.setAttribute('class', 'btn btn-primary');
-   moreBillInfo.setAttribute('number', `${billsParse[i].number}`)
-   moreBillInfo.setAttribute('onclick', `f1("${billsParse[i].number}", "${billsParse[i].title}", "${billsParse[i].introduced_date}", "${billsParse[i].sponsor_title}", "${billsParse[i].sponsor_id}", "${billsParse[i].sponsor_name}", "${billsParse[i].sponsor_state}", "${billsParse[i].sponsor_party}", "${billsParse[i].primary_subject}", "${billsParse[i].summary}", "${billsParse[i].congressdotgov_url}");`)
+   moreBillInfo.setAttribute('number', `${bills[i].number}`)
+   moreBillInfo.setAttribute('onclick', `f1("${bills[i].number}", "${bills[i].title}", "${bills[i].introduced_date}", "${bills[i].sponsor_title}", "${bills[i].sponsor_id}", "${bills[i].sponsor_name}", "${bills[i].sponsor_state}", "${bills[i].sponsor_party}", "${bills[i].primary_subject}", "${bills[i].summary}", "${bills[i].congressdotgov_url}");`)
    moreBillInfo.setAttribute('href', 'billTemplate.html')
 /* 
    financesPage.setAttribute('class', 'btn btn-primary');
@@ -82,12 +123,12 @@ function DisplayList (billsParse, rows_per_page, page) {
    financesPage.setAttribute('onclick', `f1("${senators[i].id}", "${senators[i].first_name}", "${senators[i].last_name}", "${senators[i].party}", "${senators[i].state}", "${senators[i].district}");`)
    financesPage.setAttribute('href', 'financial_main.html') */
 
-  /*  if(billsParse[i].short_title != null) */
-   head1.textContent = billsParse[i].short_title + " (" + billsParse[i].number + ")";
-   //head1.textContent += " (" + billsParse[i].number + ")";
-   head2.textContent = billsParse[i].introduced_date;
+  /*  if(bills[i].short_title != null) */
+   head1.textContent = bills[i].short_title + " (" + bills[i].number + ")";
+   //head1.textContent += " (" + bills[i].number + ")";
+   head2.textContent = bills[i].introduced_date;
 
-   paragraph1.textContent = billsParse[i].sponsor_title + " " + billsParse[i].sponsor_name + " (" + billsParse[i].sponsor_party + ") " + billsParse[i].sponsor_state;
+   paragraph1.textContent = bills[i].sponsor_title + " " + bills[i].sponsor_name + " (" + bills[i].sponsor_party + ") " + bills[i].sponsor_state;
 
    blankSpace.textContent = " ";
 
@@ -108,18 +149,19 @@ function DisplayList (billsParse, rows_per_page, page) {
    }
 }
 
-function SetupPagination (billsParse, wrapper, rows_per_page) {
+function SetupPagination (bills, wrapper, rows_per_page) {
    wrapper.innerHTML = "";
-   let length = billsParse.length;
+   let length = bills.length;
 
    let page_count = Math.ceil(length / rows_per_page);
    for (let i = 1; i < page_count + 1; i++) {
-       let btn = PaginationButton(i, billsParse);
+   //for (let i = 1; i < 11; i++) {
+       let btn = PaginationButton(i, bills);
        wrapper.appendChild(btn);
    }
 }
 
-function PaginationButton (page, billsParse) {
+function PaginationButton (page, bills) {
    let button = document.createElement('button');
    button.innerText = page;
 
@@ -127,7 +169,7 @@ function PaginationButton (page, billsParse) {
 
    button.addEventListener('click', function () {
        current_page = page;
-       DisplayList(billsParse, rows, current_page);
+       DisplayList(bills, rows, current_page);
 
        let current_btn = document.querySelector('.pagenumbers button.active');
        current_btn.classList.remove('active');

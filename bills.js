@@ -61,8 +61,26 @@ function f1(sponsor_id){
       localStorage.setItem('politician_party', politician[0].party);
       localStorage.setItem('politician_state', politician[0].state);
       localStorage.setItem('politician_district', politician[0].district);
-      if(localStorage.getItem('politician_district') == 'undefined') 
-        localStorage.removeItem('politician_district');
+      //if(localStorage.getItem('politician_district') == 'undefined' || localStorage.getItem('politician_district') == 'null') 
+      //  localStorage.removeItem('politician_district');
+
+          localStorage.setItem('politician_website', politician[0].url);
+          localStorage.setItem('politician_twitterHandle', politician[0].twitter_account);
+          localStorage.setItem('politician_facebookHandle', politician[0].facebook_account);
+          localStorage.setItem('politician_youtubeHandle', politician[0].youtube_account);
+          localStorage.setItem('politician_seniority', politician[0].seniority);
+          localStorage.setItem('politician_nextElection', politician[0].next_election);
+          localStorage.setItem('politician_totalVotes', politician[0].total_votes);
+          localStorage.setItem('politician_missedVotes', politician[0].missed_votes);
+          localStorage.setItem('politician_totalPresent', politician[0].total_present);
+          localStorage.setItem('politician_lastUpdated', politician[0].last_updated);
+          localStorage.setItem('politician_office', politician[0].office);
+          localStorage.setItem('politician_phone', politician[0].phone);
+          localStorage.setItem('politician_fax', politician[0].fax);
+          localStorage.setItem('politician_missedVotesPct', politician[0].missed_votes_pct);
+          localStorage.setItem('politician_votesWithPartyPct', politician[0].votes_with_party_pct);
+          localStorage.setItem('politician_votesAgainstPartyPct', politician[0].votes_against_party_pct);
+        
 
 
       //xhttp.open('GET', url, false);
