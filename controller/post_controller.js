@@ -1,6 +1,7 @@
 const politicians = require('../model/post_model');
 const events = require('../model/event_model');
 const bills = require('../model/bills_model');
+const committees = require('../model/committees_model');
 
 // const model = require('../model/post_model');
 
