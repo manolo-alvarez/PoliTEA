@@ -22,8 +22,8 @@ localStorage.clear();
  //////////////////// Get bills from DB ///////////////////////////////////
 
 var xhttp = new XMLHttpRequest();
-//xhttp.open('GET', 'https://reflected-flux-270220.appspot.com/bills/all', false);
-xhttp.open('GET', 'http://localhost:3000/bills/all', false);
+xhttp.open('GET', 'https://reflected-flux-270220.appspot.com/bills/all', false);
+//xhttp.open('GET', 'http://localhost:3000/bills/all', false);
 xhttp.send();
 
 const allBills = JSON.parse(xhttp.responseText);
@@ -45,7 +45,7 @@ DisplayList(topics, rows, cols, current_page);
       bills = allBills.filter(function(bill){
         var content = null;
 
-        //if (option === 'keyword') content = .toLowerCase();
+        if (option === 'keyword') content = bill.title.toLowerCase();
         if (option === 'name') content = bill.sponsor_name.toLowerCase();
         if (option === 'number') content = bill.number.toLowerCase();
   
