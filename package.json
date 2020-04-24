@@ -4,7 +4,6 @@
   "description": "Populate database from pulling from OpenSecrets API",
   "main": "app.js",
   "dependencies": {
-    "cors": "^2.8.5",
     "express": "^4.17.1",
     "live-server": "^1.2.1",
     "mongoose": "^5.9.6"
@@ -14,7 +13,8 @@
   },
   "scripts": {
     "dev": "nodemon app.js",
-    "start": "node app.js"
+    "start": "node app.js",
+    "test": "mocha"
   },
   "repository": {
     "type": "git",
