@@ -11,15 +11,15 @@ exports.showIndex = (req, res, next) => {
 
 /////////////////////// Aidan ///////////////////////////////////////
 
-/* exports.showAllBills = (req, res, next) => {
-
-  let billsArray = [];
+exports.showAllBills = (req, res, next) => {
 
   //bills.find({published: true}, {sort: {'date': -1}, limit: 5}, function(err, docs) {
   bills.find(function(err, docs) {
     if (err || docs.length==0) {
       return res.status(404).send('Bills not found')
     }
+
+    let billsArray = [];
 
     docs.forEach((bill) => {
 
@@ -40,8 +40,8 @@ exports.showIndex = (req, res, next) => {
     })
 
     res.status(200).json(billsArray)
-  })
-} */
+  }).limit(20);
+}
 
 
 exports.showBillsByTopic = (req, res, next) => {
