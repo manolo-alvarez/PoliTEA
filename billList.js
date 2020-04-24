@@ -27,8 +27,6 @@ else var url_test = 'https://reflected-flux-270220.appspot.com/bills/all'
 
 var xhttp = new XMLHttpRequest();
 xhttp.open('GET', url_test, false);
-xhttp.timeout = 10000; // time in milliseconds
-xhttp.ontimeout = function () { alert("Timed out!!!"); }
 xhttp.send();
 
 const billsParse = JSON.parse(xhttp.responseText);
