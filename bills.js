@@ -14,7 +14,9 @@ container.appendChild(cards)
 
 
 if(localStorage.getItem('bill_id') != null) 
-  var bill_id_temp = localStorage.getItem('bill_id').split("-")[0];
+  //var bill_id_temp = localStorage.getItem('bill_id').split("-")[0];
+  var bill_id_temp = localStorage.getItem('bill_id');
+
 else var bill_id_temp = null;
 const bill_id = bill_id_temp;
 
@@ -25,16 +27,16 @@ if(localStorage.getItem('from_poliBio') != null)
 
 
 if(localStorage.getItem('from_poliBio') == 'yep') {
-  //var url = 'https://reflected-flux-270220.appspot.com/bills/ID/' + bill_id;
+  var url = 'https://reflected-flux-270220.appspot.com/bills/ID/' + bill_id;
      //var url = 'http://localhost:3000/bills/ID/' + bill_id;
-      var url = 'http://localhost:3000/bills/all';
+      //var url = 'http://localhost:3000/bills/all';
 
         var xhttp = new XMLHttpRequest();
         xhttp.open('GET', url, false);
         xhttp.send();
         
-        const billsParse = JSON.parse(xhttp.responseText);
-        bills = billsParse;
+        const foundBill = JSON.parse(xhttp.responseText);
+/*         bills = billsParse;
 
        bills = billsParse.filter(function(bill){
         var content = null;
@@ -42,7 +44,7 @@ if(localStorage.getItem('from_poliBio') == 'yep') {
        content = bill.bill_id;
   
         return content.includes(bill_id);
-      });
+      }); */
           localStorage.setItem('bill_number', foundBill.number);
           localStorage.setItem('bill_title', foundBill.title);
           localStorage.setItem('bill_date', foundBill.date);

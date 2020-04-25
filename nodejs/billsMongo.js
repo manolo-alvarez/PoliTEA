@@ -4,7 +4,7 @@ const mongoose = require('mongoose');
 const bill = require('./billsSchema.js')
 
 // Constant URL value for ProPublica API. This pulls all members in the current (116) house
-const FEDERAL_BILLS_URL = 'https://api.propublica.org/congress/v1/115/both/bills/introduced.json';
+const FEDERAL_BILLS_URL = 'https://api.propublica.org/congress/v1/116/both/bills/introduced.json';
 
 // Constant https
 const https = require('https');
@@ -37,7 +37,6 @@ while(i < 13000) {
               json += chunk;
          });
 
-    
     // The whole response has been received. Print out the result.
     resp.on('end', () => {
       var data = JSON.parse(json)
