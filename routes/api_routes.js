@@ -13,6 +13,10 @@ router.get('/politicians/Congressman', postcontroller.showAllCongressman);
 
 router.get('/politicians/:id', postcontroller.showPolitician);
 
+router.get('/politicians/get_id/:name/:state', postcontroller.getOnePoliticanID);
+
+router.get('/politicians/:name/:state', postcontroller.showOnePolitician);
+
 router.get('/votes/:id', postcontroller.showVotes);
 
 router.get('/donors/:id', postcontroller.showDonors);

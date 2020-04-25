@@ -159,6 +159,28 @@ exports.showPolitician = (req, res, next) => {
   })
 }
 
+exports.showOnePolitician = (req, res, next) => {
+  let name=(req.params.name).split(" ")
+  politicians.find({"first_name": name[0],"last_name": name[(name.length)-1],"state": req.params.state},  function (err, docs) {
+    if (err || docs.length==0) {
+      return res.status(404).send('Politician not found')
+    }
+    res.status(200).json(docs)
+  })
+}
+
+exports.getOnePoliticanID = (req, res, next) => {
+  let name=(req.params.name).split(" ")
+  politicians.findOne({"first_name": name[0],"last_name": name[(name.length)-1],"state": req.params.state}, function (err, docs) {
+    if (err  || docs==null ) {
+      res.status(404).send('Politician not found')
+      return;
+    }else{
+      res.status(200).send(docs.id)
+    }
+  })
+}
+
 exports.showDonors = (req, res, next) => {
   politicians.find({"id": req.params.id}, 'donors', function (err, docs) {
     if (err || docs.length==0) {
