@@ -45,10 +45,11 @@ function DisplayList (oData, rows_per_page, page) {
 
 	let start = rows_per_page * page;
 	let end = start + rows_per_page;
-
 	for (let i = start; i < events.length && i<end ; i++) {
 		 let item_element = document.createElement('div');
 		 //////Logic to create HTML element and display
+		 let id = events[i]._id;
+
 		 var title = "";
 		if (events[i].title != null)
 			title = events[i].title;
@@ -71,8 +72,12 @@ function DisplayList (oData, rows_per_page, page) {
 		var url = ""; 
 		if (events[i].url != null){
 			url = events[i].url;
-			title = `<a href="${url}">${title}</a>`
+			// title = `<a href="${url}">${title}</a>`
+			//url_btn = `<button onclick="window.location.href = '${url}';" class="btn btn-info">More Info</button> `
+
 		}
+		
+		title = `<button id="${id}" class="btn btn-link text-left" onclick="saveID(this.id)">${title}</button>`
 	
 		const x = `
 			<div>
@@ -93,6 +98,10 @@ function DisplayList (oData, rows_per_page, page) {
   SetupPagination (oData, pagination_element, rows);
 }
 
+function saveID(id){
+	localStorage.setItem('event_id', id);
+	window.location = './event.html';
+}
 
 function SetupPagination (oData, wrapper, rows_per_page) {
   events = JSON.parse(oData);

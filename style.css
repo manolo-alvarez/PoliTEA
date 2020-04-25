@@ -13,6 +13,10 @@
     border: 1px solid gray;
 }
 
+/* h1, h2, h3, h4, h5, h6 {
+    font-family: "Playfair Display", Georgia, "Times New Roman", serif;
+  } */
+
 #us{
     float: left;
     margin-left: 0;
@@ -75,4 +79,99 @@
     .card {
         flex: 1 1 calc(33% - 2rem);
     }
+}
+
+/* CAROUSEL SPLASH PAGE */
+#rep_btn {
+    position: absolute;
+    top: 32%;
+    left: 20%;
+    transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
+    color: white;
+    font-size: 16px;
+    padding: 12px 24px;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+  }
+  #sen_btn {
+    position: absolute;
+    top: 32%;
+    left: 80%;
+    transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
+    color: white;
+    font-size: 16px;
+    padding: 12px 24px;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+  }
+  #legis_btn {
+    position: absolute;
+    top: 45%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
+    /* background-color: #555; */
+    color: white;
+    font-size: 16px;
+    padding: 12px 24px;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+  }
+  #custom-container {
+	width: 1500px;
+	height: 550;
+	/* background-color: #969696; */
+	margin: 0 auto;
+	padding: 0;
+}
+  .view h4, #states_caption {
+    /* font-family:    Garamond; */
+    color:          black !important;
+    width: 450px;
+    margin-left: -225px;
+    position: absolute;
+    top: 28%;
+    left: 50%;
+    }
+    /* #legis-caption {
+        color:          black !important;
+        } */
+        
+/* .view p {
+    font-family:    Garamond;
+    color:          black !important;
+    width: 500px;
+    margin-left: -250px;
+    position: absolute;
+    top: 30%;
+    left: 50%;
+    } */
+
+.carousel-control-prev-icon,
+.carousel-control-next-icon {
+  height: 100px;
+  width: 100px;
+  /* outline: black; */
+  background-size: 100%, 100%;
+  border-radius: 50%;
+  /* border: 1px solid black; */
+  background-image: none;
+}
+
+.carousel-control-next-icon:after
+{
+  content: '>';
+  font-size: 55px;
+  color: black;
+}
+
+.carousel-control-prev-icon:after {
+  content: '<';
+  font-size: 55px;
+  color: black;
 }

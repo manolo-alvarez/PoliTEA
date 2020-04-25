@@ -31,6 +31,8 @@ router.get('/events/state/:id', postcontroller.showStateEvents);
 
 router.get('/events/stateAbbr/:id', postcontroller.showStateAbbrEvents);
 
+router.get('/events/:id', postcontroller.showEvent);
+
 router.get('/bills/all', postcontroller.showAllBills);
 
 router.get('/bills/:id', postcontroller.showBillsByTopic);

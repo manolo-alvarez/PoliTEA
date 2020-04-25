@@ -231,6 +231,15 @@ exports.showAssets = (req, res, next) => {
 
 /////////////////////// Neeti ///////////////////////////////////////
 
+exports.showEvent = (req, res, next) => {
+  events.find({"_id": req.params.id},  function (err, docs) {
+    if (err || docs.length==0) {
+      return res.status(404).send('Event Not Found')
+    }
+    res.status(200).json(docs)
+  })
+}
+
 exports.showZipCodeEvents = (req, res, next) => {
   events.find({"postal_code": req.params.id},  function (err, docs) {
     if (err || docs.length==0) {

@@ -42,46 +42,117 @@
       </form>
     </div>
   </nav>
-<div class="position-relative overflow-hidden p-3 p-md-5 m-md-3 text-center bg-light">
-  <div class="col-md-5 mx-auto my-5">
-    <!-- <h1 class="display-4 font-weight-normal"><a href="./about.html" class="text-danger">poli<strong>tea</strong></a></h1> -->
-    <h1 class="card-text"><a href="./about.html" class="text-danger">poli<strong>tea</strong></a></h1>
+  
+  
+<div class="position-relative overflow-hidden p-3 m-md-3 text-center bg-light">
 
-    <p class="lead font-weight-normal"><em>dishin' on your politician</em></p>
+  <!--Carousel Wrapper-->
+<div id="carousel-example-2" class="carousel slide carousel-fade text-center" data-ride="carousel">
+    <!--Indicators-->
+    <ol class="carousel-indicators">
+      <li data-target="#carousel-example-2" data-slide-to="0" class="active"></li>
+      <li data-target="#carousel-example-2" data-slide-to="1"></li>
+      <li data-target="#carousel-example-2" data-slide-to="2"></li>
+    </ol>
+    <!--/.Indicators-->
+    <!--Slides-->
+    <div class="carousel-inner" role="listbox">
+      <div class="carousel-item active">
+        <div class="view">
+            <div class="col-md-5 mx-auto mt-5">
+                <h1 class="card-text"><a href="./about.html" class="text-danger">poli<strong>tea</strong></a></h1>
+                <h5 class="lead font-weight-normal"><em>dishin' on your local situation</em></h5>
+            </div>
+            <div id="custom-container">
+              <!-- <div class="col-md-5 mx-auto mt-5">
+                <h1 class="card-text"><a href="./about.html" class="text-danger">poli<strong>tea</strong></a></h1>
+                <h5 class="lead font-weight-normal"><em>dishin' on your state</em></h5>
+            </div> -->
+                <br><br><br><br>
+                <h5 id ="states_caption">Click your state for a brief overview</h5>
+                <!-- <p>Click your state to learn more</p> -->
+                <!-- <br><br><br><br><br> -->
+                <!-- DARK BG: https://createaclickablemap.com/map.php?&id=91206&maplocation=false&online=true -->
+            <iframe src="https://createaclickablemap.com/map.php?&id=90528&maplocation=false&online=true" width="900" height="475" style="border: none;"></iframe>
+            <script>
+            if (window.addEventListener){ 
+              window.addEventListener("message", function(event) { 
+                if(event.data.length >= 22) { 
+                  if( event.data.substr(0, 22) == "__MM-LOCATION.REDIRECT"){
+                    let state = event.data.substr(22);
+                    localStorage.setItem('state', state);
+                    location = "./state_overview.html";
+                  } 
+                } 
+              }, false); 
+          
+            } else if (window.attachEvent){
+              window.attachEvent("message", function(event) { 
+                if( event.data.length >= 22) { 
+                  if( event.data.substr(0, 22) == "__MM-LOCATION.REDIRECT"){
+                    let state = event.data.substr(22);
+                    localStorage.setItem('state', state);
+                    location = "./state_overview.html";
+                  } 
+                } 
+              }, false); 
+            } 
+            </script>
+            </div>
+          <div class="mask rgba-black-light"></div>
+        </div>
+
+      </div>
+      <div class="carousel-item">
+        <!--Mask color-->
+        <div class="view">
+            <div class="col-md-5 mx-auto mt-5">
+                <h1 class="card-text"><a href="./about.html" class="text-danger">poli<strong>tea</strong></a></h1>
+                <h5 class="lead font-weight-normal"><em>dishin' on your politician</em></h5>
+            </div>
+            <button class="btn btn-danger" id = "rep_btn" onclick="window.location.href='./representatives.html'">View Representatives</button>
+            <button class="btn btn-primary" id = "sen_btn" onclick="window.location.href='./senators.html'">View Senators</button>
+            <h4 class="h4-responsive" >Get to know your politicians through voting history, donors, & finances</h4>
+
+            <img class="d-block w-100" src="https://www.brainscape.com/blog/wp-content/uploads/2015/08/HiRes.jpg" width="1500" height="575"
+            alt="Second slide">
+
+          <div class="mask rgba-black-strong"></div>
+        </div>
+
+      </div>
+      <div class="carousel-item">
+        <!--Mask color-->
+        <div class="view">
+            <div class="col-md-5 mx-auto mt-5">
+                <h1 class="card-text"><a href="./about.html" class="text-danger">poli<strong>tea</strong></a></h1>
+                <h5 class="lead font-weight-normal"><em>dishin' on your legislation</em></h5>
+              </div>
+              <button class="btn btn-danger" id = "legis_btn" onclick="window.location.href='./Legislation.html'">View Legislation</button>
+
+            <h4 class="h4-responsive" id="legis-caption" >Read over recently passed bills on topics relevent to you</h4>
+
+          <img class="d-block w-100" src="./pics/legis.png" width="1300" height="575" 
+            alt="Third slide">
+          <div class="mask rgba-black-slight"></div>
+        </div>
+      </div>
+    </div>
+    <!--/.Slides-->
+    <!--Controls-->
+    <a class="carousel-control-prev" href="#carousel-example-2" role="button" data-slide="prev">
+      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+      <span class="sr-only">Previous</span>
+    </a>
+    <a class="carousel-control-next" href="#carousel-example-2" role="button" data-slide="next">
+      <span class="carousel-control-next-icon" aria-hidden="true"></span>
+      <span class="sr-only">Next</span>
+    </a>
+    <!--/.Controls-->
   </div>
+  <!--/.Carousel Wrapper-->
 
-  <!-- hover color: #DC3545, background color:#F9F9F9, all states:#CFCFCF -->
-  <!-- No call to action title: https://createaclickablemap.com/map.php?&id=90528&maplocation=false&online=true -->
-  <!-- times new roman font: https://createaclickablemap.com/map.php?&id=90529&maplocation=false&online=true -->
-  <!-- https://createaclickablemap.com/map.php?&id=90525&maplocation=false&online=true -->
-  <iframe src="https://createaclickablemap.com/map.php?&id=90591&maplocation=false&online=true" width="900" height="525" style="border: none;"></iframe>
-  <script>
-  if (window.addEventListener){ 
-    window.addEventListener("message", function(event) { 
-      if(event.data.length >= 22) { 
-        if( event.data.substr(0, 22) == "__MM-LOCATION.REDIRECT"){
-          let state = event.data.substr(22);
-          localStorage.setItem('state', state);
-          location = "./state_overview.html";
-        } 
-      } 
-    }, false); 
-
-  } else if (window.attachEvent){
-    window.attachEvent("message", function(event) { 
-      if( event.data.length >= 22) { 
-        if( event.data.substr(0, 22) == "__MM-LOCATION.REDIRECT"){
-          let state = event.data.substr(22);
-          localStorage.setItem('state', state);
-          location = "./state_overview.html";
-        } 
-      } 
-    }, false); 
-  } 
-  </script> 
-    <div class="product-device shadow-sm d-none d-md-block"></div>
-    <div class="product-device product-device-2 shadow-sm d-none d-md-block"></div>
-  </div>
+</div>
 
 <body>
   <!-- <div style="background-image: url('us_map.png'); background-size"> -->
