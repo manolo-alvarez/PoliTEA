@@ -18,6 +18,7 @@ localStorage.clear();
 
 var xhttp = new XMLHttpRequest();
 xhttp.open('GET', 'https://reflected-flux-270220.appspot.com/politicians/senators', false);
+//xhttp.open('GET', 'http://localhost:3000/politicians/senators', false);
 xhttp.send();
 
 const allSenators = JSON.parse(xhttp.responseText);

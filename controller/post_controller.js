@@ -11,6 +11,38 @@ exports.showIndex = (req, res, next) => {
 
 /////////////////////// Aidan ///////////////////////////////////////
 
+/* exports.showAllBills = (req, res, next) => {
+
+  //bills.find({published: true}, {sort: {'date': -1}, limit: 5}, function(err, docs) {
+  bills.find(function(err, docs) {
+    if (err || docs.length==0) {
+      return res.status(404).send('Bills not found')
+    }
+
+    let billsArray = [];
+
+    docs.forEach((bill) => {
+
+      billsArray.push({
+          number: bill.number,
+          title: bill.title,
+          short_title: bill.short_title,
+          introduced_date: bill.introduced_date,
+          sponsor_title: bill.sponsor_title,
+          sponsor_id: bill.sponsor_id,
+          sponsor_name: bill.sponsor_name,
+          sponsor_state: bill.sponsor_state,
+          sponsor_party: bill.sponsor_party,
+          primary_subject: bill.primary_subject,
+          summary: bill.summary,
+          congressdotgov_url: bill.congressdotgov_url
+        });
+    })
+
+    res.status(200).json(billsArray)
+  })//.limit(20);
+} */
+
 exports.showAllBills = (req, res, next) => {
 
   //bills.find({published: true}, {sort: {'date': -1}, limit: 5}, function(err, docs) {
@@ -59,6 +91,7 @@ exports.showBillsByTopic = (req, res, next) => {
       billsArray.push({
           number: bill.number,
           title: bill.title,
+          bill_id: bill.bill_id,
           short_title: bill.short_title,
           introduced_date: bill.introduced_date,
           sponsor_title: bill.sponsor_title,
@@ -73,6 +106,18 @@ exports.showBillsByTopic = (req, res, next) => {
     })
 
     res.status(200).json(billsArray)
+  })
+}
+
+
+exports.showBillByID = (req, res, next) => {
+  bills.find({"bill_id": {$regex:"^${req.params.bill_id"}},  function (err, docs) {
+    //bills.find({bill_id: "hr748-116"},  function (err, docs) {
+
+      if (err || docs.length==0) {
+        return res.status(404).send('Bill not found')
+      }
+    res.status(200).json(docs)
   })
 }
 
