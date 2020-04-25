@@ -80,6 +80,7 @@
                         console.log(response);
                         // Handle the results here (response.result has the parsed body).
                         state = response.result.divisions['ocd-division/country:us/state:'+response.result.normalizedInput.state.toLowerCase()].name
+                        localStorage.setItem('state', state);
                         var app = document.getElementById('root')
                         var container = document.createElement('div')
                         container.setAttribute('class', 'container')
@@ -116,7 +117,7 @@
                                 h2.textContent = official.name
                                 if("urls" in official){
                                     a.href = (official.urls)[0]
-                                    a.textContent = "Visit Website"
+                                    a.textContent = "Visit "+official.name+" Website"
                                 }
                                 h5.textContent = (official.phones)[0]
                                 var xhr = new XMLHttpRequest();
@@ -135,16 +136,22 @@
                                 card.appendChild(a)
                                 if((response.result.offices[offices[i]]).name=="U.S. Representative"){
                                   var politician_link=document.createElement('a')
-                                  var xhttp = new XMLHttpRequest();
-                                  xhttp.open('GET', 'http://localhost:3000/politicians/'+official.name+"/"+state, false);
-                                  xhttp.send();
-                                  let d = JSON.parse(xhttp.responseText)[0];
-                                  console.log(d)
-                                  store(d.id, d.first_name, d.last_name, d.party, d.state, d.district, d.url,
-                                  d.twitter_account, d.facebook_account, d.youtube_account, d.seniority, d.next_election,
-                                  d.total_votes, d.missed_votes,d.total_present, d.last_updated, d.office, d.phone, d.fax,
-                                  d.missed_votes_pct, d.votes_with_party_pct, d.votes_against_party_pct)
-                                  console.log(localStorage);
+                                  politician_link.onclick = function(event) { 
+                                    var xhttp = new XMLHttpRequest();
+                                    let name = event.target.previousSibling.textContent.replace("Visit ",'').replace(" Website",'');
+                                    let state = localStorage.getItem('state');
+                                    console.log(name);
+                                    console.log(state);
+                                    xhttp.open('GET', 'http://localhost:3000/politicians/'+name+"/"+state, false);
+                                    xhttp.send();
+                                    let d = JSON.parse(xhttp.responseText)[0];
+                                    console.log(d)
+                                    store(d.id, d.first_name, d.last_name, d.party, d.state, d.district, d.url,
+                                    d.twitter_account, d.facebook_account, d.youtube_account, d.seniority, d.next_election,
+                                    d.total_votes, d.missed_votes,d.total_present, d.last_updated, d.office, d.phone, d.fax,
+                                    d.missed_votes_pct, d.votes_with_party_pct, d.votes_against_party_pct)
+                                    console.log(localStorage);
+                                  };
                                   politician_link.href = "./politiciansBio.html"
                                   politician_link.textContent="View Politician Bio"
                                   card.appendChild(politician_link)
