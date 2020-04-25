@@ -111,6 +111,7 @@ function DisplayList (representatives, rows_per_page, cols_per_page, page) {
       bodyParagraph.setAttribute('style', 'height: 74.66px; vertical-align: middle; text-align: center;');
       cardFooter.setAttribute('id', 'cardFooter');
       cardFooter.setAttribute('class', 'card-footer');
+      cardFooter.setAttribute('style', 'text-align: center;');
       head1.setAttribute('class', 'mb-0');
       head2.setAttribute('class', 'mb-0');
       attribute1.setAttribute('class', 'mb-0');
@@ -127,6 +128,7 @@ function DisplayList (representatives, rows_per_page, cols_per_page, page) {
       "${representatives[j].phone}", "${representatives[j].fax}", "${representatives[j].missed_votes_pct}",
       "${representatives[j].votes_with_party_pct}", "${representatives[j].votes_against_party_pct}");`);
       bioPage.setAttribute('href', 'politiciansBio.html');
+      bioPage.setAttribute('style', 'vertical-align: middle; ');
       img.setAttribute("class","w3-image");
       img.setAttribute('alt', 'Avatar')
       img.setAttribute('style', 'display: block; width: 175px; height: 225px; margin-left: auto; margin-right: auto; margin-top: 5px; border-radius: 50%;');
