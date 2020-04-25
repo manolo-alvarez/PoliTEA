@@ -83,6 +83,7 @@ const aboutMissedVotesPct = document.createElement('p');
 const aboutVotesWithPartyPct = document.createElement('p');
 const aboutVotesAgainstPartyPct = document.createElement('p');
 const aboutLastUpdated = document.createElement('p');
+const financesPage = document.createElement('a');
 
 about.setAttribute('class', "p-4 mb-3 bg-light rounded");
 aboutTitle.setAttribute('class', "font-italic");
@@ -104,6 +105,10 @@ aboutVotesWithPartyPct.setAttribute('class', "mb-0");
 aboutVotesAgainstPartyPct.setAttribute('class', "mb-0");
 aboutLastUpdated.setAttribute('class', "mb-0");
 
+financesPage.setAttribute('class', "mb-0");
+financesPage.setAttribute('onclick', `store("${id}");`)
+financesPage.setAttribute('href', 'financial_main.html')
+
 aboutTitle.textContent = "About";
 aboutWebsite.textContent = website;
 aboutSeniority.textContent = "seniority: " + seniority;
@@ -121,6 +126,7 @@ aboutMissedVotesPct.textContent = "missed votes %" + missedVotesPct;
 aboutVotesWithPartyPct.textContent = "votes with party %" + votesWithPartyPct;
 aboutVotesAgainstPartyPct.textContent = "votes against party %" + votesAgainstPartyPct;
 aboutLastUpdated.textContent = "last updated: " + lastUpdated;
+financesPage.textContent = "Donors and Finances";
 
 headDiv.appendChild(about);
 about.appendChild(aboutTitle);
@@ -140,6 +146,7 @@ if(missedVotesPct != 'null') about.appendChild(aboutMissedVotesPct);
 if(votesWithPartyPct != 'null') about.appendChild(aboutVotesWithPartyPct);
 if(votesAgainstPartyPct != 'null') about.appendChild(aboutVotesAgainstPartyPct);
 if(lastUpdated != 'null') about.appendChild(aboutLastUpdated);
+about.appendChild(financesPage);
 }
 
 // Get voting History //
@@ -167,7 +174,8 @@ politician[0].votes.forEach(vote => {
   const col = document.createElement('div');
   const card = document.createElement('div');
   const position = document.createElement('div');
-  const head1 = document.createElement('h3');
+  //const head1 = document.createElement('h3');
+  const link_bill = document.createElement('a');
   const head2 = document.createElement('h6');
   const paragraph = document.createElement('p');
 
@@ -175,11 +183,15 @@ politician[0].votes.forEach(vote => {
   col.setAttribute('class', 'col mb-2');
   card.setAttribute('class' , 'row no-gutters border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative');
   position.setAttribute('class', 'col p-4 d-flex flex-column position-static');
-  head1.setAttribute('class', 'mb-0');
+  //head1.setAttribute('class', 'mb-0');
+  link_bill.setAttribute('onclick', `toBillPage("${vote.bill.bill_id}", "${vote.bill.title}");`)
+  link_bill.setAttribute('href', 'billTemplate.html')
   head2.setAttribute('class', 'mb-0');
   paragraph.setAttribute('class', 'card-text mb-auto');
 
-  head1.textContent = vote.bill.number + " - " + vote.position
+  //head1.textContent = vote.bill.number + " - " + vote.position;
+  link_bill.textContent = vote.bill.number + " - " + vote.position;
+
   head2.textContent = "Result: " + vote.result;
   paragraph.textContent = vote.bill.title;
 
@@ -187,7 +199,10 @@ politician[0].votes.forEach(vote => {
   row.appendChild(col);
   col.appendChild(card);
   card.appendChild(position);
-  position.appendChild(head1);
+  //position.appendChild(head1);
+  //head1.appendChild(link_bill);
+  position.appendChild(link_bill);
+
   position.appendChild(head2);
   position.appendChild(paragraph);
 
@@ -217,3 +232,9 @@ politician[0].votes.forEach(vote => {
   position.appendChild(head1);
 }
 }
+
+function toBillPage(bill_id, bill_title){
+  localStorage.setItem('bill_id', bill_id);
+  localStorage.setItem('bill_title', bill_title);
+  localStorage.setItem('from_poliBio', "yep");
+ };
