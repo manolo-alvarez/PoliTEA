@@ -6,7 +6,7 @@
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
         <title>politea</title>
         <!-- Custom styles for this template -->
-        <!-- <link href="locations.css" rel="stylesheet"> -->
+        <link href="address.css" rel="stylesheet">
         <style>
             .bd-placeholder-img {
                 font-size: 1.125rem;
@@ -57,9 +57,22 @@
 
     </head>
     <body>
+
+
     
         <div id="root" class="container">
+          
+            <div class="jumbotron p-3 p-md-5 text-white rounded bg-dark">
+              <h1 id="state_name"></h1> 
+              <!-- <p>Discover current political events in your community and get involved with the causes important to you.</p> -->
+          </div>
+
         </div>
+
+        <script>
+          var state_name = localStorage.getItem("state");
+          document.getElementById("state_name").innerHTML = "Overview of "+state_name;
+      </script>
 
         <script >
           function abbrState(input, to){
@@ -176,7 +189,8 @@
                             var card = document.createElement('div')
                             // h1 is the header of each card (title of element for that politician),
                             var h1 = document.createElement('h1')
-                            card.setAttribute('class', 'card')
+                            card.setAttribute('class', 'card mb-4')
+                            // card.style.maxWidth= style='50rem';
                             h1.textContent = (offices[i]).name
                             container.appendChild(card)
                             card.appendChild(h1)
@@ -192,7 +206,7 @@
                                 var br = document.createElement('br')
                                 var img = document.createElement('img')
                                 var xhr = new XMLHttpRequest();
-                                xhr.open('GET', 'http://localhost:3000/politicians/get_id/'+official.name+"/"+state, false);
+                                xhr.open('GET', 'https://reflected-flux-270220.appspot.com/politicians/get_id/'+official.name+"/"+state, false);
                                 xhr.send();
                                 let id= xhr.responseText
                                 console.log(id)
@@ -220,7 +234,7 @@
                                     let state = localStorage.getItem('state');
                                     console.log(name);
                                     console.log(state);
-                                    xhttp.open('GET', 'http://localhost:3000/politicians/'+name+"/"+state, false);
+                                    xhttp.open('GET', 'https://reflected-flux-270220.appspot.com/politicians/'+name+"/"+state, false);
                                     xhttp.send();
                                     let d = JSON.parse(xhttp.responseText)[0];
                                     console.log(d)
