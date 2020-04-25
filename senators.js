@@ -95,7 +95,7 @@ function DisplayList (senators, rows_per_page, cols_per_page, page) {
       const head1 = document.createElement('h3');
       const head2 = document.createElement('h3');
       const attribute1 = document.createElement('h6');
-      const attribute2 = document.createElement('p');
+      const attribute2 = document.createElement('a');
       const attribute3 = document.createElement('p');
       const bioPage = document.createElement('a');
       const img = document.createElement('img');
@@ -115,6 +115,9 @@ function DisplayList (senators, rows_per_page, cols_per_page, page) {
       head2.setAttribute('class', 'mb-0');
       attribute1.setAttribute('class', 'mb-0');
       attribute2.setAttribute('class', 'card-text mb-auto');
+      attribute2.setAttribute('href', 'state_overview.html');
+      attribute2.setAttribute('onclick', `f1("${senators[j].state}")`);
+      attribute3.setAttribute('class', 'card-text mb-auto');
       attribute3.setAttribute('class', 'card-text mb-auto');
       bioPage.setAttribute('class', 'btn btn-primary');
       bioPage.setAttribute('id', `${senators[j].id}`);
@@ -216,3 +219,7 @@ function store(id, firstName, lastName, party, state, district, website,
   localStorage.setItem('politician_votesWithPartyPct', votesWithPartyPct);
   localStorage.setItem('politician_votesAgainstPartyPct', votesAgainstPartyPct);
 };
+
+function f1(state){
+  localStorage.setItem('state', state);
+}
