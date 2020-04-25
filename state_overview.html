@@ -6,7 +6,7 @@
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
         <title>politea</title>
         <!-- Custom styles for this template -->
-        <!-- <link href="locations.css" rel="stylesheet"> -->
+        <link href="address.css" rel="stylesheet">
         <style>
             .bd-placeholder-img {
                 font-size: 1.125rem;
@@ -60,9 +60,19 @@
 
     </head>
     <body>
-
         <div id="root" class="container">
+          
+            <div class="jumbotron p-3 p-md-5 text-white rounded bg-dark">
+              <h1 id="state_name"></h1> 
+              <!-- <p>Discover current political events in your community and get involved with the causes important to you.</p> -->
+          </div>
+
         </div>
+
+        <script>
+          var state_name = localStorage.getItem("state");
+          document.getElementById("state_name").innerHTML = "Overview of "+state_name;
+      </script>
 
         <script >
           function abbrState(input, to){
@@ -154,6 +164,7 @@
               state_abbreviation= localStorage.getItem('state').toLowerCase()
             }
             let division = "ocd-division/country:us/state:"+state_abbreviation
+
             console.log(division)
             gapi.client.setApiKey("AIzaSyBxblHg9N0p6-un0y8HD0QOgD7sryfhcKQ");
             return gapi.client.load("https://content.googleapis.com/discovery/v1/apis/civicinfo/v2/rest")
@@ -165,6 +176,8 @@
                 .then(function(response) {
                         //console.log("hello");
                         console.log(response.result);
+                        state = response.result.divisions[division].name
+                        localStorage.setItem('state', state);
                         // Handle the results here (response.result has the parsed body).
                         var app = document.getElementById('root')
                         var container = document.createElement('div')
@@ -176,7 +189,8 @@
                             var card = document.createElement('div')
                             // h1 is the header of each card (title of element for that politician),
                             var h1 = document.createElement('h1')
-                            card.setAttribute('class', 'card')
+                            card.setAttribute('class', 'card mb-4')
+                            // card.style.maxWidth= style='50rem';
                             h1.textContent = (offices[i]).name
                             container.appendChild(card)
                             card.appendChild(h1)
@@ -190,21 +204,52 @@
                                 var h5 = document.createElement('h5')
                                 var a = document.createElement('a')
                                 var br = document.createElement('br')
-                                //var img = document.createElement('img')
-                                h4.textContent = official.party
+                                var img = document.createElement('img')
+                                var xhr = new XMLHttpRequest();
+                                xhr.open('GET', 'https://reflected-flux-270220.appspot.com/politicians/get_id/'+official.name+"/"+state, false);
+                                xhr.send();
+                                let id= xhr.responseText
+                                console.log(id)
+                                if(id!='Politician not found'){
+                                  img.src= 'https://bioguideretro.congress.gov/Static_Files/images/photos/'+id.charAt(0)+'/'+id+'.jpg'
+                                  img.setAttribute("class","w3-image")
+                                  console.log(img.src);
+                                }
                                 h2.textContent = official.name
+                                h4.textContent = official.party
                                 console.log(official.name)
                                 a.href = (official.urls)[0]
-                                a.textContent = "Visit Website"
+                                a.textContent = "Visit "+official.name+" Website"
                                 h5.textContent = (official.phones)[0]
-                                //img.src= official.photoUrl
-                                //card.appendChild(img)
-
                                 card.appendChild(h2)
+                                card.appendChild(img)
                                 card.appendChild(h4)
                                 card.appendChild(h5)
                                 card.appendChild(a)
+                                if(offices[i].name=="U.S. Senator"){
+                                  var politician_link=document.createElement('a')
+                                  politician_link.onclick = function(event) { 
+                                    var xhttp = new XMLHttpRequest();
+                                    let name = event.target.previousSibling.textContent.replace("Visit ",'').replace(" Website",'');
+                                    let state = localStorage.getItem('state');
+                                    console.log(name);
+                                    console.log(state);
+                                    xhttp.open('GET', 'https://reflected-flux-270220.appspot.com/politicians/'+name+"/"+state, false);
+                                    xhttp.send();
+                                    let d = JSON.parse(xhttp.responseText)[0];
+                                    console.log(d)
+                                    store(d.id, d.first_name, d.last_name, d.party, d.state, d.district, d.url,
+                                    d.twitter_account, d.facebook_account, d.youtube_account, d.seniority, d.next_election,
+                                    d.total_votes, d.missed_votes,d.total_present, d.last_updated, d.office, d.phone, d.fax,
+                                    d.missed_votes_pct, d.votes_with_party_pct, d.votes_against_party_pct)
+                                    console.log(localStorage);
+                                  };
+                                  politician_link.href = "./politiciansBio.html"
+                                  politician_link.textContent="View Politician Bio"
+                                  card.appendChild(politician_link)
+                                }
                                 card.appendChild(br)
+                                
                             }
                         }
 
@@ -215,6 +260,36 @@
                           location.href="./address.html";
                         })
             }
+
+            function store(id, firstName, lastName, party, state, district, website,
+              twitterHandle, facebookHandle, youtubeHandle, seniority, nextElection,
+              totalVotes, missedVotes,totalPresent, lastUpdated, office, phone, fax,
+              missedVotesPct, votesWithPartyPct, votesAgainstPartyPct){
+
+              localStorage.setItem('politician_id', id);
+              localStorage.setItem('politician_firstName', firstName);
+              localStorage.setItem('politician_lastName', lastName);
+              localStorage.setItem('politician_party', party);
+              localStorage.setItem('politician_state', state);
+              localStorage.setItem('politician_district', district);
+              localStorage.setItem('politician_website', website);
+              localStorage.setItem('politician_twitterHandle', twitterHandle);
+              localStorage.setItem('politician_facebookHandle', facebookHandle);
+              localStorage.setItem('politician_youtubeHandle', youtubeHandle);
+              localStorage.setItem('politician_seniority', seniority);
+              localStorage.setItem('politician_nextElection', nextElection);
+              localStorage.setItem('politician_totalVotes', totalVotes);
+              localStorage.setItem('politician_missedVotes', missedVotes);
+              localStorage.setItem('politician_totalPresent', totalPresent);
+              localStorage.setItem('politician_lastUpdated', lastUpdated);
+              localStorage.setItem('politician_office', office);
+              localStorage.setItem('politician_phone', phone);
+              localStorage.setItem('politician_fax', fax);
+              localStorage.setItem('politician_missedVotesPct', missedVotesPct);
+              localStorage.setItem('politician_votesWithPartyPct', votesWithPartyPct);
+              localStorage.setItem('politician_votesAgainstPartyPct', votesAgainstPartyPct);
+            };
+
             gapi.load("client");
             window.onload = loadClient;
         </script>

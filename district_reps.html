@@ -6,7 +6,6 @@
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
         <title>politea</title>
         <!-- Custom styles for this template -->
-        <!-- <link href="locations.css" rel="stylesheet"> -->
         <style>
             .bd-placeholder-img {
                 font-size: 1.125rem;
@@ -67,6 +66,7 @@
             * See instructions for running APIs Explorer code samples locally:
             * https://developers.google.com/explorer-help/guides/code_samples#javascript
             */
+            
             function loadClient() {
             console.log(localStorage);
             let address_str = localStorage.getItem("address")+", "+localStorage.getItem("city")+", "+localStorage.getItem("state")+" "+localStorage.getItem("zip")
@@ -80,8 +80,10 @@
                         function(err) { console.error("Error loading GAPI client for API", err);})
                 .then(function(response) {
                         //console.log("hello");
-                        console.log(response.result);
+                        console.log(response);
                         // Handle the results here (response.result has the parsed body).
+                        state = response.result.divisions['ocd-division/country:us/state:'+response.result.normalizedInput.state.toLowerCase()].name
+                        localStorage.setItem('state', state);
                         var app = document.getElementById('root')
                         var container = document.createElement('div')
                         container.setAttribute('class', 'container')
@@ -104,9 +106,7 @@
                             h1.textContent = (response.result.offices[offices[i]]).name
                             container.appendChild(card)
                             card.appendChild(h1)
-                            console.log((response.result.offices[offices[i]]).officialIndices)
                             num_officials = (response.result.offices[offices[i]]).officialIndices.length
-                            console.log(num_officials)
                             for (var j=0; j<num_officials;j++){
                                 officialIndex = ((response.result.offices[offices[i]]).officialIndices)[j]
                                 var official = (response.result.officials)[officialIndex]
@@ -115,23 +115,51 @@
                                 var h5 = document.createElement('h5')
                                 var a = document.createElement('a')
                                 var br = document.createElement('br')
-                                //var img = document.createElement('img')
+                                var img = document.createElement('img')
                                 h4.textContent = official.party
                                 h2.textContent = official.name
-                                console.log(official.name)
                                 if("urls" in official){
                                     a.href = (official.urls)[0]
-                                    a.textContent = "Visit Website"
+                                    a.textContent = "Visit "+official.name+" Website"
                                 }
                                 h5.textContent = (official.phones)[0]
-                                //img.src= official.photoUrl
-                                //card.appendChild(img)
-
+                                var xhr = new XMLHttpRequest();
+                                xhr.open('GET', 'http://localhost:3000/politicians/get_id/'+official.name+"/"+state, false);
+                                xhr.send();
+                                let id= xhr.responseText
+                                console.log(id)
+                                if(id!='Politician not found'){
+                                  img.src= 'https://bioguideretro.congress.gov/Static_Files/images/photos/'+id.charAt(0)+'/'+id+'.jpg'
+                                  console.log(img.src);
+                                }
                                 card.appendChild(h2)
+                                card.appendChild(img)
                                 card.appendChild(h4)
                                 card.appendChild(h5)
-                                card.appendChild(br)
                                 card.appendChild(a)
+                                if((response.result.offices[offices[i]]).name=="U.S. Representative"){
+                                  var politician_link=document.createElement('a')
+                                  politician_link.onclick = function(event) { 
+                                    var xhttp = new XMLHttpRequest();
+                                    let name = event.target.previousSibling.textContent.replace("Visit ",'').replace(" Website",'');
+                                    let state = localStorage.getItem('state');
+                                    console.log(name);
+                                    console.log(state);
+                                    xhttp.open('GET', 'http://localhost:3000/politicians/'+name+"/"+state, false);
+                                    xhttp.send();
+                                    let d = JSON.parse(xhttp.responseText)[0];
+                                    console.log(d)
+                                    store(d.id, d.first_name, d.last_name, d.party, d.state, d.district, d.url,
+                                    d.twitter_account, d.facebook_account, d.youtube_account, d.seniority, d.next_election,
+                                    d.total_votes, d.missed_votes,d.total_present, d.last_updated, d.office, d.phone, d.fax,
+                                    d.missed_votes_pct, d.votes_with_party_pct, d.votes_against_party_pct)
+                                    console.log(localStorage);
+                                  };
+                                  politician_link.href = "./politiciansBio.html"
+                                  politician_link.textContent="View Politician Bio"
+                                  card.appendChild(politician_link)
+                                }
+                                card.appendChild(br)
                             }
                         }
 
@@ -143,6 +171,36 @@
 
                         })
             }
+
+            function store(id, firstName, lastName, party, state, district, website,
+              twitterHandle, facebookHandle, youtubeHandle, seniority, nextElection,
+              totalVotes, missedVotes,totalPresent, lastUpdated, office, phone, fax,
+              missedVotesPct, votesWithPartyPct, votesAgainstPartyPct){
+
+              localStorage.setItem('politician_id', id);
+              localStorage.setItem('politician_firstName', firstName);
+              localStorage.setItem('politician_lastName', lastName);
+              localStorage.setItem('politician_party', party);
+              localStorage.setItem('politician_state', state);
+              localStorage.setItem('politician_district', district);
+              localStorage.setItem('politician_website', website);
+              localStorage.setItem('politician_twitterHandle', twitterHandle);
+              localStorage.setItem('politician_facebookHandle', facebookHandle);
+              localStorage.setItem('politician_youtubeHandle', youtubeHandle);
+              localStorage.setItem('politician_seniority', seniority);
+              localStorage.setItem('politician_nextElection', nextElection);
+              localStorage.setItem('politician_totalVotes', totalVotes);
+              localStorage.setItem('politician_missedVotes', missedVotes);
+              localStorage.setItem('politician_totalPresent', totalPresent);
+              localStorage.setItem('politician_lastUpdated', lastUpdated);
+              localStorage.setItem('politician_office', office);
+              localStorage.setItem('politician_phone', phone);
+              localStorage.setItem('politician_fax', fax);
+              localStorage.setItem('politician_missedVotesPct', missedVotesPct);
+              localStorage.setItem('politician_votesWithPartyPct', votesWithPartyPct);
+              localStorage.setItem('politician_votesAgainstPartyPct', votesAgainstPartyPct);
+            };
+
             gapi.load("client");
             window.onload = loadClient;
         </script>
