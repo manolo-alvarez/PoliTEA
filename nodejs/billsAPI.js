@@ -1,7 +1,7 @@
 
 const bill = require('./billsSchema.js')
 
-module.exports = {
+/* module.exports = {
 
   getBillByID: function getBillByID(billID, callback){
 
@@ -12,4 +12,4 @@ module.exports = {
     });
   }
 
-}
+} */

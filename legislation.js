@@ -76,7 +76,7 @@ function DisplayList (topics, rows_per_page, cols_per_page, page) {
       const card = document.createElement('div');
       const cardBody = document.createElement('div');
       const cardFooter = document.createElement('div');
-      const head1 = document.createElement('h3');
+      const head1 = document.createElement('h4');
       //const head2 = document.createElement('h6');
       //const paragraph1 = document.createElement('p');
       const seeRecentBills = document.createElement('a');
@@ -89,6 +89,7 @@ function DisplayList (topics, rows_per_page, cols_per_page, page) {
       cardFooter.setAttribute('id', 'cardFooter');
       cardFooter.setAttribute('class', 'card-footer');
       head1.setAttribute('class', 'mb-0');
+      //head1.setAttribute('class', 'text-center');
       //head2.setAttribute('class', 'mb-0');
       //paragraph1.setAttribute('class', 'card-text mb-auto');
       seeRecentBills.setAttribute('class', 'btn btn-primary');
