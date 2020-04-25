@@ -75,6 +75,16 @@ exports.showBillsByTopic = (req, res, next) => {
   })
 }
 
+exports.showBillByID = (req, res, next) => {
+  politicians.findOne({"id": req.params.id}, function (err, docs) {
+    if (err || docs.length==0) {
+      return res.status(404).send('votes not found')
+    }
+    res.status(200).json(docs)
+  })
+}
+
+
 
 
 

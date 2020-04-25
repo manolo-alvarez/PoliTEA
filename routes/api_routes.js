@@ -35,4 +35,7 @@ router.get('/bills/all', postcontroller.showAllBills);
 
 router.get('/bills/:id', postcontroller.showBillsByTopic);
 
+router.get('/bills/ID/:id', postcontroller.showBillByID);
+
+
 module.exports = router;
