@@ -40,7 +40,7 @@ exports.showAllBills = (req, res, next) => {
     })
 
     res.status(200).json(billsArray)
-  }).limit(20);
+  })
 }
 
 
