@@ -1,11 +1,8 @@
 /**
  * @author: Aidan McGraw
- * @lastRevised: 03/30/2020
+ * @lastRevised: 04/24/2020
  * @summary: 
  */
-
-
- 
 
 const app = document.getElementById('billsRoot')
 const container = document.createElement('div')
@@ -14,6 +11,55 @@ container.setAttribute('class', 'container')
 cards.setAttribute('class', 'card-body')
 app.appendChild(container)
 container.appendChild(cards)
+
+
+if(localStorage.getItem('bill_id') != null) 
+  //var bill_id_temp = localStorage.getItem('bill_id').split("-")[0];
+  var bill_id_temp = localStorage.getItem('bill_id');
+
+else var bill_id_temp = null;
+const bill_id = bill_id_temp;
+
+if(localStorage.getItem('from_poliBio') != null)
+  var from_poliBio = localStorage.getItem('from_poliBio');
+
+
+
+
+if(localStorage.getItem('from_poliBio') == 'yep') {
+  var url = 'https://reflected-flux-270220.appspot.com/bills/ID/' + bill_id;
+     //var url = 'http://localhost:3000/bills/ID/' + bill_id;
+      //var url = 'http://localhost:3000/bills/all';
+
+        var xhttp = new XMLHttpRequest();
+        xhttp.open('GET', url, false);
+        xhttp.send();
+        
+        const foundBill = JSON.parse(xhttp.responseText);
+/*         bills = billsParse;
+
+       bills = billsParse.filter(function(bill){
+        var content = null;
+ 
+       content = bill.bill_id;
+  
+        return content.includes(bill_id);
+      }); */
+          localStorage.setItem('bill_number', foundBill.number);
+          localStorage.setItem('bill_title', foundBill.title);
+          localStorage.setItem('bill_date', foundBill.date);
+          localStorage.setItem('bill_sTitle', foundBill.sponsor_title);
+          localStorage.setItem('bill_sID', foundBill.sponsor_id);
+          localStorage.setItem('bill_sName', foundBill.sponsor_name);
+          localStorage.setItem('bill_sState', foundBill.sponsor_state);
+          localStorage.setItem('bill_sParty', foundBill.sponsor_party);
+          localStorage.setItem('bill_subject', foundBill.primary_subject);
+          localStorage.setItem('bill_summary', foundBill.summary);
+          localStorage.setItem('bill_website', foundBill.congressdotgov_url);
+              
+}
+
+
 
 const bill_number = localStorage.getItem('bill_number');
 const bill_title = localStorage.getItem('bill_title');
@@ -39,56 +85,8 @@ console.log("Sponsor Party: " + sponsor_party);
 console.log("Subject: " + bill_subject);
 console.log("Summary: " + bill_summary);
 console.log("Website: " + bill_website);
-
-
-function f1(sponsor_id){
-      //var url = 'https://localhost:3000/politicians/' + sponsor_id;
-      //localStorage.clear();
-
-
-      var url = 'https://reflected-flux-270220.appspot.com/politicians/' + sponsor_id;
-      
-      var xhttp = new XMLHttpRequest();
-      xhttp.open('GET', url, false);
-      xhttp.send();
-      
-      const politician = JSON.parse(xhttp.responseText);
-
-
-      localStorage.setItem('politician_id', politician[0].id);
-      localStorage.setItem('politician_firstName', politician[0].first_name);
-      localStorage.setItem('politician_lastName', politician[0].last_name);
-      localStorage.setItem('politician_party', politician[0].party);
-      localStorage.setItem('politician_state', politician[0].state);
-      localStorage.setItem('politician_district', politician[0].district);
-      //if(localStorage.getItem('politician_district') == 'undefined' || localStorage.getItem('politician_district') == 'null') 
-      //  localStorage.removeItem('politician_district');
-
-          localStorage.setItem('politician_website', politician[0].url);
-          localStorage.setItem('politician_twitterHandle', politician[0].twitter_account);
-          localStorage.setItem('politician_facebookHandle', politician[0].facebook_account);
-          localStorage.setItem('politician_youtubeHandle', politician[0].youtube_account);
-          localStorage.setItem('politician_seniority', politician[0].seniority);
-          localStorage.setItem('politician_nextElection', politician[0].next_election);
-          localStorage.setItem('politician_totalVotes', politician[0].total_votes);
-          localStorage.setItem('politician_missedVotes', politician[0].missed_votes);
-          localStorage.setItem('politician_totalPresent', politician[0].total_present);
-          localStorage.setItem('politician_lastUpdated', politician[0].last_updated);
-          localStorage.setItem('politician_office', politician[0].office);
-          localStorage.setItem('politician_phone', politician[0].phone);
-          localStorage.setItem('politician_fax', politician[0].fax);
-          localStorage.setItem('politician_missedVotesPct', politician[0].missed_votes_pct);
-          localStorage.setItem('politician_votesWithPartyPct', politician[0].votes_with_party_pct);
-          localStorage.setItem('politician_votesAgainstPartyPct', politician[0].votes_against_party_pct);
-        
-
-
-      //xhttp.open('GET', url, false);
-
-
-      window.location.href="politiciansBio.html";
-    };
-
+console.log("From politicianBio page? : " + from_poliBio);
+console.log("Bill ID: " + bill_id);
 
 
       const bill = document.createElement('div')
@@ -130,3 +128,52 @@ function f1(sponsor_id){
 
 
   
+      function f1(sponsor_id){
+        //var url = 'https://localhost:3000/politicians/' + sponsor_id;
+        //localStorage.clear();
+  
+  
+        var url = 'https://reflected-flux-270220.appspot.com/politicians/' + sponsor_id;
+        
+        var xhttp = new XMLHttpRequest();
+        xhttp.open('GET', url, false);
+        xhttp.send();
+        
+        const politician = JSON.parse(xhttp.responseText);
+  
+  
+        localStorage.setItem('politician_id', politician[0].id);
+        localStorage.setItem('politician_firstName', politician[0].first_name);
+        localStorage.setItem('politician_lastName', politician[0].last_name);
+        localStorage.setItem('politician_party', politician[0].party);
+        localStorage.setItem('politician_state', politician[0].state);
+        localStorage.setItem('politician_district', politician[0].district);
+        //if(localStorage.getItem('politician_district') == 'undefined' || localStorage.getItem('politician_district') == 'null') 
+        //  localStorage.removeItem('politician_district');
+  
+            localStorage.setItem('politician_website', politician[0].url);
+            localStorage.setItem('politician_twitterHandle', politician[0].twitter_account);
+            localStorage.setItem('politician_facebookHandle', politician[0].facebook_account);
+            localStorage.setItem('politician_youtubeHandle', politician[0].youtube_account);
+            localStorage.setItem('politician_seniority', politician[0].seniority);
+            localStorage.setItem('politician_nextElection', politician[0].next_election);
+            localStorage.setItem('politician_totalVotes', politician[0].total_votes);
+            localStorage.setItem('politician_missedVotes', politician[0].missed_votes);
+            localStorage.setItem('politician_totalPresent', politician[0].total_present);
+            localStorage.setItem('politician_lastUpdated', politician[0].last_updated);
+            localStorage.setItem('politician_office', politician[0].office);
+            localStorage.setItem('politician_phone', politician[0].phone);
+            localStorage.setItem('politician_fax', politician[0].fax);
+            localStorage.setItem('politician_missedVotesPct', politician[0].missed_votes_pct);
+            localStorage.setItem('politician_votesWithPartyPct', politician[0].votes_with_party_pct);
+            localStorage.setItem('politician_votesAgainstPartyPct', politician[0].votes_against_party_pct);
+          
+  
+  
+        //xhttp.open('GET', url, false);
+  
+  
+        window.location.href="politiciansBio.html";
+      };
+
+      
