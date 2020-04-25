@@ -37,4 +37,14 @@ router.get('/bills/all', postcontroller.showAllBills);
 
 router.get('/bills/:id', postcontroller.showBillsByTopic);
 
+router.get('/industries', postcontroller.showIndustries);
+
+router.get('/industries/members/:id', postcontroller.showContributorsByInd);
+
+router.get('/industries/members/:id/:comm_id', postcontroller.showContributorsByIndComm);
+
+router.get('/cid/:cid', postcontroller.getPoliticianByCid);
+
+router.get('/industries/name/:name', postcontroller.getIndCodeByIndName);
+
 module.exports = router;

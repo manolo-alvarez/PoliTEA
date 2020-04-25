@@ -48,6 +48,9 @@
                         <a class="nav-link" href="./Legislation.html">Legislation<span class="sr-only">(current)</span></a>
                       </li>
                       <li class="nav-item active">
+                        <a class="nav-link" href="./all_industries.html">Industries<span class="sr-only">(current)</span></a>
+                      </li>
+                      <li class="nav-item active">
                         <a class="nav-link" href="./address.html">Get Involved<span class="sr-only">(current)</span></a>
                       </li>
                     </ul>
@@ -133,11 +136,11 @@
                         }
 
                     },
-                    function(err) { 
+                    function(err) {
                           console.error("Execution error", err);
                           alert("Enter a valid address!")
                           location.href="./address.html";
-                        
+
                         })
             }
             gapi.load("client");

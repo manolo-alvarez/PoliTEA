@@ -83,6 +83,7 @@ const aboutMissedVotesPct = document.createElement('p');
 const aboutVotesWithPartyPct = document.createElement('p');
 const aboutVotesAgainstPartyPct = document.createElement('p');
 const aboutLastUpdated = document.createElement('p');
+const financesPage = document.createElement('a');
 
 about.setAttribute('class', "p-4 mb-3 bg-light rounded");
 aboutTitle.setAttribute('class', "font-italic");
@@ -104,6 +105,10 @@ aboutVotesWithPartyPct.setAttribute('class', "mb-0");
 aboutVotesAgainstPartyPct.setAttribute('class', "mb-0");
 aboutLastUpdated.setAttribute('class', "mb-0");
 
+financesPage.setAttribute('class', "mb-0");
+financesPage.setAttribute('onclick', `store("${id}");`)
+financesPage.setAttribute('href', 'financial_main.html')
+
 aboutTitle.textContent = "About";
 aboutWebsite.textContent = website;
 aboutSeniority.textContent = "seniority: " + seniority;
@@ -121,6 +126,7 @@ aboutMissedVotesPct.textContent = "missed votes %" + missedVotesPct;
 aboutVotesWithPartyPct.textContent = "votes with party %" + votesWithPartyPct;
 aboutVotesAgainstPartyPct.textContent = "votes against party %" + votesAgainstPartyPct;
 aboutLastUpdated.textContent = "last updated: " + lastUpdated;
+financesPage.textContent = "Donors and Finances";
 
 headDiv.appendChild(about);
 about.appendChild(aboutTitle);
@@ -140,6 +146,7 @@ if(missedVotesPct != 'null') about.appendChild(aboutMissedVotesPct);
 if(votesWithPartyPct != 'null') about.appendChild(aboutVotesWithPartyPct);
 if(votesAgainstPartyPct != 'null') about.appendChild(aboutVotesAgainstPartyPct);
 if(lastUpdated != 'null') about.appendChild(aboutLastUpdated);
+about.appendChild(financesPage);
 }
 
 // Get voting History //
