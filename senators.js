@@ -87,6 +87,7 @@ function DisplayList (senators, rows_per_page, cols_per_page, page) {
 
     for(let j = i; j < senators.length && j<end && j<(i+4); j++){
       const card = document.createElement('div');
+      const image = document.createElement('div');
       const cardBody = document.createElement('div');
       const bodyTitle = document.createElement('div');
       const bodyParagraph = document.createElement('div');
@@ -97,9 +98,11 @@ function DisplayList (senators, rows_per_page, cols_per_page, page) {
       const attribute2 = document.createElement('p');
       const attribute3 = document.createElement('p');
       const bioPage = document.createElement('a');
+      const img = document.createElement('img');
 
       card.setAttribute('class' , 'card');
       card.setAttribute('style' , 'width: 255px');
+      image.setAttribute('style' , 'width: 255px; height: 225px;');
       cardBody.setAttribute('id', 'cardBody');
       cardBody.setAttribute('class', 'card-body');
       bodyTitle.setAttribute('id', 'bodyTitle');
@@ -114,7 +117,7 @@ function DisplayList (senators, rows_per_page, cols_per_page, page) {
       attribute2.setAttribute('class', 'card-text mb-auto');
       attribute3.setAttribute('class', 'card-text mb-auto');
       bioPage.setAttribute('class', 'btn btn-primary');
-      bioPage.setAttribute('id', `${senators[j].id}`)
+      bioPage.setAttribute('id', `${senators[j].id}`);
       bioPage.setAttribute('onclick', `store("${senators[j].id}", "${senators[j].first_name}",
       "${senators[j].last_name}", "${senators[j].party}", "${senators[j].state}",
       "${senators[j].district}", "${senators[j].url}", "${senators[j].twitter_account}",
@@ -122,8 +125,11 @@ function DisplayList (senators, rows_per_page, cols_per_page, page) {
       "${senators[j].next_election}", "${senators[j].total_votes}", "${senators[j].missed_votes}",
       "${senators[j].total_present}", "${senators[j].last_updated}", "${senators[j].office}",
       "${senators[j].phone}", "${senators[j].fax}", "${senators[j].missed_votes_pct}",
-      "${senators[j].votes_with_party_pct}", "${senators[j].votes_against_party_pct}");`)
-      bioPage.setAttribute('href', 'politiciansBio.html')
+      "${senators[j].votes_with_party_pct}", "${senators[j].votes_against_party_pct}");`);
+      bioPage.setAttribute('href', 'politiciansBio.html');
+      img.setAttribute("class","w3-image");
+      img.setAttribute('alt', 'Avatar');
+      img.setAttribute('style', 'display: block; width: 175px; height: 225px; margin-left: auto; margin-right: auto; margin-top: 5px; border-radius: 50%;');
 
       head1.textContent = senators[j].first_name;
       head2.textContent = senators[j].last_name;
@@ -131,10 +137,13 @@ function DisplayList (senators, rows_per_page, cols_per_page, page) {
       attribute2.textContent = senators[j].state;
       attribute3.textContent = senators[j].title.slice(9, 18);
       bioPage.textContent = "Biography";
+      img.src= 'https://bioguideretro.congress.gov/Static_Files/images/photos/'+senators[j].id.charAt(0)+'/'+senators[j].id+'.jpg';
 
       row.appendChild(card);
+      card.appendChild(image);
       card.appendChild(cardBody);
       card.appendChild(cardFooter);
+      image.appendChild(img);
       cardBody.appendChild(bodyTitle);
       cardBody.appendChild(bodyParagraph);
       bodyTitle.appendChild(head1);

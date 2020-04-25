@@ -87,6 +87,7 @@ function DisplayList (representatives, rows_per_page, cols_per_page, page) {
 
     for(let j = i; j < representatives.length && j<end && j<(i+4); j++){
       const card = document.createElement('div');
+      const image = document.createElement('div');
       const cardBody = document.createElement('div');
       const bodyTitle = document.createElement('div');
       const bodyParagraph = document.createElement('div');
@@ -97,9 +98,11 @@ function DisplayList (representatives, rows_per_page, cols_per_page, page) {
       const attribute2 = document.createElement('p');
       const attribute3 = document.createElement('p');
       const bioPage = document.createElement('a');
+      const img = document.createElement('img');
 
       card.setAttribute('class' , 'card');
       card.setAttribute('style' , 'width: 255px');
+      image.setAttribute('style' , 'width: 255px; height: 225px;');
       cardBody.setAttribute('id', 'cardBody');
       cardBody.setAttribute('class', 'card-body');
       bodyTitle.setAttribute('id', 'bodyTitle');
@@ -114,7 +117,7 @@ function DisplayList (representatives, rows_per_page, cols_per_page, page) {
       attribute2.setAttribute('class', 'card-text mb-auto');
       attribute3.setAttribute('class', 'card-text mb-auto');
       bioPage.setAttribute('class', 'btn btn-primary');
-      bioPage.setAttribute('id', `${representatives[j].id}`)
+      bioPage.setAttribute('id', `${representatives[j].id}`);
       bioPage.setAttribute('onclick', `store("${representatives[j].id}", "${representatives[j].first_name}",
       "${representatives[j].last_name}", "${representatives[j].party}", "${representatives[j].state}",
       "${representatives[j].district}", "${representatives[j].url}", "${representatives[j].twitter_account}",
@@ -122,8 +125,11 @@ function DisplayList (representatives, rows_per_page, cols_per_page, page) {
       "${representatives[j].next_election}", "${representatives[j].total_votes}", "${representatives[j].missed_votes}",
       "${representatives[j].total_present}", "${representatives[j].last_updated}", "${representatives[j].office}",
       "${representatives[j].phone}", "${representatives[j].fax}", "${representatives[j].missed_votes_pct}",
-      "${representatives[j].votes_with_party_pct}", "${representatives[j].votes_against_party_pct}");`)
-      bioPage.setAttribute('href', 'politiciansBio.html')
+      "${representatives[j].votes_with_party_pct}", "${representatives[j].votes_against_party_pct}");`);
+      bioPage.setAttribute('href', 'politiciansBio.html');
+      img.setAttribute("class","w3-image");
+      img.setAttribute('alt', 'Avatar')
+      img.setAttribute('style', 'display: block; width: 175px; height: 225px; margin-left: auto; margin-right: auto; margin-top: 5px; border-radius: 50%;');
 
       head1.textContent = representatives[j].first_name;
       head2.textContent = representatives[j].last_name;
@@ -131,10 +137,14 @@ function DisplayList (representatives, rows_per_page, cols_per_page, page) {
       attribute2.textContent = representatives[j].state;
       attribute3.textContent = "District " + representatives[j].district;
       bioPage.textContent = "Biography";
+      img.src= 'https://bioguideretro.congress.gov/Static_Files/images/photos/'+representatives[j].id.charAt(0)+'/'+representatives[j].id+'.jpg';
+
 
       row.appendChild(card);
+      card.appendChild(image);
       card.appendChild(cardBody);
       card.appendChild(cardFooter);
+      image.appendChild(img);
       cardBody.appendChild(bodyTitle);
       cardBody.appendChild(bodyParagraph);
       bodyTitle.appendChild(head1);
