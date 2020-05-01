@@ -1,55 +1,3 @@
-var state_dict = {
-  'Arizona': 'AZ',
-  'Alabama': 'AL',
-  'Alaska': 'AK',
-  'Arkansas': 'AR',
-  'California': 'CA',
-  'Colorado': 'CO',
-  'Connecticut': 'CT',
-  'Delaware': 'DE',
-  'Florida': 'FL',
-  'Georgia': 'GA',
-  'Hawaii': 'HI',
-  'Idaho': 'ID',
-  'Illinois': 'IL',
-  'Indiana': 'IN',
-  'Iowa': 'IA',
-  'Kansas': 'KS',
-  'Kentucky': 'KY',
-  'Louisiana': 'LA',
-  'Maine': 'ME',
-  'Maryland': 'MD',
-  'Massachusetts': 'MA',
-  'Michigan': 'MI',
-  'Minnesota': 'MN',
-  'Mississippi': 'MS',
-  'Missouri': 'MO',
-  'Montana': 'MT',
-  'Nebraska': 'NE',
-  'Nevada': 'NV',
-  'New Hampshire': 'NH',
-  'New Jersey': 'NJ',
-  'New Mexico': 'NM',
-  'New York': 'NY',
-  'North Carolina': 'NC',
-  'North Dakota': 'ND',
-  'Ohio': 'OH',
-  'Oklahoma': 'OK',
-  'Oregon': 'OR',
-  'Pennsylvania': 'PA',
-  'Rhode Island': 'RI',
-  'South Carolina': 'SC',
-  'South Dakota': 'SD',
-  'Tennessee': 'TN',
-  'Texas': 'TX',
-  'Utah': 'UT',
-  'Vermont': 'VT',
-  'Virginia': 'VA',
-  'Washington': 'WA',
-  'West Virginia': 'WV',
-  'Wisconsin': 'WI',
-  'Wyoming': 'WY'
-}
 //////////////// HTML elements and variables////////////////////////////////
 const list = document.getElementById('list')
 const pagination_element = document.getElementById('pagination');
@@ -190,8 +138,7 @@ function DisplayList (members, rows_per_page, cols_per_page, page) {
       "${bio_member.votes_with_party_pct}", "${bio_member.votes_against_party_pct}");`)
       head1.setAttribute('href', 'politiciansBio.html')
 
-      // attribute2.setAttribute('onclick',  localStorage.setItem('state', state_dict[bio_member.state]))
-      attribute2.setAttribute('onclick',  `storeState("${state_dict[bio_member.state]}")`)
+      attribute2.setAttribute('onclick',  `storeState("${bio_member.state}")`)
       attribute2.setAttribute('href', 'state_overview.html')
 
       var namesplit = members[j].member_name.split(', ');
