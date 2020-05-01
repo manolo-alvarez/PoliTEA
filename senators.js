@@ -111,6 +111,7 @@ function DisplayList (senators, rows_per_page, cols_per_page, page) {
       bodyParagraph.setAttribute('style', 'height: 74.66px; vertical-align: middle; text-align: center;');
       cardFooter.setAttribute('id', 'cardFooter');
       cardFooter.setAttribute('class', 'card-footer');
+      cardFooter.setAttribute('style', 'text-align: center;');
       head1.setAttribute('class', 'mb-0');
       head2.setAttribute('class', 'mb-0');
       attribute1.setAttribute('class', 'mb-0');

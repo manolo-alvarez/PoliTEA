@@ -21,15 +21,54 @@ var xhttp = new XMLHttpRequest();
 xhttp.open('GET', 'https://reflected-flux-270220.appspot.com/politicians/congressman', false);
 xhttp.send();
 
-const allReps = JSON.parse(xhttp.responseText);
-var representatives = allReps;
+// we write the entire object logic as private members and
+// expose an anonymous object which maps members we wish to reveal
+// to their corresponding public members
+var repsCollection = (function() {
+    // private members
+    var allReps = JSON.parse(xhttp.responseText);
+    representatives = allReps;
+
+    function replaceCollection(objects){
+      representatives = objects;
+    }
+
+    function addRep(object) {
+      representatives.push(object);
+    }
+
+    function removeRep(object) {
+      var index = objects.indexOf(object);
+      if (index >= 0) {
+          representatives.splice(index, 1);
+      }
+    }
+
+    function getReps() {
+      return JSON.parse(JSON.stringify(representatives));
+    }
+
+    function getAllReps() {
+      return JSON.parse(JSON.stringify(allReps));
+    }
+
+    // public members
+    return {
+      replaceCollection: replaceCollection,
+      addRep: addRep,
+      removeRep: removeRep,
+      getReps: getReps,
+      getAllReps: getAllReps
+    };
+})();
 
 ////////////////////////////// Sort By //////////////////////////////////////
 {
 var sort = document.getElementById("sort");
-
 sort.addEventListener("change", function() {
     var sortOption = sort.getElementsByTagName('option')[sort.selectedIndex].value;
+
+    representatives = repsCollection.getReps();
 
     if (sortOption === 'last name') representatives.sort((a,b) => (a.last_name > b.last_name) ? 1 : ((b.last_name > a.last_name) ? -1 : 0));
     if (sortOption === 'first name') representatives.sort((a,b) => (a.first_name > b.first_name) ? 1 : ((b.first_name > a.first_name) ? -1 : 0));
@@ -42,8 +81,8 @@ sort.addEventListener("change", function() {
 }
 /////////////////////////// Set-up Page /////////////////////////////////////
 {
-SetupPagination(representatives, pagination_element, rows, cols);
-DisplayList(representatives, rows, cols, current_page);
+SetupPagination(repsCollection.getReps(), pagination_element, rows, cols);
+DisplayList(repsCollection.getReps(), rows, cols, current_page);
 }
 ////////////////////////////// Search Bar ////////////////////////////////////
 {
@@ -53,7 +92,7 @@ searchBar.addEventListener('keyup', function(e){
     const select = document.getElementById('select');
     var option = select.getElementsByTagName('option')[select.selectedIndex].value;
     const phrase = e.target.value.toLowerCase();
-    representatives = allReps.filter(function(rep){
+    repsCollection.replaceCollection(repsCollection.getAllReps().filter(function(rep){
       var content = null;
 
       if (option === 'name') content = rep.first_name.toLowerCase() + rep.last_name.toLowerCase();
@@ -62,11 +101,11 @@ searchBar.addEventListener('keyup', function(e){
       if (option === 'party') content = rep.party.toLowerCase();
 
       return content.includes(phrase);
-    });
+    }));
   } else{
     e.target.value = "";
-    SetupPagination(representatives, pagination_element, rows, cols);
-    DisplayList(representatives, rows, cols, current_page);
+    SetupPagination((repsCollection.getReps()), pagination_element, rows, cols);
+    DisplayList(repsCollection.getReps(), rows, cols, current_page);
   }
 });
 }
@@ -74,6 +113,8 @@ searchBar.addEventListener('keyup', function(e){
 function DisplayList (representatives, rows_per_page, cols_per_page, page) {
 	document.getElementById('list').innerHTML = "";
 	page--;
+
+  console.log(representatives);
 
 	let start = rows_per_page * cols_per_page * page;
 	let end = start + rows_per_page * cols_per_page;
