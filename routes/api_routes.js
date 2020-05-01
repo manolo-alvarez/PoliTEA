@@ -39,7 +39,9 @@ router.get('/events/:id', postcontroller.showEvent);
 
 router.get('/bills/all', postcontroller.showAllBills);
 
-router.get('/bills/:id', postcontroller.showBillsByTopic);
+router.get('/bills/topics/:id', postcontroller.showBillsByTopic);
+
+router.get('/bills/ID/:id', postcontroller.showBillByID);
 
 router.get('/industries', postcontroller.showIndustries);
 

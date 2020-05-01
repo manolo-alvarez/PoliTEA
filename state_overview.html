@@ -56,21 +56,22 @@
               </form>
             </div>
           </nav>
-          <br><br>
+          <!-- <br><br> -->
 
     </head>
     <body>
         <div id="root" class="container">
-          
-            <div class="jumbotron p-3 p-md-5 text-white rounded bg-dark">
+            <div class="jumbotron p-3 p-md-5 text-white rounded bg-dark text-center">
               <h1 id="state_name"></h1> 
-              <!-- <p>Discover current political events in your community and get involved with the causes important to you.</p> -->
+              <p>Learn of and reach your current state representatives</p>
           </div>
-
         </div>
 
         <script>
           var state_name = localStorage.getItem("state");
+          if (state_name.length ==2){
+            state_name = state_name.toUpperCase();
+          }
           document.getElementById("state_name").innerHTML = "Overview of "+state_name;
       </script>
 
@@ -192,6 +193,7 @@
                             card.setAttribute('class', 'card mb-4')
                             // card.style.maxWidth= style='50rem';
                             h1.textContent = (offices[i]).name
+                            h1.style.textAlign = 'center';
                             container.appendChild(card)
                             card.appendChild(h1)
                             num_officials = offices[i].officialIndices.length
@@ -221,6 +223,14 @@
                                 a.href = (official.urls)[0]
                                 a.textContent = "Visit "+official.name+" Website"
                                 h5.textContent = (official.phones)[0]
+                                h2.style.textAlign = 'center';
+                                img.style.display = 'block';
+                                img.style.marginLeft = 'auto';
+                                img.style.marginRight = 'auto';
+
+                                h4.style.textAlign = 'center';
+                                h5.style.textAlign = 'center';
+                                a.style.textAlign = 'center';
                                 card.appendChild(h2)
                                 card.appendChild(img)
                                 card.appendChild(h4)
@@ -246,6 +256,8 @@
                                   };
                                   politician_link.href = "./politiciansBio.html"
                                   politician_link.textContent="View Politician Bio"
+                                  politician_link.style.textAlign = 'center';
+
                                   card.appendChild(politician_link)
                                 }
                                 card.appendChild(br)
