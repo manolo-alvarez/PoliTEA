@@ -62,6 +62,16 @@ var repsCollection = (function() {
     };
 })();
 
+
+/////////////////////////// Set-up Page /////////////////////////////////////
+{
+  let repsPage = new PoliticiansPage(repsCollection.getReps(), pagination_element, current_page, rows, cols);
+  repsPage.setupPagination();
+  repsPage.displayList();
+}
+
+
+
 ////////////////////////////// Sort By //////////////////////////////////////
 {
 var sort = document.getElementById("sort");
@@ -79,11 +89,7 @@ sort.addEventListener("change", function() {
     DisplayList(representatives, rows, cols, current_page);
 });
 }
-/////////////////////////// Set-up Page /////////////////////////////////////
-{
-SetupPagination(repsCollection.getReps(), pagination_element, rows, cols);
-DisplayList(repsCollection.getReps(), rows, cols, current_page);
-}
+
 ////////////////////////////// Search Bar ////////////////////////////////////
 {
 const searchBar = document.forms['searchBar'].querySelector('input');
