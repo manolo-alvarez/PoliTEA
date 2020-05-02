@@ -105,7 +105,7 @@ displayList(page) {
         attribute3.setAttribute('class', 'card-text mb-auto');
         bioPage.setAttribute('class', 'btn btn-primary');
         bioPage.setAttribute('id', `${this.politicians[j].id}`);
-        bioPage.setAttribute('onclick', `store("${this.politicians[j].id}", "${this.politicians[j].first_name}",
+        bioPage.setAttribute('onclick', `this.store("${this.politicians[j].id}", "${this.politicians[j].first_name}",
         "${this.politicians[j].last_name}", "${this.politicians[j].party}", "${this.politicians[j].state}",
         "${this.politicians[j].district}", "${this.politicians[j].url}", "${this.politicians[j].twitter_account}",
         "${this.politicians[j].facebook_account}", "${this.politicians[j].youtube_account}", "${this.politicians[j].seniority}",
