@@ -18,7 +18,7 @@ class PoliticiansPage {
 
      ////////////////////////////// Functions /////////////////////////////////////
 
-     paginationButton (page, representatives) {
+     paginationButton () {
         let button = document.createElement('button');
         button.innerText = page;
     
@@ -26,7 +26,7 @@ class PoliticiansPage {
     
         button.addEventListener('click', function () {
             current_page = page;
-            DisplayList(representatives, rows, cols, current_page);
+            this.displayList();
     
             let current_btn = document.querySelector('.pagenumbers button.active');
             current_btn.classList.remove('active');
@@ -37,14 +37,14 @@ class PoliticiansPage {
         return button;
     }
 
-     setupPagination (representatives, wrapper, rows_per_page, cols_per_page) {
-        .innerHTML = "";
-        let length = representatives.length;
+     setupPagination () {
+        pagination_element.innerHTML = "";
+        let length = politicians.length;
     
-        let page_count = Math.ceil(length / (rows_per_page*cols_per_page));
+        let page_count = Math.ceil(length / (rows*cols));
         for (let i = 1; i < page_count + 1; i++) {
-            let btn = PaginationButton(i, representatives);
-            wrapper.appendChild(btn);
+            let btn = PaginationButton(i, politicians);
+            pagination_element.appendChild(btn);
         }
     }
 
