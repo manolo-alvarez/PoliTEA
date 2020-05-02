@@ -105,13 +105,18 @@ displayList(page) {
         attribute2.setAttribute('class', 'card-text mb-auto');
         attribute2.setAttribute('href', 'state_overview.html');
         attribute2.setAttribute('onclick', `f1("${this.politicians[j].state}")`);
+        // attribute2.addEventListener("click", function(event) {
+        //   storeState(this.politicians[j].state);
+        // });
+        console.log('state is ' + this.politicians[j].state)
+
         attribute3.setAttribute('class', 'card-text mb-auto');
         bioPage.setAttribute('class', 'btn btn-primary');
 
         bioPage.setAttribute('id', `${this.politicians[j].id}`);
         const politicianObject = JSON.stringify(this.politicians[j]);
         bioPage.addEventListener("click", function(event) {
-          storeObject(politicianObject);
+          storePolitician(politicianObject);
         });
 
         bioPage.setAttribute('href', 'politiciansBio.html');
@@ -123,6 +128,8 @@ displayList(page) {
         head2.textContent = this.politicians[j].last_name;
         attribute1.textContent = this.politicians[j].party;
         attribute2.textContent = this.politicians[j].state;
+
+        //need to specify district for representative and class for senator
         attribute3.textContent = "District " + this.politicians[j].district;
         bioPage.textContent = "Biography";
         img.src = 'https://bioguideretro.congress.gov/Static_Files/images/photos/' + this.politicians[j].id.charAt(0) + '/' + this.politicians[j].id + '.jpg';
