@@ -72,7 +72,8 @@ exports.showAllBills = (req, res, next) => {
     })
 
     res.status(200).json(billsArray)
-  }).limit(20);
+  //}).limit(20);
+  })
 }
 
 
@@ -114,6 +115,19 @@ exports.showBillByID = (req, res, next) => {
   // bills.find({"bill_id": {$regex:"^${req.params.bill_id"}},  function (err, docs) {
     
   bills.find({bill_id: req.params.id},  function (err, docs) {
+    console.log("THIS IS ID: "+ req.params.id)
+
+      if (err || docs.length==0) {
+        return res.status(404).send('Bill not found' + req.params.id)
+      }
+    res.status(200).json(docs)
+  })
+}
+
+exports.showBillByKeyword = (req, res, next) => {
+  // bills.find({"bill_id": {$regex:"^${req.params.bill_id"}},  function (err, docs) {
+    
+  bills.find({ $text: { $search:  "test"} },  function (err, docs) {
     console.log("THIS IS ID: "+ req.params.id)
 
       if (err || docs.length==0) {

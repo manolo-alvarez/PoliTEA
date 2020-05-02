@@ -45,8 +45,8 @@
       </form>
     </div>
   </nav>
-  
-  
+
+
 <div class="position-relative overflow-hidden p-3 m-md-3 text-center bg-light">
 
   <!--Carousel Wrapper-->
@@ -78,28 +78,28 @@
                 <!-- DARK BG: https://createaclickablemap.com/map.php?&id=91206&maplocation=false&online=true -->
             <iframe src="https://createaclickablemap.com/map.php?&id=90528&maplocation=false&online=true" width="900" height="475" style="border: none;"></iframe>
             <script>
-            if (window.addEventListener){ 
-              window.addEventListener("message", function(event) { 
-                if(event.data.length >= 22) { 
+            if (window.addEventListener){
+              window.addEventListener("message", function(event) {
+                if(event.data.length >= 22) {
                   if( event.data.substr(0, 22) == "__MM-LOCATION.REDIRECT"){
                     let state = event.data.substr(22);
                     localStorage.setItem('state', state);
                     location = "./state_overview.html";
-                  } 
-                } 
-              }, false); 
-          
+                  }
+                }
+              }, false);
+
             } else if (window.attachEvent){
-              window.attachEvent("message", function(event) { 
-                if( event.data.length >= 22) { 
+              window.attachEvent("message", function(event) {
+                if( event.data.length >= 22) {
                   if( event.data.substr(0, 22) == "__MM-LOCATION.REDIRECT"){
                     let state = event.data.substr(22);
                     localStorage.setItem('state', state);
                     location = "./state_overview.html";
-                  } 
-                } 
-              }, false); 
-            } 
+                  }
+                }
+              }, false);
+            }
             </script>
             </div>
           <div class="mask rgba-black-light"></div>
@@ -133,9 +133,9 @@
               </div>
               <button class="btn btn-danger" id = "legis_btn" onclick="window.location.href='./Legislation.html'">View Legislation</button>
 
-            <h4 class="h4-responsive" id="legis-caption" >Read over recently passed bills on topics relevent to you</h4>
+            <h4 class="h4-responsive" id="legis-caption" >Read over recently passed bills on topics relevant to you</h4>
 
-          <img class="d-block w-100" src="./pics/legis.png" width="1300" height="575" 
+          <img class="d-block w-100" src="./pics/legis.png" width="1300" height="575"
             alt="Third slide">
           <div class="mask rgba-black-slight"></div>
         </div>

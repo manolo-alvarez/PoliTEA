@@ -43,6 +43,8 @@ router.get('/bills/topics/:id', postcontroller.showBillsByTopic);
 
 router.get('/bills/ID/:id', postcontroller.showBillByID);
 
+router.get('/bills/search-keyword/:keyword', postcontroller.showBillByKeyword);
+
 router.get('/industries', postcontroller.showIndustries);
 
 router.get('/industries/members/:id', postcontroller.showContributorsByInd);

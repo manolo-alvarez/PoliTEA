@@ -18,7 +18,7 @@ let cardWidth = 285;
 
 const all_members = JSON.parse(xhttp.responseText);
 var members = all_members;
-console.log(members)
+// console.log(members)
 
 ////////////////////////////// Sort By //////////////////////////////////////
 {
@@ -118,14 +118,10 @@ function DisplayList (members, rows_per_page, cols_per_page, page) {
       // var members = all_members;
       // console.log(members)
 
-      head1.setAttribute('onclick', `store("${bio_member.id}", "${bio_member.first_name}",
-      "${bio_member.last_name}", "${bio_member.party}", "${bio_member.state}",
-      "${bio_member.district}", "${bio_member.url}", "${bio_member.twitter_account}",
-      "${bio_member.facebook_account}", "${bio_member.youtube_account}", "${bio_member.seniority}",
-      "${bio_member.next_election}", "${bio_member.total_votes}", "${bio_member.missed_votes}",
-      "${bio_member.total_present}", "${bio_member.last_updated}", "${bio_member.office}",
-      "${bio_member.phone}", "${bio_member.fax}", "${bio_member.missed_votes_pct}",
-      "${bio_member.votes_with_party_pct}", "${bio_member.votes_against_party_pct}");`)
+      const politicianObject = JSON.stringify(bio_member);
+      head1.addEventListener("click", function(event) {
+        storePolitician(politicianObject);
+      });
       head1.setAttribute('href', 'politiciansBio.html')
 
       attribute2.setAttribute('onclick',  `storeState("${bio_member.state}")`)
@@ -191,33 +187,4 @@ function storeState(state){
 
   // localStorage.setItem('cid', cid);
   localStorage.setItem('state', state);
-};
-
-function store(id, firstName, lastName, party, state, district, website,
-  twitterHandle, facebookHandle, youtubeHandle, seniority, nextElection,
-  totalVotes, missedVotes,totalPresent, lastUpdated, office, phone, fax,
-  missedVotesPct, votesWithPartyPct, votesAgainstPartyPct){
-
-  localStorage.setItem('politician_id', id);
-  localStorage.setItem('politician_firstName', firstName);
-  localStorage.setItem('politician_lastName', lastName);
-  localStorage.setItem('politician_party', party);
-  localStorage.setItem('politician_state', state);
-  localStorage.setItem('politician_district', district);
-  localStorage.setItem('politician_website', website);
-  localStorage.setItem('politician_twitterHandle', twitterHandle);
-  localStorage.setItem('politician_facebookHandle', facebookHandle);
-  localStorage.setItem('politician_youtubeHandle', youtubeHandle);
-  localStorage.setItem('politician_seniority', seniority);
-  localStorage.setItem('politician_nextElection', nextElection);
-  localStorage.setItem('politician_totalVotes', totalVotes);
-  localStorage.setItem('politician_missedVotes', missedVotes);
-  localStorage.setItem('politician_totalPresent', totalPresent);
-  localStorage.setItem('politician_lastUpdated', lastUpdated);
-  localStorage.setItem('politician_office', office);
-  localStorage.setItem('politician_phone', phone);
-  localStorage.setItem('politician_fax', fax);
-  localStorage.setItem('politician_missedVotesPct', missedVotesPct);
-  localStorage.setItem('politician_votesWithPartyPct', votesWithPartyPct);
-  localStorage.setItem('politician_votesAgainstPartyPct', votesAgainstPartyPct);
 };
