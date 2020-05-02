@@ -61,16 +61,16 @@ displayList(page) {
     document.getElementById('list').innerHTML = "";
     page--;
     console.log(this.politicians);
-    let start = this.rows * this.cols * this.page;
+    let start = this.rows * this.cols * page;
     let end = start + this.rows * this.cols;
     for (let i = start; i < this.politicians.length && i < end; i += 4) {
       const row = document.createElement('div');
       var rowWidth = 4 * this.cardWidth;
-      if (politicians.length - i < 4)
+      if (this.politicians.length - i < 4)
         rowWidth = this.cardWidth * (this.politicians.length - i);
       row.setAttribute('class', 'row');
       row.setAttribute('style', `margin-top:50px; width:${rowWidth}px`);
-      for (let j = i; j < politicians.length && j < end && j < (i + 4); j++) {
+      for (let j = i; j < this.politicians.length && j < end && j < (i + 4); j++) {
         const card = document.createElement('div');
         const image = document.createElement('div');
         const cardBody = document.createElement('div');
@@ -101,30 +101,30 @@ displayList(page) {
         attribute1.setAttribute('class', 'mb-0');
         attribute2.setAttribute('class', 'card-text mb-auto');
         attribute2.setAttribute('href', 'state_overview.html');
-        attribute2.setAttribute('onclick', `f1("${politicians[j].state}")`);
+        attribute2.setAttribute('onclick', `f1("${this.politicians[j].state}")`);
         attribute3.setAttribute('class', 'card-text mb-auto');
         bioPage.setAttribute('class', 'btn btn-primary');
-        bioPage.setAttribute('id', `${politicians[j].id}`);
-        bioPage.setAttribute('onclick', `store("${politicians[j].id}", "${politicians[j].first_name}",
-        "${politicians[j].last_name}", "${politicians[j].party}", "${politicians[j].state}",
-        "${politicians[j].district}", "${politicians[j].url}", "${politicians[j].twitter_account}",
-        "${politicians[j].facebook_account}", "${politicians[j].youtube_account}", "${politicians[j].seniority}",
-        "${politicians[j].next_election}", "${politicians[j].total_votes}", "${politicians[j].missed_votes}",
-        "${politicians[j].total_present}", "${politicians[j].last_updated}", "${politicians[j].office}",
-        "${politicians[j].phone}", "${politicians[j].fax}", "${politicians[j].missed_votes_pct}",
-        "${politicians[j].votes_with_party_pct}", "${politicians[j].votes_against_party_pct}");`);
+        bioPage.setAttribute('id', `${this.politicians[j].id}`);
+        bioPage.setAttribute('onclick', `store("${this.politicians[j].id}", "${this.politicians[j].first_name}",
+        "${this.politicians[j].last_name}", "${this.politicians[j].party}", "${this.politicians[j].state}",
+        "${this.politicians[j].district}", "${this.politicians[j].url}", "${this.politicians[j].twitter_account}",
+        "${this.politicians[j].facebook_account}", "${this.politicians[j].youtube_account}", "${this.politicians[j].seniority}",
+        "${this.politicians[j].next_election}", "${this.politicians[j].total_votes}", "${this.politicians[j].missed_votes}",
+        "${this.politicians[j].total_present}", "${this.politicians[j].last_updated}", "${this.politicians[j].office}",
+        "${this.politicians[j].phone}", "${this.politicians[j].fax}", "${this.politicians[j].missed_votes_pct}",
+        "${this.politicians[j].votes_with_party_pct}", "${this.politicians[j].votes_against_party_pct}");`);
         bioPage.setAttribute('href', 'politiciansBio.html');
         bioPage.setAttribute('style', 'vertical-align: middle; ');
         img.setAttribute("class", "w3-image");
         img.setAttribute('alt', 'Avatar');
         img.setAttribute('style', 'display: block; width: 175px; height: 225px; margin-left: auto; margin-right: auto; margin-top: 5px; border-radius: 50%;');
-        head1.textContent = politicians[j].first_name;
-        head2.textContent = politicians[j].last_name;
-        attribute1.textContent = politicians[j].party;
-        attribute2.textContent = politicians[j].state;
-        attribute3.textContent = "District " + politicians[j].district;
+        head1.textContent = this.politicians[j].first_name;
+        head2.textContent = this.politicians[j].last_name;
+        attribute1.textContent = this.politicians[j].party;
+        attribute2.textContent = this.politicians[j].state;
+        attribute3.textContent = "District " + this.politicians[j].district;
         bioPage.textContent = "Biography";
-        img.src = 'https://bioguideretro.congress.gov/Static_Files/images/photos/' + politicians[j].id.charAt(0) + '/' + politicians[j].id + '.jpg';
+        img.src = 'https://bioguideretro.congress.gov/Static_Files/images/photos/' + this.politicians[j].id.charAt(0) + '/' + this.politicians[j].id + '.jpg';
         row.appendChild(card);
         card.appendChild(image);
         card.appendChild(cardBody);
