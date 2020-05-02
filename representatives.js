@@ -4,6 +4,7 @@
  * @summary: Javascript file that runs the representatives page
  */
 
+
 // Clear Storage
 localStorage.clear();
 
