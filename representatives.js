@@ -162,15 +162,16 @@ function DisplayList (representatives, rows_per_page, cols_per_page, page) {
       attribute3.setAttribute('class', 'card-text mb-auto');
       bioPage.setAttribute('class', 'btn btn-primary');
       bioPage.setAttribute('id', `${representatives[j].id}`);
-      bioPage.setAttribute('onclick', `store("${representatives[j].id}", "${representatives[j].first_name}",
-      "${representatives[j].last_name}", "${representatives[j].party}", "${representatives[j].state}",
-      "${representatives[j].district}", "${representatives[j].url}", "${representatives[j].twitter_account}",
-      "${representatives[j].facebook_account}", "${representatives[j].youtube_account}", "${representatives[j].seniority}",
-      "${representatives[j].next_election}", "${representatives[j].total_votes}", "${representatives[j].missed_votes}",
-      "${representatives[j].total_present}", "${representatives[j].last_updated}", "${representatives[j].office}",
-      "${representatives[j].phone}", "${representatives[j].fax}", "${representatives[j].missed_votes_pct}",
-      "${representatives[j].votes_with_party_pct}", "${representatives[j].votes_against_party_pct}");`);
+
+      //refactored part
+      const politicianObject = JSON.stringify(representatives[j]);
+      bioPage.setAttribute('onclick', `storeObject("${politicianObject}")`);
+      bioPage.addEventListener("click", function(event) {
+        storeObject(politicianObject);
+      });
       bioPage.setAttribute('href', 'politiciansBio.html');
+      //
+      
       bioPage.setAttribute('style', 'vertical-align: middle; ');
       img.setAttribute("class","w3-image");
       img.setAttribute('alt', 'Avatar')
@@ -262,6 +263,16 @@ function store(id, firstName, lastName, party, state, district, website,
   localStorage.setItem('politician_votesWithPartyPct', votesWithPartyPct);
   localStorage.setItem('politician_votesAgainstPartyPct', votesAgainstPartyPct);
 };
+
+function storeObject(politicianObject) {
+  politicianObject = JSON.parse(politicianObject)
+  for(var key in politicianObject){
+    if (politicianObject.hasOwnProperty(key)) {
+        localStorage.setItem(key, politicianObject[key]);
+    }
+  }
+}
+
 
 function f1(state){
   localStorage.setItem('state', state);
