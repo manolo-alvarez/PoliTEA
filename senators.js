@@ -16,11 +16,7 @@ localStorage.clear();
 
 //////////////////// Get senators from DB ///////////////////////////////////
 
-var xhttp = new XMLHttpRequest();
-xhttp.open('GET', 'https://reflected-flux-270220.appspot.com/politicians/senators', false);
-//xhttp.open('GET', 'http://localhost:3000/politicians/senators', false);
-xhttp.send();
-
+var xhttp = getAllSen(null);
 const allSenators = JSON.parse(xhttp.responseText);
 var senators = allSenators;
 

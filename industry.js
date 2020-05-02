@@ -3,20 +3,9 @@
  * @summary: Javascript file that pulls industry donor informtion from api
  */
 
-// Create a request variable and assign a new XMLHttpRequest object to it.
-var request = new XMLHttpRequest()
-
+// Create a request variable and assign a new  XMLHttpRequest object to it.
 var id = localStorage.getItem('politician_id');
-console.log('id is ' + id)
-
-// const url = `http://localhost:3000/politician/${id}`
-const url = `https://reflected-flux-270220.appspot.com/politicians/${id}`
-
-// Open a new connection, using the GET request on the URL endpoint
-request.open('GET', url, true)
-
-// Send request
-request.send()
+var request = getPolByIDAsync(id);
 
 request.onreadystatechange = function() {
   if (this.readyState == 4 && this.status == 200) {

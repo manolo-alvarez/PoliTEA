@@ -27,9 +27,12 @@ if(localStorage.getItem('from_poliBio') != null)
 
 
 if(localStorage.getItem('from_poliBio') == 'yep') {
+
   var xhttp = getBillByID(bill_id);
-        
-        const foundBill = JSON.parse(xhttp.responseText);
+  if (xhttp.status == '200'){
+        const foundBill = JSON.parse(xhttp.responseText)[0];
+        console.log(foundBill)
+
 /*         bills = billsParse;
 
        bills = billsParse.filter(function(bill){
@@ -39,6 +42,7 @@ if(localStorage.getItem('from_poliBio') == 'yep') {
   
         return content.includes(bill_id);
       }); */
+
           localStorage.setItem('bill_number', foundBill.number);
           localStorage.setItem('bill_title', foundBill.title);
           localStorage.setItem('bill_date', foundBill.date);
@@ -50,7 +54,17 @@ if(localStorage.getItem('from_poliBio') == 'yep') {
           localStorage.setItem('bill_subject', foundBill.primary_subject);
           localStorage.setItem('bill_summary', foundBill.summary);
           localStorage.setItem('bill_website', foundBill.congressdotgov_url);
-              
+    } else {
+          localStorage.removeItem("bill_date");
+          localStorage.removeItem("bill_sTitle");
+          localStorage.removeItem("bill_sID");
+          localStorage.removeItem("bill_sName");
+          localStorage.removeItem("bill_sState");
+          localStorage.removeItem("bill_sParty");
+          localStorage.removeItem("bill_website");
+          localStorage.removeItem("bill_subject");
+          localStorage.removeItem("bill_summary");
+    }
 }
 
 
@@ -124,15 +138,11 @@ console.log("Bill ID: " + bill_id);
   
       function f1(sponsor_id){
         //var url = 'https://localhost:3000/politicians/' + sponsor_id;
+        // var url = 'https://reflected-flux-270220.appspot.com/politicians/' + sponsor_id;
         //localStorage.clear();
-  
-  
-        var url = 'https://reflected-flux-270220.appspot.com/politicians/' + sponsor_id;
         
-        var xhttp = new XMLHttpRequest();
-        xhttp.open('GET', url, false);
-        xhttp.send();
-        
+        var xhttp = getPolByID(sponsor_id)
+            
         const politician = JSON.parse(xhttp.responseText);
   
   

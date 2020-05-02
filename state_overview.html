@@ -211,12 +211,13 @@
                                 var a = document.createElement('a')
                                 var br = document.createElement('br')
                                 var img = document.createElement('img')
-                                var xhr = new XMLHttpRequest();
-                                xhr.open('GET', 'https://reflected-flux-270220.appspot.com/politicians/get_id/'+official.name+"/"+state, false);
-                                xhr.send();
+                                var obj = [official.name, state];
+                                var xhr = getPolID(obj);
                                 let id= xhr.responseText
                                 console.log(id)
                                 if(id!='Politician not found'){
+                                  console.log(id)
+
                                   img.src= 'https://bioguideretro.congress.gov/Static_Files/images/photos/'+id.charAt(0)+'/'+id+'.jpg'
                                   img.setAttribute("class","w3-image")
                                   console.log(img.src);

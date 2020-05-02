@@ -123,9 +123,8 @@
                                     a.textContent = "Visit "+official.name+" Website"
                                 }
                                 h5.textContent = (official.phones)[0]
-                                var xhr = new XMLHttpRequest();
-                                xhr.open('GET', 'http://localhost:3000/politicians/get_id/'+official.name+"/"+state, false);
-                                xhr.send();
+                                var obj = [official.name, state];
+                                var xhr = getPolByNameState(obj);
                                 let id= xhr.responseText
                                 console.log(id)
                                 if(id!='Politician not found'){
@@ -140,13 +139,9 @@
                                 if((response.result.offices[offices[i]]).name=="U.S. Representative"){
                                   var politician_link=document.createElement('a')
                                   politician_link.onclick = function(event) { 
-                                    var xhttp = new XMLHttpRequest();
                                     let name = event.target.previousSibling.textContent.replace("Visit ",'').replace(" Website",'');
                                     let state = localStorage.getItem('state');
-                                    console.log(name);
-                                    console.log(state);
-                                    xhttp.open('GET', 'http://localhost:3000/politicians/'+name+"/"+state, false);
-                                    xhttp.send();
+                                    var xhttp = getPolByNameState([name, state]);
                                     let d = JSON.parse(xhttp.responseText)[0];
                                     console.log(d)
                                     store(d.id, d.first_name, d.last_name, d.party, d.state, d.district, d.url,

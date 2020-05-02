@@ -16,10 +16,8 @@ let cols = 4;
 let cardWidth = 285;
 
  //////////////////// Get Representatives from DB ///////////////////////////
+ var xhttp = getAllRep(null);
 
-var xhttp = new XMLHttpRequest();
-xhttp.open('GET', 'https://reflected-flux-270220.appspot.com/politicians/congressman', false);
-xhttp.send();
 
 // we write the entire object logic as private members and
 // expose an anonymous object which maps members we wish to reveal

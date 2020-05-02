@@ -151,11 +151,7 @@ about.appendChild(financesPage);
 
 // Get voting History //
 {
-const url = 'https://reflected-flux-270220.appspot.com/votes/' + id;
-//const url = 'https://localhost:3000/votes/' + id;
-var request = new XMLHttpRequest()
-request.open('GET', url, false)
-request.send()
+  var request = getVotes(id);
 
 // Parse JSON and create JSON Object
 const politician = JSON.parse(request.responseText);

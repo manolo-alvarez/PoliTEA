@@ -14,14 +14,7 @@ let cardWidth = 285;
  console.log("industry_code: " + industry_code);
  console.log("industry: " + industry);
  document.getElementById("header").innerHTML = "Politicians Who Fundraised for " + industry + " Industry <br>";
-
- // const url = `http://localhost:3000/industries/members/${industry_code}`
- const url = `https://reflected-flux-270220.appspot.com/industries/members/${industry_code}`
-
-var xhttp = new XMLHttpRequest();
-xhttp.open('GET', url, false);
-
-xhttp.send();
+ var xhttp = GetContributors(industry_code);
 
 const all_members = JSON.parse(xhttp.responseText);
 var members = all_members;
@@ -118,11 +111,8 @@ function DisplayList (members, rows_per_page, cols_per_page, page) {
       attribute1.setAttribute('class', 'mb-0');
       attribute2.setAttribute('class', 'card-text mb-auto');
 
-      var request = new XMLHttpRequest()
-      let url = `https://reflected-flux-270220.appspot.com/cid/${members[j].cid}`
-      // let url = `http://localhost:3000/cid/${members[j].cid}`
-      request.open('GET', url, false);
-      request.send();
+      var request = getCID(members[j].cid);
+      
       var bio_member = JSON.parse(request.responseText);
       bio_member = bio_member[0]
       // var members = all_members;
