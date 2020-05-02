@@ -1,11 +1,25 @@
 
-const loadEvents = (url_path) => {
-  const xhttp = new XMLHttpRequest();
-  xhttp.open("GET", url_path, false);
-  xhttp.send();
-  show_events(xhttp);
-}
+function loadEvents(){
+	const range = localStorage.getItem("searchRange");
 
+	if ((localStorage.getItem("zip") == "") || localStorage.getItem("city") == "" || localStorage.getItem("state") == ""){
+	  window.alert("You must enter a complete address!");
+	  window.location.href = "./address.html";
+	}
+	
+	if (range=="zip"){
+		xhttp = getEventByZip(localStorage.getItem('zip'))
+	}
+	else if (range=="city"){
+		xhttp = getEventByCity(localStorage.getItem('city'))
+	}
+	else if (range=="state"){
+		xhttp = getEventByState(localStorage.getItem('state'))
+	}
+
+	show_events(xhttp)
+
+}
 
 function show_events (xhttp){
   let status = xhttp.status;
@@ -20,9 +34,9 @@ function show_events (xhttp){
     document.getElementById('display_msg').innerHTML = x;
   } 
   else if (status == "303"){
-      //redirecting bc could not find any state matchings, check state matchings with state abbreviation
-      let url_path = "https://reflected-flux-270220.appspot.com/events/stateAbbr/" + localStorage.getItem("state"); 
-      loadEvents(url_path);
+	//redirecting bc could not find any state matchings, check state matchings with state abbreviation
+	  xhttp = getEventByStateAbbr(localStorage.getItem('state'))
+	  show_events(xhttp);
 	}
 
   else {
@@ -227,24 +241,4 @@ let current_page = 1;
 let rows = 9;
 
 
-const range = localStorage.getItem("searchRange");
-
-let url_path = "https://reflected-flux-270220.appspot.com/";
-
-if ((localStorage.getItem("zip") == "") || localStorage.getItem("city") == "" || localStorage.getItem("state") == ""){
-  window.alert("You must enter a complete address!");
-  window.location.href = "./address.html";
-}
-
-if (range=="zip"){
-  url_path = url_path + "events/zip/" + localStorage.getItem("zip"); 
-}
-else if (range=="city"){
-  url_path = url_path + "events/city/" + localStorage.getItem("city"); 
-}
-else if (range=="state"){
-  url_path = url_path + "events/state/" + localStorage.getItem("state"); 
-}
-
-
-loadEvents(url_path);
+loadEvents();

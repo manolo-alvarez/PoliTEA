@@ -1,9 +1,7 @@
 
-const loadEvents = (url_path) => {
-    const xhttp = new XMLHttpRequest();
-    xhttp.open("GET", url_path, false);
-    xhttp.send();
-    show_events(xhttp);
+const loadEvents = () => {
+   let xhttp = getEventByID(localStorage.getItem('event_id'))
+   show_events(xhttp);
   }
   
   
@@ -95,15 +93,6 @@ const loadEvents = (url_path) => {
     // } 
   }
   
-  
-  
-//   const id = localStorage.getItem("event_id");
 
-  let url_path = "https://reflected-flux-270220.appspot.com/";
-// let url_path = "http://127.0.0.1:3000/";
-
-  url_path = url_path + "events/" + localStorage.getItem("event_id");
-  
-  
-  loadEvents(url_path);
+  loadEvents();
   
