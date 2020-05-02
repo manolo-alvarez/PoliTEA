@@ -21,10 +21,7 @@ localStorage.clear();
 
  //////////////////// Get bills from DB ///////////////////////////////////
 
-var xhttp = new XMLHttpRequest();
-xhttp.open('GET', 'https://reflected-flux-270220.appspot.com/bills/all', false);
-//xhttp.open('GET', 'http://localhost:3000/bills/all', false);
-xhttp.send();
+var xhttp = getAllBills();
 
 const allBills = JSON.parse(xhttp.responseText);
 var bills = allBills;

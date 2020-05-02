@@ -17,7 +17,7 @@ var GetAllBills = /** @class */ (function (_super) {
         return _super !== null && _super.apply(this, arguments) || this;
     }
     GetAllBills.prototype.execute = function (tmp) {
-        var url_path = this.serverURL + "bills/all";
+        var url_path = this.serverURL + "/bills/all";
         return _super.prototype.doXHttp.call(this, url_path);
     };
     return GetAllBills;
@@ -28,7 +28,7 @@ var GetBillsByTopic = /** @class */ (function (_super) {
         return _super !== null && _super.apply(this, arguments) || this;
     }
     GetBillsByTopic.prototype.execute = function (id) {
-        var url_path = this.serverURL + "bills/topics/" + id;
+        var url_path = this.serverURL + "/bills/topics/" + id;
         return _super.prototype.doXHttp.call(this, url_path);
     };
     return GetBillsByTopic;
@@ -39,7 +39,7 @@ var GetBillByID = /** @class */ (function (_super) {
         return _super !== null && _super.apply(this, arguments) || this;
     }
     GetBillByID.prototype.execute = function (id) {
-        var url_path = this.serverURL + "bills/ID/" + id;
+        var url_path = this.serverURL + "/bills/ID/" + id;
         return _super.prototype.doXHttp.call(this, url_path);
     };
     return GetBillByID;

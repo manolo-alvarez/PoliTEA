@@ -57,6 +57,10 @@
             </div>
           </nav>
           <!-- <br><br> -->
+          
+        <script src="./command_pattern/Command.js"></script>
+        <script src="./command_pattern/politicianCommands.js"></script>
+        <script src="./command_pattern/invoker.js"></script>
 
     </head>
     <body>
@@ -239,13 +243,10 @@
                                 if(offices[i].name=="U.S. Senator"){
                                   var politician_link=document.createElement('a')
                                   politician_link.onclick = function(event) { 
-                                    var xhttp = new XMLHttpRequest();
                                     let name = event.target.previousSibling.textContent.replace("Visit ",'').replace(" Website",'');
                                     let state = localStorage.getItem('state');
-                                    console.log(name);
-                                    console.log(state);
-                                    xhttp.open('GET', 'https://reflected-flux-270220.appspot.com/politicians/'+name+"/"+state, false);
-                                    xhttp.send();
+                                    var obj = [name, state];
+                                    var xhttp = getPolByNameState(obj);
                                     let d = JSON.parse(xhttp.responseText)[0];
                                     console.log(d)
                                     store(d.id, d.first_name, d.last_name, d.party, d.state, d.district, d.url,
@@ -305,6 +306,7 @@
             gapi.load("client");
             window.onload = loadClient;
         </script>
+
 
         <!-- <button onclick="loadClient()">load</button> -->
         <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>

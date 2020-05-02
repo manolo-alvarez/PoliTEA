@@ -1,7 +1,7 @@
 var Command = /** @class */ (function () {
-    // protected serverURL = "http://localhost:3000/";
+    // protected serverURL = "http://localhost:3000";
     function Command() {
-        this.serverURL = "https://reflected-flux-270220.appspot.com/";
+        this.serverURL = "https://reflected-flux-270220.appspot.com";
     }
     Command.prototype.doXHttp = function (url_path) {
         var xhttp = new XMLHttpRequest();

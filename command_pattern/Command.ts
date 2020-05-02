@@ -1,6 +1,6 @@
 abstract class Command {
-    // protected serverURL = "https://reflected-flux-270220.appspot.com/";
-    protected serverURL = "http://localhost:3000/";
+    protected serverURL = "https://reflected-flux-270220.appspot.com";
+    // protected serverURL = "http://localhost:3000";
 
     public constructor () {}
 

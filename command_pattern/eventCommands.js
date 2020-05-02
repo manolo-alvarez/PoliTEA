@@ -17,7 +17,7 @@ var GetEventIDCommand = /** @class */ (function (_super) {
         return _super !== null && _super.apply(this, arguments) || this;
     }
     GetEventIDCommand.prototype.execute = function (id) {
-        var url_path = this.serverURL + "events/" + id;
+        var url_path = this.serverURL + "/events/" + id;
         return _super.prototype.doXHttp.call(this, url_path);
     };
     return GetEventIDCommand;
@@ -28,7 +28,7 @@ var GetEventZipCommand = /** @class */ (function (_super) {
         return _super !== null && _super.apply(this, arguments) || this;
     }
     GetEventZipCommand.prototype.execute = function (zip) {
-        var url_path = this.serverURL + "events/zip/" + zip;
+        var url_path = this.serverURL + "/events/zip/" + zip;
         return _super.prototype.doXHttp.call(this, url_path);
     };
     return GetEventZipCommand;
@@ -40,7 +40,7 @@ var GetEventCityCommand = /** @class */ (function (_super) {
     }
     GetEventCityCommand.prototype.execute = function (city) {
         city = _super.prototype.titleCase.call(this, city);
-        var url_path = this.serverURL + "events/city/" + city;
+        var url_path = this.serverURL + "/events/city/" + city;
         return _super.prototype.doXHttp.call(this, url_path);
     };
     return GetEventCityCommand;
@@ -52,7 +52,7 @@ var GetEventStateCommand = /** @class */ (function (_super) {
     }
     GetEventStateCommand.prototype.execute = function (state) {
         state = _super.prototype.titleCase.call(this, state);
-        var url_path = this.serverURL + "events/state/" + state;
+        var url_path = this.serverURL + "/events/state/" + state;
         return _super.prototype.doXHttp.call(this, url_path);
     };
     return GetEventStateCommand;
@@ -64,7 +64,7 @@ var GetEventStateAbbrCommand = /** @class */ (function (_super) {
     }
     GetEventStateAbbrCommand.prototype.execute = function (abbr) {
         abbr = abbr.toUpperCase();
-        var url_path = this.serverURL + "events/stateAbbr/" + abbr;
+        var url_path = this.serverURL + "/events/stateAbbr/" + abbr;
         return _super.prototype.doXHttp.call(this, url_path);
     };
     return GetEventStateAbbrCommand;

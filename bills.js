@@ -27,13 +27,7 @@ if(localStorage.getItem('from_poliBio') != null)
 
 
 if(localStorage.getItem('from_poliBio') == 'yep') {
-  var url = 'https://reflected-flux-270220.appspot.com/bills/ID/' + bill_id;
-     //var url = 'http://localhost:3000/bills/ID/' + bill_id;
-      //var url = 'http://localhost:3000/bills/all';
-
-        var xhttp = new XMLHttpRequest();
-        xhttp.open('GET', url, false);
-        xhttp.send();
+  var xhttp = getBillByID(bill_id);
         
         const foundBill = JSON.parse(xhttp.responseText);
 /*         bills = billsParse;
