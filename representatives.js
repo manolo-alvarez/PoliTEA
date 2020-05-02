@@ -7,6 +7,9 @@
 // Clear Storage
 localStorage.clear();
 
+import { PoliticiansPage } from './PoliticiansPage.js'
+
+
 //////////////// HTML elements and variables////////////////////////////////
 const list = document.getElementById('list')
 const pagination_element = document.getElementById('pagination');
@@ -27,7 +30,7 @@ xhttp.send();
 var repsCollection = (function() {
     // private members
     var allReps = JSON.parse(xhttp.responseText);
-    representatives = allReps;
+    var representatives = allReps;
 
     function replaceCollection(objects){
       representatives = objects;
@@ -64,11 +67,11 @@ var repsCollection = (function() {
 
 
 /////////////////////////// Set-up Page /////////////////////////////////////
-{
-  let repsPage = new PoliticiansPage(repsCollection.getReps(), pagination_element, current_page, rows, cols);
+//{
+  let repsPage = new PoliticiansPage(repsCollection.getReps(), pagination_element, current_page, rows, cols, cardWidth);
   repsPage.setupPagination();
-  repsPage.displayList();
-}
+  repsPage.displayList(current_page);
+//}
 
 
 
@@ -85,8 +88,9 @@ sort.addEventListener("change", function() {
     if (sortOption === 'state') representatives.sort((a,b) => (a.state > b.state) ? 1 : ((b.state > a.state) ? -1 : 0));
     if (sortOption === 'district') representatives.sort((a,b) => (a.district > b.district) ? 1 : ((b.district > a.district) ? -1 : 0));
 
-    SetupPagination(representatives, pagination_element, rows, cols);
-    DisplayList(representatives, rows, cols, current_page);
+    repsPage.updateFields(representatives, current_page, rows, cols);
+    repsPage.setupPagination(representatives, pagination_element, rows, cols);
+    repsPage.displayList(representatives, rows, cols, current_page);
 });
 }
 

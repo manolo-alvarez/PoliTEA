@@ -1,15 +1,22 @@
-class PoliticiansPage {
+export class PoliticiansPage {
 
+  #politicians
+  #pagination_element
+  #current_page
+  #rows
+  #cols
+#cardWidth
 
-    constructor(politicians, pagination_element, current_page, rows, cols) {
-        this.politicians-politicians;
+    constructor(politicians, pagination_element, current_page, rows, cols, cardWidth) {
+        this.politicians = politicians;
         this.pagination_element = pagination_element;
         this.current_page = current_page;
         this.rows = rows;
         this.cols = cols;
+        this.cardWidth = cardWidth;
     }
 
-
+  /* constructor() {} */
 
 
 
@@ -18,15 +25,15 @@ class PoliticiansPage {
 
      ////////////////////////////// Functions /////////////////////////////////////
 
-     paginationButton () {
+     paginationButton (page) {
         let button = document.createElement('button');
         button.innerText = page;
     
-        if (current_page == page) button.classList.add('active');
+        if (this.current_page == page) button.classList.add('active');
     
         button.addEventListener('click', function () {
-            current_page = page;
-            this.displayList();
+            this.current_page = page;
+            this.displayList(page);
     
             let current_btn = document.querySelector('.pagenumbers button.active');
             current_btn.classList.remove('active');
@@ -38,29 +45,29 @@ class PoliticiansPage {
     }
 
      setupPagination () {
-        pagination_element.innerHTML = "";
-        let length = politicians.length;
+        this.pagination_element.innerHTML = "";
+        let length = this.politicians.length;
     
-        let page_count = Math.ceil(length / (rows*cols));
+        let page_count = Math.ceil(length / (this.rows*this.cols));
         for (let i = 1; i < page_count + 1; i++) {
-            let btn = PaginationButton(i, politicians);
-            pagination_element.appendChild(btn);
+            let btn = this.paginationButton(i);
+            this.pagination_element.appendChild(btn);
         }
     }
 
 
     
-displayList(politicians, rows_per_page, cols_per_page, page) {
+displayList(page) {
     document.getElementById('list').innerHTML = "";
     page--;
-    console.log(politicians);
-    let start = rows_per_page * cols_per_page * page;
-    let end = start + rows_per_page * cols_per_page;
-    for (let i = start; i < politicians.length && i < end; i += 4) {
+    console.log(this.politicians);
+    let start = this.rows * this.cols * this.page;
+    let end = start + this.rows * this.cols;
+    for (let i = start; i < this.politicians.length && i < end; i += 4) {
       const row = document.createElement('div');
-      var rowWidth = 4 * cardWidth;
+      var rowWidth = 4 * this.cardWidth;
       if (politicians.length - i < 4)
-        rowWidth = cardWidth * (politicians.length - i);
+        rowWidth = this.cardWidth * (this.politicians.length - i);
       row.setAttribute('class', 'row');
       row.setAttribute('style', `margin-top:50px; width:${rowWidth}px`);
       for (let j = i; j < politicians.length && j < end && j < (i + 4); j++) {
