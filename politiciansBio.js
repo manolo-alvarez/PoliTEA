@@ -9,28 +9,80 @@ const headDiv = document.getElementById('header');
 const cardsDiv = document.getElementById('cards');
 
 // get local storage items //
-const id = localStorage.getItem('politician_id');
-const firstName = localStorage.getItem('politician_firstName');
-const lastName = localStorage.getItem('politician_lastName');
-const repParty = localStorage.getItem('politician_party');
-const repState = localStorage.getItem('politician_state');
-const repDistrict = localStorage.getItem('politician_district');
-const website = localStorage.getItem('politician_website');
-const twitterHandle = localStorage.getItem('politician_twitterHandle');
-const facebookHandle = localStorage.getItem('politician_facebookHandle');
-const youtubeHandle = localStorage.getItem('politician_youtubeHandle');
-const seniority = localStorage.getItem('politician_seniority');
-const nextElection = localStorage.getItem('politician_nextElection');
-const totalVotes = localStorage.getItem('politician_totalVotes');
-const missedVotes = localStorage.getItem('politician_missedVotes');
-const totalPresent = localStorage.getItem('politician_totalPresent');
-const lastUpdated = localStorage.getItem('politician_lastUpdated');
-const office = localStorage.getItem('politician_office');
-const phone = localStorage.getItem('politician_phone');
-const fax = localStorage.getItem('politician_fax');
-const missedVotesPct = localStorage.getItem('politician_missedVotesPct');
-const votesWithPartyPct = localStorage.getItem('politician_votesWithPartyPct');
-const votesAgainstPartyPct = localStorage.getItem('politician_votesAgainstPartyPct');
+// const politicianObject = localStorage.getItem('politician');
+// var politician = JSON.parse(politicianObject)
+// console.log('politician is ' + politician)
+// politician = politician[0]
+// console.log('politician is ' + politician)
+
+// const id = politician.id;
+// const firstName = politician.first_name;
+// const lastName = politician.last_name;
+// const repParty = politician.party;
+// const repState = politician.state;
+// const repDistrict = politician.district;
+// const website = politician.url;
+// const twitterHandle = politician.twitter_account;
+// const facebookHandle = politician.facebook_account;
+// const youtubeHandle = politician.youtube_account;
+// const seniority = politician.seniority;
+// const nextElection = politician.next_election;
+// const totalVotes = politician.total_votes;
+// const missedVotes = politician.missed_votes;
+// const totalPresent = politician.total_present;
+// const lastUpdated = politician.last_updated;
+// const office = politician.office;
+// const phone = politician.phone;
+// const fax = politician.fax;
+// const missedVotesPct = politician.missed_votes_pct;
+// const votesWithPartyPct = politician.votes_with_party_pct;
+// const votesAgainstPartyPct = politician.votes_against_party_pct;
+
+const id = localStorage.getItem('id');
+const firstName = localStorage.getItem('first_name');
+const lastName = localStorage.getItem('last_name');
+const repParty = localStorage.getItem('party');
+const repState = localStorage.getItem('state');
+const repDistrict = localStorage.getItem('district');
+const website = localStorage.getItem('url');
+const twitterHandle = localStorage.getItem('twitter_account');
+const facebookHandle = localStorage.getItem('facebook_account');
+const youtubeHandle = localStorage.getItem('youtube_account');
+const seniority = localStorage.getItem('seniority');
+const nextElection = localStorage.getItem('next_election');
+const totalVotes = localStorage.getItem('total_votes');
+const missedVotes = localStorage.getItem('missed_votes');
+const totalPresent = localStorage.getItem('total_present');
+const lastUpdated = localStorage.getItem('last_updated');
+const office = localStorage.getItem('office');
+const phone = localStorage.getItem('phone');
+const fax = localStorage.getItem('fax');
+const missedVotesPct = localStorage.getItem('missed_votes_pct');
+const votesWithPartyPct = localStorage.getItem('votes_with_party_pct');
+const votesAgainstPartyPct = localStorage.getItem('votes_against_party_pct');
+
+// const id = localStorage.getItem('politician_id');
+// const firstName = localStorage.getItem('politician_firstName');
+// const lastName = localStorage.getItem('politician_lastName');
+// const repParty = localStorage.getItem('politician_party');
+// const repState = localStorage.getItem('politician_state');
+// const repDistrict = localStorage.getItem('politician_district');
+// const website = localStorage.getItem('politician_website');
+// const twitterHandle = localStorage.getItem('politician_twitterHandle');
+// const facebookHandle = localStorage.getItem('politician_facebookHandle');
+// const youtubeHandle = localStorage.getItem('politician_youtubeHandle');
+// const seniority = localStorage.getItem('politician_seniority');
+// const nextElection = localStorage.getItem('politician_nextElection');
+// const totalVotes = localStorage.getItem('politician_totalVotes');
+// const missedVotes = localStorage.getItem('politician_missedVotes');
+// const totalPresent = localStorage.getItem('politician_totalPresent');
+// const lastUpdated = localStorage.getItem('politician_lastUpdated');
+// const office = localStorage.getItem('politician_office');
+// const phone = localStorage.getItem('politician_phone');
+// const fax = localStorage.getItem('politician_fax');
+// const missedVotesPct = localStorage.getItem('politician_missedVotesPct');
+// const votesWithPartyPct = localStorage.getItem('politician_votesWithPartyPct');
+// const votesAgainstPartyPct = localStorage.getItem('politician_votesAgainstPartyPct');
 
 // Create Jumbotron (title) //
 {
