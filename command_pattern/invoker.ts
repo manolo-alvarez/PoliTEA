@@ -56,15 +56,25 @@ function getPolByID(id) {
   return command.execute(id);
 }
 
+function getPolID(id) {
+  var command = new GetPoliticianIDCommand();
+  return command.execute(id);
+}
+
+function getPolByIDAsync(id) {
+  var command = new GetPoliticianByIDAsyncCommand();
+  return command.execute(id);
+}
+
 function getPolByNameState(id) {
   var command = new GetPoliticianByNameStateCommand();
   return command.execute(id);
 }
 
 ////INDUSTRIES////
-function getIndustries(id) {
+function getIndustries() {
   var command = new GetIndustriesCommand();
-  return command.execute(id);
+  return command.execute(null);
 }
 
 function getIndustriesByID(id) {
@@ -87,8 +97,8 @@ function GetContributorsByComm(id) {
   return command.execute(id);
 }
 
-function getPolVotes(id) {
-  var command = new GetPoliticianVotesCommand();
+function getVotes(id) {
+  var command = new GetVotesCommand();
   return command.execute(id);
 }
 

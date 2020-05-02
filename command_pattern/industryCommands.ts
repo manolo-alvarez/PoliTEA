@@ -42,7 +42,7 @@ class GetContributorsByCommCommand extends Command{
     
 }
 
-class GetPoliticianVotesCommand extends Command{
+class GetVotesCommand extends Command{
     public execute(id) {
         let url_path = this.serverURL + "/votes/" + id;
         return super.doXHttp(url_path)

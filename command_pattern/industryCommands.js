@@ -68,16 +68,16 @@ var GetContributorsByCommCommand = /** @class */ (function (_super) {
     };
     return GetContributorsByCommCommand;
 }(Command));
-var GetPoliticianVotesCommand = /** @class */ (function (_super) {
-    __extends(GetPoliticianVotesCommand, _super);
-    function GetPoliticianVotesCommand() {
+var GetVotesCommand = /** @class */ (function (_super) {
+    __extends(GetVotesCommand, _super);
+    function GetVotesCommand() {
         return _super !== null && _super.apply(this, arguments) || this;
     }
-    GetPoliticianVotesCommand.prototype.execute = function (id) {
+    GetVotesCommand.prototype.execute = function (id) {
         var url_path = this.serverURL + "/votes/" + id;
         return _super.prototype.doXHttp.call(this, url_path);
     };
-    return GetPoliticianVotesCommand;
+    return GetVotesCommand;
 }(Command));
 var GetDonorsCommand = /** @class */ (function (_super) {
     __extends(GetDonorsCommand, _super);

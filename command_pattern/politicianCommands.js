@@ -44,6 +44,17 @@ var GetPoliticianByIDCommand = /** @class */ (function (_super) {
     };
     return GetPoliticianByIDCommand;
 }(Command));
+var GetPoliticianByIDAsyncCommand = /** @class */ (function (_super) {
+    __extends(GetPoliticianByIDAsyncCommand, _super);
+    function GetPoliticianByIDAsyncCommand() {
+        return _super !== null && _super.apply(this, arguments) || this;
+    }
+    GetPoliticianByIDAsyncCommand.prototype.execute = function (id) {
+        var url_path = this.serverURL + "/politicians/" + id;
+        return _super.prototype.doXHttpAsync.call(this, url_path);
+    };
+    return GetPoliticianByIDAsyncCommand;
+}(Command));
 var GetPoliticianIDCommand = /** @class */ (function (_super) {
     __extends(GetPoliticianIDCommand, _super);
     function GetPoliticianIDCommand() {

@@ -9,6 +9,12 @@ var Command = /** @class */ (function () {
         xhttp.send();
         return xhttp;
     };
+    Command.prototype.doXHttpAsync = function (url_path) {
+        var xhttp = new XMLHttpRequest();
+        xhttp.open("GET", url_path, true);
+        xhttp.send();
+        return xhttp;
+    };
     Command.prototype.titleCase = function (string) {
         var sentence = string.toLowerCase().split(" ");
         for (var i = 0; i < sentence.length; i++) {

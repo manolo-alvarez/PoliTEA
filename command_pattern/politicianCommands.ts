@@ -23,6 +23,14 @@ class GetPoliticianByIDCommand extends Command{
      }      
 }
 
+class GetPoliticianByIDAsyncCommand extends Command{
+
+    public execute(id) {
+        let url_path = this.serverURL + "/politicians/"+id;
+        return super.doXHttpAsync(url_path)
+     }      
+}
+
 class GetPoliticianIDCommand extends Command{
 
     public execute(obj) {
