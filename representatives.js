@@ -90,8 +90,8 @@ sort.addEventListener("change", function() {
     if (sortOption === 'district') representatives.sort((a,b) => (a.district > b.district) ? 1 : ((b.district > a.district) ? -1 : 0));
 
     repsPage.updateFields(representatives, current_page, rows, cols);
-    repsPage.setupPagination(representatives, pagination_element, rows, cols);
-    repsPage.displayList(representatives, rows, cols, current_page);
+    repsPage.setupPagination();
+    repsPage.displayList(current_page);
 });
 }
 
@@ -115,8 +115,9 @@ searchBar.addEventListener('keyup', function(e){
     }));
   } else{
     e.target.value = "";
-    SetupPagination((repsCollection.getReps()), pagination_element, rows, cols);
-    DisplayList(repsCollection.getReps(), rows, cols, current_page);
+    repsPage.updateFields(representatives, current_page, rows, cols);
+    repsPage.setupPagination();
+    repsPage.displayList(current_page);
   }
 });
 }

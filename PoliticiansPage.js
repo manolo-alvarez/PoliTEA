@@ -16,14 +16,18 @@ export class PoliticiansPage {
         this.cardWidth = cardWidth;
     }
 
-  /* constructor() {} */
-
-
-
-
 
 
      ////////////////////////////// Functions /////////////////////////////////////
+
+
+     updateFields(politicians, current_page, rows, cols) {
+      this.politicians = politicians;
+      this.pagination_element = pagination_element;
+      this.current_page = current_page;
+      this.rows = rows;
+      this.cols = cols;
+     }
 
      paginationButton (page) {
         let button = document.createElement('button');
@@ -104,15 +108,15 @@ displayList(page) {
         attribute2.setAttribute('onclick', `f1("${this.politicians[j].state}")`);
         attribute3.setAttribute('class', 'card-text mb-auto');
         bioPage.setAttribute('class', 'btn btn-primary');
+
+        //refactored part
         bioPage.setAttribute('id', `${this.politicians[j].id}`);
-        bioPage.setAttribute('onclick', `this.store("${this.politicians[j].id}", "${this.politicians[j].first_name}",
-        "${this.politicians[j].last_name}", "${this.politicians[j].party}", "${this.politicians[j].state}",
-        "${this.politicians[j].district}", "${this.politicians[j].url}", "${this.politicians[j].twitter_account}",
-        "${this.politicians[j].facebook_account}", "${this.politicians[j].youtube_account}", "${this.politicians[j].seniority}",
-        "${this.politicians[j].next_election}", "${this.politicians[j].total_votes}", "${this.politicians[j].missed_votes}",
-        "${this.politicians[j].total_present}", "${this.politicians[j].last_updated}", "${this.politicians[j].office}",
-        "${this.politicians[j].phone}", "${this.politicians[j].fax}", "${this.politicians[j].missed_votes_pct}",
-        "${this.politicians[j].votes_with_party_pct}", "${this.politicians[j].votes_against_party_pct}");`);
+        const politicianObject = JSON.stringify(this.politicians[j]);
+        bioPage.addEventListener("click", function(event) {
+          storeObject(politicianObject);
+        });
+//
+
         bioPage.setAttribute('href', 'politiciansBio.html');
         bioPage.setAttribute('style', 'vertical-align: middle; ');
         img.setAttribute("class", "w3-image");

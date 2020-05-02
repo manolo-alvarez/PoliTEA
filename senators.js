@@ -6,6 +6,9 @@
 
 localStorage.clear();
 
+
+import { PoliticiansPage } from './PoliticiansPage.js'
+
  //////////////// HTML elements and variables////////////////////////////////
  const list = document.getElementById('list')
  const pagination_element = document.getElementById('pagination');
@@ -36,14 +39,16 @@ sort.addEventListener("change", function() {
     if (sortOption === 'state') senators.sort((a,b) => (a.state > b.state) ? 1 : ((b.state > a.state) ? -1 : 0));
     if (sortOption === 'class') senators.sort((a,b) => (a.seniority > b.seniority) ? 1 : ((b.seniority > a.seniority) ? -1 : 0));
 
-    SetupPagination(senators, pagination_element, rows, cols);
-    DisplayList(senators, rows, cols, current_page);
+    sensPage.updateFields(senators, current_page, rows, cols);
+    sensPage.setupPagination();
+    sensPage.displayList(current_page);
 });
 }
 /////////////////////////// Set-up Page /////////////////////////////////////
 {
-SetupPagination(senators, pagination_element, rows, cols);
-DisplayList(senators, rows, cols, current_page);
+  let sensPage = new PoliticiansPage(senators, pagination_element, current_page, rows, cols, cardWidth);
+sensPage.setupPagination();
+sensPage.displayList(current_page);
 }
 ////////////////////////////// Search Bar ////////////////////////////////////
 {
@@ -65,13 +70,14 @@ searchBar.addEventListener('keyup', function(e){
     });
   } else{
     e.target.value = "";
-    SetupPagination(senators, pagination_element, rows, cols);
-    DisplayList(senators, rows, cols, current_page);
+    sensPage.updateFields(senators, current_page, rows, cols);
+    sensPage.setupPagination();
+    sensPage.displayList(current_page);
   }
 });
 }
 ////////////////////////////// Functions /////////////////////////////////////
-function DisplayList (senators, rows_per_page, cols_per_page, page) {
+/* function DisplayList (senators, rows_per_page, cols_per_page, page) {
 	document.getElementById('list').innerHTML = "";
 	page--;
 
@@ -225,3 +231,4 @@ function store(id, firstName, lastName, party, state, district, website,
 function f1(state){
   localStorage.setItem('state', state);
 }
+ */
