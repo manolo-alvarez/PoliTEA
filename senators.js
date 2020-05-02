@@ -45,11 +45,11 @@ sort.addEventListener("change", function() {
 });
 }
 /////////////////////////// Set-up Page /////////////////////////////////////
-{
+
   let sensPage = new PoliticiansPage(senators, pagination_element, current_page, rows, cols, cardWidth);
 sensPage.setupPagination();
 sensPage.displayList(current_page);
-}
+
 ////////////////////////////// Search Bar ////////////////////////////////////
 {
 const searchBar = document.forms['searchBar'].querySelector('input');

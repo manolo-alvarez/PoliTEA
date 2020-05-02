@@ -82,7 +82,7 @@ var sort = document.getElementById("sort");
 sort.addEventListener("change", function() {
     var sortOption = sort.getElementsByTagName('option')[sort.selectedIndex].value;
 
-    representatives = repsCollection.getReps();
+    var representatives = repsCollection.getReps();
 
     if (sortOption === 'last name') representatives.sort((a,b) => (a.last_name > b.last_name) ? 1 : ((b.last_name > a.last_name) ? -1 : 0));
     if (sortOption === 'first name') representatives.sort((a,b) => (a.first_name > b.first_name) ? 1 : ((b.first_name > a.first_name) ? -1 : 0));

@@ -23,7 +23,6 @@ export class PoliticiansPage {
 
      updateFields(politicians, current_page, rows, cols) {
       this.politicians = politicians;
-      this.pagination_element = pagination_element;
       this.current_page = current_page;
       this.rows = rows;
       this.cols = cols;
