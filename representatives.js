@@ -4,6 +4,7 @@
  * @summary: Javascript file that runs the representatives page
  */
 
+
 // Clear Storage
 localStorage.clear();
 
@@ -165,13 +166,12 @@ function DisplayList (representatives, rows_per_page, cols_per_page, page) {
 
       //refactored part
       const politicianObject = JSON.stringify(representatives[j]);
-      bioPage.setAttribute('onclick', `storeObject("${politicianObject}")`);
       bioPage.addEventListener("click", function(event) {
         storeObject(politicianObject);
       });
       bioPage.setAttribute('href', 'politiciansBio.html');
       //
-      
+
       bioPage.setAttribute('style', 'vertical-align: middle; ');
       img.setAttribute("class","w3-image");
       img.setAttribute('alt', 'Avatar')
@@ -235,34 +235,7 @@ function PaginationButton (page, representatives) {
 	return button;
 }
 
-function store(id, firstName, lastName, party, state, district, website,
-  twitterHandle, facebookHandle, youtubeHandle, seniority, nextElection,
-  totalVotes, missedVotes,totalPresent, lastUpdated, office, phone, fax,
-  missedVotesPct, votesWithPartyPct, votesAgainstPartyPct){
 
-  localStorage.setItem('politician_id', id);
-  localStorage.setItem('politician_firstName', firstName);
-  localStorage.setItem('politician_lastName', lastName);
-  localStorage.setItem('politician_party', party);
-  localStorage.setItem('politician_state', state);
-  localStorage.setItem('politician_district', district);
-  localStorage.setItem('politician_website', website);
-  localStorage.setItem('politician_twitterHandle', twitterHandle);
-  localStorage.setItem('politician_facebookHandle', facebookHandle);
-  localStorage.setItem('politician_youtubeHandle', youtubeHandle);
-  localStorage.setItem('politician_seniority', seniority);
-  localStorage.setItem('politician_nextElection', nextElection);
-  localStorage.setItem('politician_totalVotes', totalVotes);
-  localStorage.setItem('politician_missedVotes', missedVotes);
-  localStorage.setItem('politician_totalPresent', totalPresent);
-  localStorage.setItem('politician_lastUpdated', lastUpdated);
-  localStorage.setItem('politician_office', office);
-  localStorage.setItem('politician_phone', phone);
-  localStorage.setItem('politician_fax', fax);
-  localStorage.setItem('politician_missedVotesPct', missedVotesPct);
-  localStorage.setItem('politician_votesWithPartyPct', votesWithPartyPct);
-  localStorage.setItem('politician_votesAgainstPartyPct', votesAgainstPartyPct);
-};
 
 function storeObject(politicianObject) {
   politicianObject = JSON.parse(politicianObject)
