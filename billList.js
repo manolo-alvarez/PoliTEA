@@ -22,16 +22,17 @@ const list = document.getElementById('list')
 //if(topic != null) var url_test = 'https://reflected-flux-270220.appspot.com/bills/topics/' + topic;
 //else var url_test = 'https://reflected-flux-270220.appspot.com/bills/all'
 
-if(topic != null) var url_test = 'http://localhost:3000/bills/topics/' + topic;
-else var url_test = 'http://localhost:3000/bills/all'
+if(topic != null) {var url_test = 'http://localhost:3000/bills/topics/' + topic;
+//else var url_test = 'http://localhost:3000/bills/all'
 
-var xhttp = new XMLHttpRequest();
+  var xhttp = new XMLHttpRequest();
 xhttp.open('GET', url_test, false);
-xhttp.send();
+xhttp.send(); 
 
 const billsParse = JSON.parse(xhttp.responseText);
-var bills = billsParse;
+var bills = billsParse; 
 
+}
 const pagination_element = document.getElementById('pagination');
 
 let current_page = 1;
@@ -56,19 +57,29 @@ else {
        const select = document.getElementById('select');
        var option = select.getElementsByTagName('option')[select.selectedIndex].value;
        const phrase = e.target.value.toLowerCase();
-       bills = billsParse.filter(function(bill){
+       /* bills = billsParse.filter(function(bill){
          var content = null;
  
          if (option === 'keyword') content = bill.title.toLowerCase();
          if (option === 'name') content = bill.sponsor_name.toLowerCase();
          if (option === 'number') content = bill.number.toLowerCase();
    
-         return content.includes(phrase);
-       });
+         return content.includes(phrase); 
+         
+       }); */
+
+         if (option === 'keyword') url_test = 'http://localhost:3000/bills/search-keyword/' + phrase;
+         else if (option === 'name') url_test = 'http://localhost:3000/bills/search-keyword/' + phrase;
+         else if (option === 'number') url_test = 'http://localhost:3000/bills/search-keyword/' + phrase;
+
      } else{
        e.target.value = "";
-         SetupPagination(bills, pagination_element, rows);
-         DisplayList(bills, rows, current_page);
+       var xhttp = new XMLHttpRequest();
+      xhttp.open('GET', url_test, false);
+      xhttp.send();
+      const billsParse = JSON.parse(xhttp.responseText);
+         SetupPagination(billsParse, pagination_element, rows);
+         DisplayList(billsParse, rows, current_page);
      }
    });
    }

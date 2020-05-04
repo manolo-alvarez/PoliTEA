@@ -127,11 +127,11 @@ exports.showBillByID = (req, res, next) => {
 exports.showBillByKeyword = (req, res, next) => {
   // bills.find({"bill_id": {$regex:"^${req.params.bill_id"}},  function (err, docs) {
     
-  bills.find({ $text: { $search:  "test"} },  function (err, docs) {
-    console.log("THIS IS ID: "+ req.params.id)
+  bills.find({ title: { $regex:  "kurdish"} },  function (err, docs) {
+    //console.log("THIS IS ID: "+ req.params.id)
 
       if (err || docs.length==0) {
-        return res.status(404).send('Bill not found' + req.params.id)
+        return res.status(404).send('Bill not found' + req.params.keyword)
       }
     res.status(200).json(docs)
   })
